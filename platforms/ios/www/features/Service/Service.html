@@ -1,0 +1,15 @@
+<div class='content'>
+<div class="container heading-style-5">
+                    <h4 class="heading-title">Services</h4>
+    <i class="fa fa-check-square-o heading-icon"></i>
+    <div class="line bg-black"></div>
+</div>
+<div class="listitems">
+	<ul ng-if='services.Treatments.length != 0'>
+		<li ng-repeat='service in services'><a ng-href='#/calander/{{locationID}}/{{service.ID}}'>{{service.Name}} - {{service.Category.Name}}</a></li>
+	</ul>
+	<div ng-if='services.Treatments.length == 0'> 
+		No Treatments Found.
+	</div>	
+</div>
+</div>

@@ -1,0 +1,15 @@
+<div class='content'>
+<div class="container heading-style-5">
+                    <h4 class="heading-title">Bookings</h4>
+                <i class="fa fa-check-square-o heading-icon"></i>
+                    <div class="line bg-black"></div>
+</div>
+<div class="listitems">
+	<ul>
+		<li ng-if='locations.Results.length != 0' ng-repeat='result in locations'><a ng-bind='result.BusinessName' ng-href='#/services/{{result.ID}}'></a></li>
+	</ul>
+	<div ng-if='locations.Results.length == 0' class='alert alert-danger'>
+		No Bookings Available
+	</div>	
+</div>
+</div>

@@ -1,0 +1,27 @@
+<div ng-cloak class="content">
+                <!-- <div class="header-clear-large"></div> -->
+                <!--Page content goes here, fixed elements go above the all elements class-->
+
+                <div class="container heading-style-5">
+                    <h4 class="heading-title">Availability</h4>
+                    <i class="fa fa-calendar heading-icon"></i>
+                    <div class="line bg-black"></div>
+                </div>
+                <div class="listitems">
+                    <div ng-if="datesArr.length > 0">
+                        <label><h4>Select Date</h4></label>
+                            <select class='form-control' ng-model='selected.selectedDate' ng-options="date as date for date in datesArr"></select>
+                        <label><h4>Select Time</h4></label>{{selectedTime}}
+                            <select class='form-control' ng-model='selected.selectedTime' ng-options="time as time for time in timeArr"></select>
+                            <!-- <option  ng-value={{time}} ng-repeat='time in timeArr'>{{time}}</option> -->
+                        <!-- </select> -->
+                        <button style='margin-top:20px;' ng-click='addIncompleteBooking()' class="login-button button button-small button-green button-fullscreen full-bottom">Book Incomplete Appointment</button>
+                    </div>
+                    <div ng-if="datesArr.length == 0">
+                        <div class='alert alert-info'>
+                            No. Dates Available 
+                        </div>
+                    </div>
+                </div>
+            <!-- End of entire page content-->
+            </div>

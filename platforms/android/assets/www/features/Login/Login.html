@@ -1,0 +1,27 @@
+            <div class="content">
+                <!--Page content goes here, fixed elements go above the all elements class-->
+
+                    <div class="page-login full-bottom">
+                        <p class="page-login-logo"></p>
+                        <div class="login-input">
+                            <i class="fa fa-user"></i>
+                            <input type="text" ng-model='username' placeholder='E-mail'>
+                        </div>
+                        <div class="login-password">
+                            <i class="fa fa-lock"></i>
+                        <input type="password" ng-model='password' placeholder='Password'>
+                        </div>
+                        <div class='locations'>
+                            <select class='form-control' ng-model='locationID' ng-options="location.ID as location.Address.City for location in locations"></select>
+                        </div>
+                        <a ng-href='#/register' class="login-create">Create Account<i class="fa fa-user"></i></a>
+                        <div class="clear"></div>
+                        <button ng-click='login()' class="login-button button button-small button-green button-fullscreen full-bottom">Login</button>
+                        <div class="decoration"></div>
+                        <div class="clear"></div>
+                        <p href="#" class="facebook-login facebook-color"><i class="fa fa-facebook"></i>Login with Facebook</p>
+                        <p href="#" class="twitter-login twitter-color"><i class="fa fa-twitter"></i>Signin with Twitter</p>
+                        <p href="#" class="google-login google-color"><i class="fa fa-google-plus"></i>Register with Google</p>
+                    </div>
+                <!-- End of entire page content-->
+            </div>

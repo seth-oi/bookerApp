@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en" ng-app="booker" ng-controller='MainController'>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+<link rel="icon" type="image/png" href="images/splash/android-chrome-192x192.png" sizes="192x192">
+<link rel="apple-touch-icon" sizes="196x196" href="images/splash/apple-touch-icon-196x196.png">
+<link rel="apple-touch-icon" sizes="180x180" href="images/splash/apple-touch-icon-180x180.png">
+<link rel="apple-touch-icon" sizes="152x152" href="images/splash/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="144x144" href="images/splash/apple-touch-icon-144x144.png">
+<link rel="apple-touch-icon" sizes="120x120" href="images/splash/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="114x114" href="images/splash/apple-touch-icon-114x114.png">
+<link rel="apple-touch-icon" sizes="76x76" href="images/splash/apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" sizes="72x72" href="images/splash/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="60x60" href="images/splash/apple-touch-icon-60x60.png">
+<link rel="apple-touch-icon" sizes="57x57" href="images/splash/apple-touch-icon-57x57.png">  
+<link rel="icon" type="image/png" href="images/splash/favicon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="images/splash/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="images/splash/favicon-16x16.png" sizes="16x16">
+<link rel="shortcut icon" href="images/splash/favicon.ico" type="image/x-icon" /> 
+<title>Booker</title>
+<link href="styles/style.css"           rel="stylesheet" type="text/css">
+<link href="styles/framework.css"       rel="stylesheet" type="text/css">
+<link href="styles/font-awesome.css"    rel="stylesheet" type="text/css">
+<link href="styles/animate.css"         rel="stylesheet" type="text/css">
+<link href="styles/bootstrap.min.css"         rel="stylesheet" type="text/css">
+<link href="features/Booking/Booking.css"           rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+            function requestLocation(){
+                console.log('NOW I M GOING TO REQUEST LOCATION')
+                navigator.geolocation.getCurrentPosition(onSuccess, onError,  {timeout:10000, enableHighAccuracy: false}
+                  );
+            }
+              
+            function onSuccess(position){
+              console.log('OK I FOUND YOUR LOCATION');
+              console.log(position.coords.latitude)
+              console.log(position.coords.longitude);
+              sessionStorage.removeItem('location');
+              sessionStorage.location = JSON.stringify({"Latitude": position.coords.latitude, "Longitude": position.coords.longitude});
+            }
+
+            function onError(error){
+              console.log('HERE INSIDE ERROR');
+              console.log(error.code + error.message);
+              cordova.plugins.diagnostic.isLocationEnabled(function(on){
+                console.log(on);
+                if(!on){
+                    var r = confirm('Please Turn On Your Location Services. Go to settings ?');
+                    if(r)
+                    {
+                        cordova.plugins.diagnostic.switchToLocationSettings();
+                    }
+                    else{
+                        sessionStorage.location = JSON.stringify({"Latitude": 0, "Longitude": 0});
+                    }
+                }
+              }, function(err){
+                console.log(err.message);
+              });
+                requestLocation();
+            }
+        document.addEventListener("deviceready", function () {
+            if (navigator.network.connection.type == Connection.NONE) {
+                alert('Please Connect to internet services to use the application.')
+                //navigator.app.exitApp();
+            }
+            else {
+                // nothing
+            };
+            console.log(navigator.network.connection.type);
+            console.log("INSIDE DEVICE READY");
+            cordova.plugins.diagnostic.getLocationAuthorizationStatus(function(status){
+                console.log('INSIDE GET LOCATION AUTHERIZE' + status);
+                if(status == "GRANTED"){
+                    console.log('INSIDE GET LOCATION AUTHERIZE IF' + status);
+                    requestLocation();
+                }else{
+                    console.log('INSIDE GET LOCATION AUTHERIZE ELSE' + status);
+                    cordova.plugins.diagnostic.requestLocationAuthorization(function(status){
+                            if(status == "GRANTED"){
+                                requestLocation();  
+                            }else{
+                                cordova.plugins.diagnostic.switchToLocationSettings();
+                            }
+                        }, function(error){
+                            console.error(error);
+                    });
+                }
+            }, onError);
+        }, false);
+    </script>
+</head>
+<body   class="left-sidebar">
+<div id="preloader">
+    <div id="status">
+        <div class="preloader-logo"></div>
+        <h3 class="center-text">Welcome</h3>
+        <p class="center-text smaller-text">
+            We're loading the content, give us a second. This won't take long!
+        </p>
+    </div>
+</div>
+    
+<div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
+    
+<div class="all-elements" id="main">
+    
+    <div id="header-fixed">
+        <div class="header-elements">
+            <a class="open-left-sidebar"><i class="fa fa-navicon"></i></a>
+            <a href="#/login" class="header-logo"><h4 class='logo_text'>Booker</h4></a>
+        </div>
+    </div> 
+
+    <div class="snap-drawers">
+        <div class="snap-drawer snap-drawer-left">        
+            <a href="#/booking" class="sidebar-logo">
+                Booker
+            </a>
+            <div class="sidebar-deco"></div>            
+            <a href="#/booking" class="activeMenuItem">
+                <i class="fa fa-bookmark"></i>
+                <em>Bookings</em>
+            </a>             
+            <div class="sidebar-deco"></div>
+            <a ng-if='showLogout' ng-href='#/manage' class="activeMenuItem">
+                <i class="fa fa-bookmark"></i>
+                <em>Manage Bookings</em>
+            </a>
+            <div ng-if='showLogout' class="sidebar-deco"></div>
+            <a ng-if='showLogout' ng-href="#/rewardPoints" class="activeMenuItem">
+                <i class="fa fa-certificate"></i>
+                <em>Reward<br/> Points</em>
+            </a>
+            <div ng-if='showLogout' class="sidebar-deco"></div>
+            <a  href="#/geoLocation" class="activeMenuItem">
+                <i class="fa fa-map-marker"></i>
+                <em>Location</em>
+            </a>
+            <div class="sidebar-deco"></div>
+            <a ng-if='showLogout' href="#/sendGifts" class="activeMenuItem">
+                <i class="fa fa-gift"></i>
+                <em>Send Gift's</em>
+            </a>
+            <div ng-if='showLogout' class="sidebar-deco"></div>
+            <a ng-if='showLogin' ng-href="#/login" class="activeMenuItem">
+                <i class="fa fa-sign-in"></i>
+                <em>Login</em>
+            </a>
+            <div ng-if='showLogin' class="sidebar-deco"></div>
+            <p ng-if='showLogout' ng-click='logout()' class="activeMenuItem">
+                <i class="fa fa-sign-in"></i>
+                <em>Logout</em>
+            </p>            
+            <div ng-if='showLogout' class="sidebar-deco"></div>
+            <a ng-if='showLogin' href="#/register" class="activeMenuItem">
+                <i class="fa fa-user-plus"></i>
+                <em>Register</em>
+            </a>           
+            <div ng-if='showLogin' class="sidebar-deco"></div>
+        </div>
+        <div id="content" class="snap-content">
+            <div class="content">
+                <div class="header-clear-large"></div>
+                 <!-- Notification starts  -->
+                    <div id="globalNotification" ng-show="true">
+                         <p class='alert alert-{{notification.type}}' ng-if="notification">{{notification.message}}</p>
+                    </div>
+                <!-- Notification ends -->
+            <div style="min-height:250px;" ng-view></div>
+            <div ng-show='showSpinner' id="mydiv">
+                <img src="images/preload.gif" class="ajax-loader"/>
+            </div>
+        <div class="decoration"></div>
+                <div class="footer">
+                    <p class="center-text">Copyright 2015. All rights reserved.</p>
+                    <div class="footer-icons">
+                        <p class="scale-hover facebook-color social-ball"><i class="fa fa-facebook"></i></p>
+                        <p class="scale-hover twitter-color social-ball"><i class="fa fa-twitter"></i></p>
+                        <p class="scale-hover google-color social-ball"><i class="fa fa-google-plus"></i></p>
+                        <p class="scale-hover back-to-top bg-green-dark social-ball"><i class="fa fa-angle-up"></i></p>
+                        <p class="scale-hover show-share-bottom bg-magenta-dark social-ball"><i class="fa fa-retweet"></i></p>
+                    </div>
+                </div>
+                                
+            <!-- End of entire page content-->
+            </div> 
+        </div>
+    </div>  
+    <a href="#" class="back-to-top-badge"><i class="fa fa-caret-up"></i>Back to top</a>
+</div>
+    
+    
+<!--Fly up share box and notifications go here -->
+<!--These are the only features that should be placed outside the all-elements class-->
+    
+<div class="share-bottom">
+    <h3>Share Page</h3>
+    <div class="share-socials-bottom">
+        <p>
+            <i class="fa fa-facebook facebook-color"></i>
+            Facebook
+        </p>
+        <p>
+            <i class="fa fa-twitter twitter-color"></i>
+            Twitter
+        </p>
+        <p>
+            <i class="fa fa-google-plus google-color"></i>
+            Google
+        </p>
+
+        <p>
+            <i class="fa fa-pinterest-p pinterest-color"></i>
+            Pinterest
+        </p>
+        <p>
+            <i class="fa fa-comment-o sms-color"></i>
+            Text
+        </p>
+        <p>
+            <i class="fa fa-envelope-o mail-color"></i>
+            Email
+        </p>
+        <div class="clear"></div>
+    </div>
+    <p class="close-share-bottom">Close</p>
+</div>
+    
+<div class="top-notification-1 top-notification bg-blue-dark">
+    <h4>Did you know?</h4>
+    <p>
+        Easy way to make sure your messages get read!
+    </p>
+    <a href="#" class="close-top-notification"><i class="fa fa-times"></i></a>
+</div>
+<div class="bottom-notification-1 bottom-notification bg-green-dark">
+    <h4>Did you know?</h4>
+    <p>
+        Easy way to make sure your messages get read!
+    </p>
+    <a href="#" class="close-bottom-notification"><i class="fa fa-times"></i></a>
+</div> 
+<div class="bottom-notification-2 bottom-notification bg-orange-dark timeout-notification">
+    <h4>Timeout: 5 Seconds</h4>
+    <p>
+        I'll go away on my own after a few seconds!
+    </p>
+</div>
+<div class="top-notification-2 top-notification bg-red-dark timeout-notification">
+    <h4>Timeout: 5 Seconds</h4>
+    <p>
+        I'll go away on my own after a few seconds!
+    </p>
+</div>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/moment.js"></script>
+<script type="text/javascript" src="scripts/lodash.js"></script>
+<script type="text/javascript" src="scripts/jquerySmooth.js"></script>
+<script type="text/javascript" src="scripts/jqueryui.js"></script>
+<script type="text/javascript" src="scripts/framework-plugins.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+<script src='http://maps.googleapis.com/maps/api/js?key=AIzaSyC_cs77leQ9ZcQ7U-x3DwZ5qTGkiX9fzMc'></script>
+<script type="text/javascript" src="scripts/angular.min.js"></script>
+<script type="text/javascript" src="scripts/angular-animate.js"></script>
+<script type="text/javascript" src="scripts/angular-route.js"></script>
+<script type="text/javascript" src="scripts/ui-bootstrap-tpls-1.1.1.min.js"></script>
+<script type="text/javascript" src="scripts/ng-map.js"></script>
+<!-- <script src='scripts/angular-google-maps.min.js'></script> -->
+<!-- Services -->
+<script type="text/javascript" src="services/MainService.js"></script>
+<!-- Controllers -->
+<script type="text/javascript" src="features/Booking/Booking.js"></script>
+<script type="text/javascript" src="features/giftCertificates/giftCertificate.js"></script>
+<script type="text/javascript" src="features/Service/Service.js"></script>
+<script type="text/javascript" src="features/Register/Register.js"></script>
+<script type="text/javascript" src="features/Login/Login.js"></script>
+<script type="text/javascript" src="features/Calander/Calander.js"></script>
+<script type="text/javascript" src="features/Availability/Availability.js"></script>
+<script type="text/javascript" src="features/Payment/Payment.js"></script>
+<script type="text/javascript" src="features/RewardPoints/RewardPoints.js"></script>
+<script type="text/javascript" src="features/ManageAppointments/ManageAppointments.js"></script>
+<script type="text/javascript" src="features/locations/locations.js"></script>
+<script type="text/javascript" src="features/giftDetails/giftDetails.js"></script>
+<script type="text/javascript" src="app.js"></script>
+
+</body>
+</html>
+
