@@ -1,0 +1,27 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-android-gpsdetect": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "cordova.plugins.diagnostic": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        }
+    },
+    "dependent_plugins": {}
+}

@@ -1,0 +1,45 @@
+<div class="modal-header text-center">
+    <h3 class="modal-title">Appointment Details <br>{{appointment.Treatment.Category.Name}} ( {{appointment.Treatment.SubCategory.Name}} )</h3>
+</div>
+<div class="modal-body">
+	<table>
+		<tbody>
+			<tr>
+				<td>Amount</td>
+				<td>{{appointment.FinalTotal.Amount}} {{appointment.FinalTotal.CurrencyCode}}</td>
+			</tr>
+			<tr>
+				<td>Category</td>
+				<td>{{appointment.Treatment.Category.Name}}</td>
+			</tr>
+			<tr>
+				<td>Sub Category</td>
+				<td>{{appointment.Treatment.SubCategory.Name}}</td>
+			</tr>
+			<tr>
+				<td>Treatment Duration</td>
+				<td>{{appointment.Treatment.TreatmentDuration}}</td>
+			</tr>
+			<tr>
+				<td>Payment Method</td>
+				<td>{{appointment.AppointmentPayment.PaymentItem.Method.Name || "Credit Card"}}</td>
+			</tr>
+			<tr>
+				<td>Employee Name</td>
+				<td>{{appointment.AppointmentTreatments[0].Employee.FirstName}} {{appointment.AppointmentTreatments[0].Employee.LastName}}</td>
+			</tr>
+			<tr>
+				<td>Employee Gender</td>
+				<td>{{appointment.AppointmentTreatments[0].Employee.Gender.Name}}</td>
+			</tr>
+			<tr>
+				<td>Appointment Date/Time</td>
+				<td>{{appointmentStartTime}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div class="modal-footer">
+    <button ng-disabled='appointment.IsCancelled' class="btn btn-danger" type="button" ng-click="cancel()">Cancel Appointment</button>
+    <button class="btn btn-primary" type="button" ng-click="close()">Close</button>
+</div>
