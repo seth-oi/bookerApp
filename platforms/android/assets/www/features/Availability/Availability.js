@@ -22,10 +22,14 @@ angular
         .getAccessTokenFromSS()
         .then(function(access_token){
             access = access_token;
+            //var offset =  moment().format('ZZ');
+            //var offsetHrs = parseInt(offset.slice(1, 3)) * 60 * 60 * 1000;
+            //var offsetmin = parseInt(offset.slice(3, offset.length)) * 60 * 1000;
+            var startTimeString = (new Date()).getTime();
             var future = (new Date()).getTime() + 7 * 24 * 60 * 59000;
             var input = {
-              EndDateTime: "/Date(" + future + "-0000 )/",
-              StartDateTime:"/Date(" + (new Date()).getTime() + "-0000 )/",
+              EndDateTime: "/Date(" + future + ")/",
+              StartDateTime:"/Date(" + startTimeString + ")/",
               Itineraries: [
                 {
                     "IsPackage": false,
@@ -34,7 +38,7 @@ angular
                         {
                             "Employee2ID": null,
                             "EmployeeGenderID": null,
-                            "EmployeeID": $routeParams.employeeID,
+                            "EmployeeID": null,
                             "TreatmentID": $routeParams.treatmentID
                         }
                     ],
@@ -48,38 +52,44 @@ angular
             BookerService
             .runMultiServiceAvailability(input)
             .then(function(data){
-                console.log(data);
                 $scope.$emit('wait:stop');
                 $scope.availableTimeSlots = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots;
                 sessionStorage.locationId = $routeParams.locationID;
                 
-                appointmentMetaData.IsPackage = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots.IsPackage,
-                appointmentMetaData.PackageID = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots.PackageID,
-                appointmentMetaData.Amount = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots[0].TreatmentTimeSlots[0].CurrentPrice.Amount,
-                appointmentMetaData.Duration = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots[0].TreatmentTimeSlots[0].Duration,
-                appointmentMetaData.EmployeeID = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots[0].TreatmentTimeSlots[0].EmployeeID,
-                appointmentMetaData.CurrencyCode = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots[0].TreatmentTimeSlots[0].CurrentPrice.CurrencyCode
-                sessionStorage.appointmentMetaData = JSON.stringify(appointmentMetaData);
                 $scope.datesArr = [];
                 $scope.timeArr = [];
-                $scope.availableTimeSlots.forEach(function(date){
-                    var brac = date.StartDateTime.indexOf('(') + 1;
-                    var minus = date.StartDateTime.indexOf(')');
-                    var date = new Date(parseInt(date.StartDateTime.slice(brac, minus)));
-                    $scope.datesArr.push(moment(date).format('LL'));
-                    var hours = date.getHours();
-                    // Minutes part from the timestamp
-                    var minutes = "0" + date.getMinutes();
-                    // Seconds part from the timestamp
-                    var seconds = "0" + date.getSeconds();
-                    // Will display time in 10:30:23 format
-                    var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-                    $scope.timeArr.push(formattedTime);
+                $scope.DateTimeArr = [];
+                $scope.TimeArr = [];
+                //console.log($scope.availableTimeSlots);
+                $scope.availableTimeSlots.forEach(function(date, index){
+                    $scope.DateTimeArr.push(moment(date.StartDateTime).format('D MMM YYYY'));
+                    $scope.TimeArr.push(moment(date.StartDateTime).format('D MMM YYYY HH:mm A'));
                 });
-                $scope.datesArr = _.uniq($scope.datesArr);
-                $scope.selected.selectedDate = $scope.datesArr[0];
-                $scope.timeArr = _.uniq($scope.timeArr);
-                $scope.selected.selectedTime = $scope.timeArr[0];
+                var finalObjectArr = {};
+                $scope.DateTimeArr = _.uniq($scope.DateTimeArr);
+                $scope.DateTimeArr.forEach(function(date){
+                    $scope.TimeArr.forEach(function(dateTime, index){
+                        if(moment(moment(dateTime, 'D MMM YYYY HH:mm A').format('D MMM YYYY').toString()).isSame(date, 'day'))
+                        {
+                            if(finalObjectArr[date])
+                            {
+                                finalObjectArr[date].push({ time: moment(dateTime, 'D MMM YYYY HH:mm A').format('h:mm a'), "index": index });
+                            }
+                            else
+                            {
+                                finalObjectArr[date] = [];
+                                finalObjectArr[date].push({ time: moment(dateTime, 'D MMM YYYY HH:mm A').format('h:mm a'), "index": index });
+                            }
+                        }    
+                    })
+                })
+                $scope.dates =  Object.keys(finalObjectArr);
+                $scope.selected.selectedDate = $scope.dates[0];
+                $scope.$watch('selected.selectedDate', function(newVal, oldVal){
+                    $scope.appTimes = finalObjectArr[$scope.selected.selectedDate];
+                    console.log($scope.appTimes[0].index);
+                    $scope.selected.selectedTime = $scope.appTimes[0].index;
+                })
             })
             .catch(function(err){
                 console.log(err);
@@ -95,24 +105,30 @@ angular
                 message: err.data || "Server error"
         });
     });
-    
+    $scope.cancel = function(){
+        sessionStorage.removeItem("IncompleteAppointmentID");
+        sessionStorage.removeItem("gift");
+        sessionStorage.removeItem("giftAmount");
+        $location.path('/Bookings');
+    };
     $scope.addIncompleteBooking = function(){
-        
-        var dateUnix = parseInt(moment($scope.selected.selectedDate, 'LL').unix()) * 1000;
-        var tempDate = moment($scope.selected.selectedTime, 'h:mm:ss').format('hh:mm');
-        var colon = tempDate.indexOf(':');
-        var hrs = tempDate.slice(0, colon);
-        var min = tempDate.slice(colon + 1, $scope.selected.selectedTime.length);
-        dateUnix = dateUnix + hrs * 60 * 60 * 1000 + min * 60 * 1000;
-        var finaldateUnix = dateUnix.toString();
-        appointmentMetaData.StartDateTime = finaldateUnix;
-        console.log(appointmentMetaData.StartDateTime);
+        var SelectedTimeSlotAppointment = $scope.availableTimeSlots[$scope.selected.selectedTime];
+        var brac = SelectedTimeSlotAppointment.StartDateTime.indexOf('(') + 1;
+        var minus = SelectedTimeSlotAppointment.StartDateTime.indexOf(')');
+        var selectedTimeStamp = parseInt(SelectedTimeSlotAppointment.StartDateTime.slice(brac, minus));
+        appointmentMetaData.IsPackage = SelectedTimeSlotAppointment.IsPackage;
+        appointmentMetaData.PackageID = SelectedTimeSlotAppointment.PackageID;
+        appointmentMetaData.Amount = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].CurrentPrice.Amount;
+        appointmentMetaData.Duration = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].Duration;
+        appointmentMetaData.EmployeeID = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].EmployeeID;
+        appointmentMetaData.CurrencyCode = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].CurrentPrice.CurrencyCode;
+        appointmentMetaData.StartDateTime = selectedTimeStamp;
         sessionStorage.appointmentMetaData = JSON.stringify(appointmentMetaData);
         var data = {
             LocationID: $routeParams.locationID,
             access_token: access,
             TreatmentID: $routeParams.treatmentID, 
-            StartDateTime: finaldateUnix
+            StartDateTime: selectedTimeStamp
         };
         $scope.$emit('wait:start');
         BookerService
@@ -126,22 +142,31 @@ angular
                         LocationID: $routeParams.locationID,
                         access_token: access,
                         TreatmentID: $routeParams.treatmentID, 
-                        StartDateTime: finaldateUnix
+                        StartDateTime: selectedTimeStamp
                     });
                 sessionStorage.IncompleteAppointmentID = data.IncompleteAppointmentID;
-                $scope.$emit("notification", {
-                    type: 'success',
-                    message: "Incomplete Appointment Booked"
-                });
+                
                 if(!sessionStorage.User)
                 {
+                    $scope.$emit("notification", {
+                        type: 'success',
+                        message: "Please Login or Register To Complete Appointment."
+                    });
                     $location.path('/login');
                 }
                 else if(sessionStorage.User != 'null' )
                 {
+                    $scope.$emit("notification", {
+                        type: 'success',
+                        message: "Please Enter Payment Details To Complete Appointment."
+                    });
                     $location.path('/payment/false');
                 }
                 else{
+                    $scope.$emit("notification", {
+                        type: 'success',
+                        message: "Please Login or Register To Complete Appointment.."
+                    });
                     $location.path('/login');   
                 }
             }

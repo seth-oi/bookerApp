@@ -40,7 +40,7 @@ angular.module('manageAppointments', ['booker.service.book'])
     if(sessionStorage.User != "null")
     {
         var User = JSON.parse(sessionStorage.User);
-        if(!User || !User.CustomerID)
+        if(!User)
         {
             $location.path('/login');
         }        
@@ -52,6 +52,7 @@ angular.module('manageAppointments', ['booker.service.book'])
             templateUrl: 'features/ManageAppointments/appointmentDetails.html',
               controller: 'ModalInstanceCtrl',
               size: 'sm',
+              windowClass: 'center-modal',
               resolve: {
                 appointment: function () {
                   return appointment;
@@ -76,8 +77,7 @@ angular.module('manageAppointments', ['booker.service.book'])
     var brac = $scope.appointment.StartDateTime.indexOf('(') + 1;
     var minus = $scope.appointment.StartDateTime.indexOf(')');
     var date = new Date(parseInt($scope.appointment.StartDateTime.slice(brac, minus)));
-    $scope.appointmentStartTime = moment(date).format('D MMM YYYY h:m:ss');
-    console.log(appointment);
+    $scope.appointmentStartTime = date;
     $scope.close = function(){
         $uibModalInstance.dismiss();
     }
@@ -113,8 +113,13 @@ angular.module('manageAppointments', ['booker.service.book'])
                     }
                 })
                 .catch(function(err){
-                    console.log(err);
-                    deffered.reject(data);
+                    $scope.$emit('wait:stop');
+                    $uibModalInstance.close(true);
+                    $scope.$emit("notification", {
+                            type: 'danger',
+                            message: "An Unexpected Error Occured"
+                        });
+                    console.log(JSON.stringify(err));
                 });
             }
         }

@@ -17,6 +17,34 @@ angular
 			this.getAccessToken();
 		}
   	},
+  	getGoogleId: function(){
+  		var deffered = $q.defer();
+  		$http({
+			method: 'GET',
+			url: apiRequestUrl + '/apiRequest/google'
+		})
+		.then(function(r) {
+			deffered.resolve(r.data);
+		})
+		.catch(function(err){
+			deffered.reject(err);
+		});
+		return deffered.promise;
+  	},
+  	getFacebookId: function(){
+  		var deffered = $q.defer();
+  		$http({
+			method: 'GET',
+			url: apiRequestUrl + '/apiRequest/facebook'
+		})
+		.then(function(r) {
+			deffered.resolve(r.data);
+		})
+		.catch(function(err){
+			deffered.reject(err);
+		});
+		return deffered.promise;
+  	},
   	cancelAppointment: function(input){
   		var deffered = $q.defer();
   		$http({
@@ -247,7 +275,7 @@ angular
 	},
 	findLocationsGeoAware: function(input) {
 		var deffered = $q.defer();
-		input.access_token = sessionStorage.accessToken;
+		//input.access_token = sessionStorage.accessToken;
 
 		$http({
 			method: 'POST',
@@ -356,6 +384,7 @@ angular
 		return deffered.promise;
 	},
 	createIncompleteAppointment: function(input) {
+		console.log(input);
 		var deffered = $q.defer();
 		$http({
 			url: apiRequestUrl + '/apiRequest/IncompleteBooking',

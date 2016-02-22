@@ -1,40 +1,40 @@
 <div class="modal-header text-center">
-    <h3 class="modal-title">Appointment Details <br>{{appointment.Treatment.Category.Name}} ( {{appointment.Treatment.SubCategory.Name}} )</h3>
+    <h3 class="modal-title">Appointment Details <br>{{appointment.Treatment.Category.Name}} ({{appointment.Treatment.SubCategory.Name}})</h3>
 </div>
 <div class="modal-body">
 	<table>
 		<tbody>
 			<tr>
-				<td>Amount</td>
-				<td>{{appointment.FinalTotal.Amount}} {{appointment.FinalTotal.CurrencyCode}}</td>
+				<td class="text-left"><h4><strong>Amount</strong></h4></td>
+				<td class="text-right"><h5>{{appointment.FinalTotal.Amount}} {{appointment.FinalTotal.CurrencyCode}}</h5></td>
 			</tr>
 			<tr>
-				<td>Category</td>
-				<td>{{appointment.Treatment.Category.Name}}</td>
+				<td class="text-left"><h4><strong>Category</strong></h4></td>
+				<td class="text-right"><h5>{{appointment.Treatment.Category.Name}}</h5></td>
 			</tr>
 			<tr>
-				<td>Sub Category</td>
-				<td>{{appointment.Treatment.SubCategory.Name}}</td>
+				<td class="text-left"><h4><strong>Sub Category</strong></h4></td>
+				<td class="text-right"><h5>{{appointment.Treatment.SubCategory.Name}}</h5></td>
 			</tr>
 			<tr>
-				<td>Treatment Duration</td>
-				<td>{{appointment.Treatment.TreatmentDuration}}</td>
+				<td class="text-left"><h4><strong>Treatment Duration</strong></h4></td>
+				<td class="text-right"><h5>{{appointment.Treatment.TreatmentDuration}} min</h5></td>
 			</tr>
 			<tr>
-				<td>Payment Method</td>
-				<td>{{appointment.AppointmentPayment.PaymentItem.Method.Name || "Credit Card"}}</td>
+				<td class="text-left"><h4><strong>Payment Method</strong></h4></td>
+				<td class="text-right"><h5>{{appointment.AppointmentPayment.PaymentItem.Method.Name || "Credit Card"}}</h5></td>
 			</tr>
 			<tr>
-				<td>Employee Name</td>
-				<td>{{appointment.AppointmentTreatments[0].Employee.FirstName}} {{appointment.AppointmentTreatments[0].Employee.LastName}}</td>
+				<td class="text-left"><h4><strong>Employee Name</strong></h4></td>
+				<td class="text-right"><h5>{{appointment.AppointmentTreatments[0].Employee.FirstName}} {{appointment.AppointmentTreatments[0].Employee.LastName}}</h5></td>
 			</tr>
 			<tr>
-				<td>Employee Gender</td>
-				<td>{{appointment.AppointmentTreatments[0].Employee.Gender.Name}}</td>
+				<td class="text-left"><h4><strong>Employee Gender</strong></h4></td>
+				<td class="text-right"><h5>{{appointment.AppointmentTreatments[0].Employee.Gender.Name}}</h5></td>
 			</tr>
 			<tr>
-				<td>Appointment Date/Time</td>
-				<td>{{appointmentStartTime}}</td>
+				<td class="text-left"><h4><strong>Appointment Date/Time</strong></h4></td>
+				<td class="text-right"><h5>{{appointmentStartTime | date:'medium'}}</h5></td>
 			</tr>
 		</tbody>
 	</table>

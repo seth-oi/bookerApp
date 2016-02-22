@@ -1,6 +1,6 @@
 angular
 .module('booking', ['booker.service.book'])
-.controller('bookingController', ['$scope', '$location', '$interval', 'booker.service.book.BookerService', function($scope, $location, $interval, BookerService){
+.controller('bookingController', ['$scope', '$location', '$interval', '$uibModal', 'booker.service.book.BookerService', function($scope, $location, $interval, $modal, BookerService){
   $scope.$emit('wait:start');
   if(sessionStorage.User != "null")
   {
@@ -34,4 +34,24 @@ angular
             message: err.data || "Server error"
       });
    });
+    $scope.openModal = function(locationID){
+        var modalInstance = $modal.open({
+            templateUrl: 'features/Booking/locationDetails.html',
+              controller: 'LocatioInfoController',
+              windowClass: 'center-modal',
+              size: 'sm',
+              resolve: {
+                location: function () {
+                  return _.find($scope.locations, { "ID": locationID});
+                }
+              }
+        });
+    };
+}])
+.controller('LocatioInfoController', ['$scope', 'location', '$uibModalInstance',function($scope, location, $uibModalInstance){
+  console.log(location);
+  $scope.location = location;
+  $scope.close = function(){
+        $uibModalInstance.dismiss();
+    }
 }]);

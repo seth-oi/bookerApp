@@ -1,15 +1,34 @@
 <div class='content'>
-<div class="container heading-style-5">
-                    <h4 class="heading-title">Services</h4>
-    <i class="fa fa-check-square-o heading-icon"></i>
-    <div class="line bg-black"></div>
-</div>
-<div class="listitems">
-	<ul ng-if='services.Treatments.length != 0'>
-		<li ng-repeat='service in services'><a ng-href='#/calander/{{locationID}}/{{service.ID}}'>{{service.Name}} - {{service.Category.Name}}</a></li>
-	</ul>
-	<div ng-if='services.Treatments.length == 0'> 
-		No Treatments Found.
-	</div>	
-</div>
+	<div class="container heading-style-5">
+	    <h4 style="font-size: 24px;" class="heading-title"><strong>Select Service</strong></h4>
+	    <i class='heading-icon'><img style="width: 82px;height: 82px;margin-top: -22px;margin-left: -10px;" src="images/4.png"></i>
+	    <div class="line bg-black"></div>
+	</div>
+	<div class="listitems">
+		<ul ng-if='services.Treatments.length != 0'>
+			<li ng-repeat='service in services'>
+				<a ng-href='#/availability/{{locationID}}/{{service.ID}}'>{{service.Name}} - {{service.Category.Name}}</a>
+				<br/>
+				<table>
+					<tbody>
+						<tr>
+							<td class="fontColor text-left">Price</td>
+							<td class="fontColor text-right">{{service.Price.Amount}} {{service.Price.CurrencyCode}}</td>
+						</tr>
+						<tr>
+							<td class="fontColor text-left">Type</td>
+							<td class="fontColor text-right">{{service.SubCategory.Name}}</td>
+						</tr>
+						<tr>
+							<td class="fontColor text-left">Duration</td>
+							<td class="fontColor text-right">{{service.TreatmentDuration}} min</td>
+						</tr>
+					</tbody>
+				</table>
+			</li>
+		</ul>
+		<div ng-if='services.Treatments.length == 0' class='alert alert-danger'> 
+			No Treatments Found.
+		</div>
+	</div>
 </div>

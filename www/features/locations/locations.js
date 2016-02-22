@@ -11,40 +11,51 @@ angular
     		access_token: access_token
     	};
     	$scope.$emit('wait:stop');
-    	BookerService
-		.findLocationsGeoAware(input)
-		.then(function(locations){
-			$scope.$emit('wait:stop');
-			console.log(locations);
-		})
-		.catch(function(err){
-			$scope.$emit('wait:stop');
-			$scope.$emit("notification", {
-		        type: 'danger',
-		        message: err.data || "Server error"
-		    });
-			console.log(err);
-		});
+        //$scope.$emit('wait:start');
+        //For now we have locations statically no need to request
+        //	BookerService
+		// .findLocationsGeoAware(input)
+		// .then(function(locations){
+		// 	$scope.$emit('wait:stop');
+		// })
+		// .catch(function(err){
+		// 	$scope.$emit('wait:stop');
+		// 	$scope.$emit("notification", {
+		//         type: 'danger',
+		//         message: err.data || "Server error"
+		//     });
+		// 	console.log(err);
+		// });
+    })
+    .catch(function(err){
+        $scope.$emit('wait:stop');
+        $scope.$emit("notification", {
+            type: 'danger',
+            message: err.data || "Server error"
+        });
+        console.log(err);
     });
     $scope.$emit('wait:start');
     // current location
     var currrentLocation = sessionStorage.location ? JSON.parse(sessionStorage.location) : {Latitude: 0, Longitude: 0};
+
     $scope.airports = [
-         { "name": "My City Ludhiana", "code": "LDH", "city": "Ludhiana", "state": "PUN", "lat": currrentLocation.Latitude, "lon": currrentLocation.Longitude, "vol2011": 44414121 },
-            // { "name": "Hartsfield Jackson Atlanta", "code": "ATL", "city": "Atlanta", "state": "GA", "lat": 33.64, "lon": -84.444, "vol2011": 44414121 },
-            // { "name": "O'Hare", "code": "ORD", "city": "Chicago", "state": "IL", "lat": 41.9794, "lon": -87.9044, "vol2011": 31892301 },
-            // { "name": "Los Angeles", "code": "LAX", "city": "Los Angeles", "state": "CA", "lat": 33.9425, "lon": -118.4081, "vol2011": 30528737 },
-            // { "name": "Dallas/Fort Worth", "code": "DFW", "city": "Dallas/Fort Worth", "state": "TX", "lat": 32.8974, "lon": -97.0407, "vol2011": 27518358 },
-            // { "name": "Denver", "code": "DEN", "city": "Denver", "state": "CO", "lat": 39.8631, "lon": -104.6736, "vol2011": 25667499 },
-            // { "name": "ATR @ 60180850", "code": "JFK", "city": "60180850", "state": "NY", "lat": 40.6438, "lon": -73.782, "vol2011": 23664830 },
-            // { "name": "San Francisco", "code": "SFO", "city": "San Francisco", "state": "CA", "lat": 37.6152, "lon": -122.39, "vol2011": 20038679 },
-            // { "name": "McCarran", "code": "LAS", "city": "Las Vegas", "state": "NV", "lat": 36.085, "lon": -115.1511, "vol2011": 19854759 },
-            // { "name": "Phoenix Sky Harbor", "code": "PHX", "city": "Phoenix", "state": "AZ", "lat": 33.4365, "lon": -112.0073, "vol2011": 19750306 },
-            // { "name": "George Bush", "code": "IAH", "city": "Houston", "state": "TX", "lat": 29.9867, "lon": -95.3381, "vol2011": 19306660 },
+         { "name": "Your Current Location", "code": "Loc", "city": "Any", "state": "Any", "lat": currrentLocation.Latitude, "lon": currrentLocation.Longitude, "vol2016": 4414121 },
+         { "name": "Florida: Orlando Mills Park", "code": "NAIL LOUNGE", "city": "Orlando", "state": "FL", "lat": 28.564, "lon": -81.365, "vol2011": 44414121 },
+         { "name": "Florida: Windermere Grove at Isleworth", "code": "GLAMOUR ROOM", "city": "Orlando", "state": "FL", "lat": 28.492, "lon": -81.511, "vol2011": 31892301 },
+         { "name": "Florida: Winter Park Lakeside", "code": "GLAMOUR ROOM", "city": "Orlando", "state": "FL", "lat": 28.597, "lon": -81.366, "vol2011": 30528737 },
+         { "name": "Florida: Hyatt Regency Grand Cypress Orlando", "code": "HOTEL AND RESORT SPA", "city": "Orlando", "state": "FL", "lat": 28.382, "lon": -81.510, "vol2011": 27518358 },
+         { "name": "Florida: Jacksonville Riverside", "code": "NAIL LOUNGE", "city": "Orlando", "state": "FL", "lat": 30.323, "lon": -81.670, "vol2011": 25667499 },
+         { "name": "Florida: St. Petersburg Sundial", "code": "GLAMOUR ROOM", "city": "Orlando", "state": "FL", "lat": 27.774, "lon": -82.634, "vol2011": 23664830 },
+         { "name": "Florida: Oviedo Glamour Room", "code": "GLAMOUR ROOM", "city": "Orlando", "state": "FL", "lat": 28.624, "lon": -81.245, "vol2011": 20038679 },
+         { "name": "Florida: Miami Doral – Coming Early 2016", "code": "GLAMOUR ROOM", "city": "Orlando", "state": "FL", "lat": 25.819, "lon": -80.335, "vol2011": 19854759 },
+         { "name": "California: Hyatt Regency Monterey", "code": "HOTEL AND RESORT SPA", "city": "Orlando", "state": "FL", "lat": 36.592, "lon": -121.874, "vol2011": 19750306 },
+         { "name": "California: Manchester Grand Hyatt San Diego", "code": "HOTEL AND RESORT SPA", "city": "Orlando", "state": "FL", "lat": 32.726, "lon": -117.164, "vol2011": 19306660 },
+         { "name": "New York: Hyatt Times Square New York", "code": "HOTEL AND RESORT SPA", "city": "Orlando", "state": "FL", "lat": 40.760, "lon": -73.993, "vol2011": 19306660 },
+         { "name": "Hawaii: Hyatt Regency Maui", "code": "HOTEL AND RESORT SPA", "city": "Orlando", "state": "FL", "lat": 20.912, "lon": -156.692, "vol2011": 19306660 },
         ];
 
     $scope.loc = { lat: currrentLocation.Latitude, lon: currrentLocation.Longitude };
-    //30.900965, 75.857276
     $scope.gotoCurrentLocation = function () {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(function (position) {
@@ -55,6 +66,7 @@ angular
         }
         return false;
     };
+    $scope.gotoCurrentLocation();
     $scope.gotoLocation = function (lat, lon) {
             $scope.loc = { lat: lat, lon: lon };
             if (!$scope.$$phase) $scope.$apply("loc");

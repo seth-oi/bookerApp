@@ -6,7 +6,6 @@ var phonecatApp = angular.module('booker', [
   'booking',
   'register',
   'services',
-  'calander',
   'availability',
   'manageAppointments',
   'payment',
@@ -16,11 +15,22 @@ var phonecatApp = angular.module('booker', [
   'booker.service.book',
   'giftDetails',
   'ui.bootstrap',
-  'ngMap'
+  "ngCordova",
+  "ngCordovaOauth",
+  '720kb.socialshare',
+  'facebook'
+])
+.run([
+      '$rootScope', function ($rootScope) {
+          $rootScope.facebookAppId = '[551803548322995]'; // set your facebook app id here
+      }
 ])
 .controller('MainController', ['$scope', '$timeout', '$rootScope', '$location', '$interval', 'booker.service.book.BookerService', function($scope, $timeout, $rootScope, $location, $interval, BookerService){
   var notificationTimeout;
   $scope.showNotification = false;
+  $scope.fb={
+    URL: "https://www.facebook.com/MarilynMonroeSpas"
+  }
   //start Loader
   $rootScope.$on('wait:start', function(){
     $rootScope.showSpinner = true;
@@ -31,6 +41,15 @@ var phonecatApp = angular.module('booker', [
   });
   $scope.showLogin = true;
   $scope.showLogout = false;
+  $scope.likeFb = function(){
+    var ref = window.open('https://www.facebook.com/MarilynMonroeSpas', '_blank', 'EnableViewPortScale=yes,location=yes');
+  }
+  $scope.folowGooglePlus = function(){
+    var ref = window.open('https://plus.google.com/u/0/+Marilynmonroespas/posts', '_blank', 'EnableViewPortScale=yes,location=yes');
+  }
+  $scope.twitter = function(){
+    var ref = window.open('https://twitter.com/MarilynSpas', '_blank', 'EnableViewPortScale=yes,location=yes');
+  }
   $scope.logout = function(){
       sessionStorage.User = null;
       sessionStorage.clear();
@@ -44,18 +63,6 @@ var phonecatApp = angular.module('booker', [
       $scope.showLogout = true;
   });
   
-  // console.log('HEETEEE');
-  // navigator.geolocation.getCurrentPosition(function(position){
-  //   console.log('HEREERERER ERROR')
-  //   console.log(position.coords.latitude)
-  //   console.log(position.coords.longitude);
-  //   sessionStorage.removeItem('location');
-  //   sessionStorage.location = JSON.stringify({"Latitude": position.coords.latitude, "Longitude": position.coords.longitude});
-  //   }, function(error){
-  //     console.log('HERE INSIDE ERROR');
-  //     console.log(error.code + error.message);
-  //     alert('Please Turn On Your Location Services. And Try Again.');
-  //   }, {timeout:5000, enableHighAccuracy: false});
   $scope.$on('notification', function (evt, notification){
             $timeout.cancel(notificationTimeout);
             $scope.notification = notification;
@@ -67,19 +74,17 @@ var phonecatApp = angular.module('booker', [
                         $scope.notification = null;
                     }
                 }, 2000)
-            }, 5000);
+            }, 3000);
             $('.back-to-top-badge, .back-to-top').trigger( "click" );
         });
   $interval(function(){ BookerService.authenticateAccessToken();  }, 120000);
   //$interval(function(){ BookerService.authenticateAccessToken();  }, 25 * 60000);
 }]);
-//phonecatApp.value('CLIENTID', 'uhw8PcCvuxoS');
-//phonecatApp.value('CLIENTSECRECT', '8YUbN71NkZVg');
 //phonecatApp.value('apiRequestUrl', 'http://localhost:4000');
 phonecatApp.value('apiRequestUrl', 'http://marilyn-monroe.herokuapp.com');
 
 phonecatApp.config(function($routeProvider) {
-    
+  
     $routeProvider.
       when('/booking', {
         templateUrl: './features/Booking/Booking.html',
@@ -101,11 +106,7 @@ phonecatApp.config(function($routeProvider) {
         templateUrl: './features/Register/Register.html',
         controller: 'registerController'
       }).
-      when('/calander/:locationID/:serviceID', {
-        templateUrl: './features/Calander/Calander.html',
-        controller: 'calanderController'
-      }).
-      when('/availability/:locationID/:treatmentID/:employeeID', {
+      when('/availability/:locationID/:treatmentID', {
         templateUrl: './features/Availability/Availability.html',
         controller: 'availabilityController'
       }).
@@ -216,7 +217,6 @@ phonecatApp.directive("appMap", function () {
                 // update size
                 if (scope.width) element.width(scope.width);
                 if (scope.height) element.height(scope.height);
-
                 // get map options
                 var options =
                 {

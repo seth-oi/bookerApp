@@ -8,6 +8,26 @@ angular
 	$scope.username = null;
 	$scope.password = null;
 	$scope.$emit('wait:start');
+	// Set the default value of inputType
+	  $scope.inputType = 'password';
+	  
+	  // Hide & show password function
+	  $scope.hideShowPassword = function(){
+	    if ($scope.inputType == 'password')
+	      $scope.inputType = 'text';
+	    else
+	      $scope.inputType = 'password';
+	  };
+	  $scope.hideShowPasswordText = function(){
+        if ($scope.inputType == 'password')
+          $scope.inputType = 'text';
+        else
+          $scope.inputType = 'password';
+        if ($scope.passwordCheckbox == true)
+          $scope.passwordCheckbox = false;
+        else
+          $scope.passwordCheckbox = true;
+      }
 	BookerService
     .getAccessTokenFromSS()
     .then(function(access_token){
@@ -78,7 +98,7 @@ angular
     			}
     			else
     			{
-    				$location.path('/booking');
+    				$location.path('/manage');
     			}
 			}
 			else{

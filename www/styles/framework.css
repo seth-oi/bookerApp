@@ -1134,7 +1134,7 @@ label{
 .no-bottom{margin-bottom:0px!important;}
 .half-bottom{margin-bottom:15px!important;}
 .half-top{margin-top:15px!important;}
-.full-bottom{margin-bottom:30px!important;}
+.full-bottom{margin-bottom:15px!important;}
 .full-top{margin-top:30px!important;}
 .left-padding{padding-left:30px;}
 .right-padding{padding-right:30px;}
@@ -1782,9 +1782,9 @@ label{
 }
 
 .logo_text{
-    font-size: 25px;
+    font-size: 26px;
     color: #fff;
-    padding: 20px;
+    padding: 10px;
 }
 
 .dropcaps-4:first-letter{
@@ -1994,9 +1994,12 @@ calendar*{
 	background-position:center bottom;
 	margin:-125px 0 0 -125px; 
 }
-
+.back-image{
+    
+}
 .preloader-logo{
-    background-image:url(../images/preload-logo.png);
+    background-image:url(../images/icon1.jpg);
+    border-radius: 50%;
     background-size:75px 75px;
     height:75px;
     width:75px;
@@ -2946,7 +2949,7 @@ ul.tabs li.active-tab{
 .button-teal:hover{		background-color:#1abc9c;}
 
 .green-3d{				padding-top:5px; padding-bottom:5px; border-bottom:solid 4px #1e8248;}
-.button-green{			background-color:#27ae60; color:#FFFFFF; font-size: 28px;}
+.button-green{			background-color:#27ae60; color:#FFFFFF; font-size: 20px;}
 .button-green:hover{	background-color:#2ecc71;}
 
 .blue-3d{				padding-top:5px; padding-bottom:5px; border-bottom:solid 4px #194e70;}
@@ -4749,10 +4752,11 @@ ul.tabs li.active-tab{
 }
 
 .page-login .page-login-logo{
-    width:125px;
-    height:100px;
-    background-image:url(../images/pages-logo-dark.png);
-    background-size:125px 100px;
+    width:130px;
+    height:130px;
+    background-image:url(../images/icon1.jpg);
+    border-radius: 50%; 
+    background-size:130px 130px;
     margin-left:auto;
     margin-right:auto;
     margin-bottom:40px;
@@ -4814,17 +4818,17 @@ ul.tabs li.active-tab{
 
 .page-login .login-already{
     text-align:center;
-    font-size:12px;
+    font-size:19px;
     color:#cacaca;
     margin-bottom:20px;
     transition:all 250ms ease;
 }
 
 .page-login .login-create{
-    width:50%;
+    width:60%;
     float:right;
     text-align:right;
-    font-size:12px;
+    font-size:19px;
     color:#cacaca;
     margin-bottom:30px;
     transition:all 250ms ease;

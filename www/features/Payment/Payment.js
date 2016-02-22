@@ -8,7 +8,6 @@ angular
     //route params is a string not boolean
     if($routeParams.gift == 'false')
     {
-        console.log('FOUND Bookings');
         $scope.giftButton = false;
         var appointmentData = JSON.parse(sessionStorage.appointmentMetaData);
         $scope.payment = {
@@ -23,7 +22,6 @@ angular
     }
     else
     {
-        console.log('FOUND GIFT')
         $scope.giftButton = true;
         $scope.payment = {
             expirationDate: null,
@@ -71,6 +69,12 @@ angular
                 message: err.data || "Server error"
         });
     });
+    $scope.CancelBooking = function(){
+        sessionStorage.removeItem("IncompleteAppointmentID");
+        sessionStorage.removeItem("gift");
+        sessionStorage.removeItem("giftAmount");
+        $location.path('/Bookings');
+    }
     $scope.sendEGiftCard = function(){
         var res = _.find($scope.cardTypes, {ID: $scope.cardSelected.ID});
         if(sessionStorage.User == "null")
@@ -88,7 +92,11 @@ angular
             $location.path('/login');
             return;
         }
-        if(!$scope.payment.securityCode || isNaN(parseInt($scope.payment.securityCode)) || $scope.payment.securityCode.length < 3|| $scope.payment.securityCode.length > 5)
+        console.log(!$scope.payment.securityCode);
+        console.log(isNaN($scope.payment.securityCode));
+        console.log(parseInt($scope.payment.securityCode) > 0);
+        console.log($scope.payment.securityCode.length <= 3|| $scope.payment.securityCode.length >= 5);
+        if(!$scope.payment.securityCode || isNaN($scope.payment.securityCode) || !(parseInt($scope.payment.securityCode) > 0) || $scope.payment.securityCode.length <= 3|| $scope.payment.securityCode.length >= 5)
         {
             $scope.$emit("notification", {
                 type: 'info',
@@ -104,7 +112,7 @@ angular
             });
             return;
         }
-        if(!$scope.payment.cardNumber || isNaN(parseInt($scope.payment.cardNumber)))
+        if(!$scope.payment.cardNumber || isNaN(parseInt($scope.payment.cardNumber)) || !(parseInt($scope.payment.cardNumber) > 0))
         {
             $scope.$emit("notification", {
                 type: 'info',
@@ -112,7 +120,7 @@ angular
             });
             return;
         }
-        if(!$scope.payment.billingZip || isNaN(parseInt($scope.payment.billingZip)))
+        if(!$scope.payment.billingZip || isNaN(parseInt($scope.payment.billingZip)) || !(parseInt($scope.payment.billingZip) > 0))
         {
             $scope.$emit("notification", {
                 type: 'info',
@@ -157,7 +165,7 @@ angular
         var finaldateUnix = dateUnix.toString() + '- 0000';
         var user = JSON.parse(sessionStorage.User);
         var access_token = sessionStorage.accessToken;
-        var GiftCertificate = JSON.parse(sessionStorage.gift);
+        var GiftCertificate = sessionStorage.gift ? JSON.parse(sessionStorage.gift) : {}
         var finalObject = {
             "CustomerPhone": user.Customer.HomePhone || "",
             "CustomerLastName": user.Customer.LastName || "",
@@ -179,7 +187,7 @@ angular
                     },
                     CreditCard: {
                         SecurityCode: $scope.payment.securityCode.toString(),
-                        Number: "378282246310005",
+                        Number: "374720202293610",
                         NameOnCard:$scope.payment.cardName,
                         BillingZip:$scope.payment.billingZip,
                         ExpirationDate: "/Date(" + finaldateUnix + ")/",
@@ -215,16 +223,26 @@ angular
                         message: "Your E-Gift Certificate Has Been Created Sent"
                     });
                 }
-                else if (data.ArgumentErrors)
+                else if (data.ArgumentErrors || data.ErrorMessage)
                 {
                     var message = '';
-                    data.ArgumentErrors.forEach(function(err){
+                    if(data.ArgumentErrors)
+                    {
+                        data.ArgumentErrors.forEach(function(err){
                         message = message + err.ArgumentName + err.ErrorMessage;
                     })
-                    $scope.$emit("notification", {
-                        type: 'danger',
-                        message: message
-                    });
+                        $scope.$emit("notification", {
+                            type: 'danger',
+                            message: message
+                        });    
+                    }
+                    else{
+                        $scope.$emit("notification", {
+                            type: 'danger',
+                            message: data.ErrorMessage
+                        });   
+                    }
+                    
                 }
                 else
                 {
@@ -259,11 +277,19 @@ angular
             $location.path('/login');
             return;
         }
-        if(!$scope.payment.securityCode || isNaN(parseInt($scope.payment.securityCode)) || $scope.payment.securityCode.length < 3|| $scope.payment.securityCode.length > 5)
+        if(!$scope.payment.securityCode || isNaN(parseInt($scope.payment.securityCode)) || !(parseInt($scope.payment.securityCode) > 0) || $scope.payment.securityCode.length <= 3|| $scope.payment.securityCode.length >= 5)
         {
             $scope.$emit("notification", {
                 type: 'info',
                 message: "Please Enter a valid 3-5 digit Security Code"
+            });
+            return;
+        }
+        if(!$scope.payment.cardNumber || isNaN($scope.payment.cardNumber) || !(parseInt($scope.payment.cardNumber) > 0))
+        {
+            $scope.$emit("notification", {
+                type: 'info',
+                message: "Please Enter a valid Card Number"
             });
             return;
         }
@@ -275,15 +301,7 @@ angular
             });
             return;
         }
-        if(!$scope.payment.cardNumber || isNaN(parseInt($scope.payment.cardNumber)))
-        {
-            $scope.$emit("notification", {
-                type: 'info',
-                message: "Please Enter a valid Card Number"
-            });
-            return;
-        }
-        if(!$scope.payment.billingZip || isNaN(parseInt($scope.payment.billingZip)))
+        if(!$scope.payment.billingZip || isNaN($scope.payment.billingZip) || !(parseInt($scope.payment.billingZip) > 0))
         {
             $scope.$emit("notification", {
                 type: 'info',
@@ -331,7 +349,6 @@ angular
         var appointmentData = JSON.parse(sessionStorage.appointmentData);
         var appointmentMetaData = JSON.parse(sessionStorage.appointmentMetaData);
         var access_token = sessionStorage.accessToken;
-        console.log(appointmentMetaData.StartDateTime);
         var finalObject = {
             Customer: {
                 MobilePhone: user.Customer.CellPhone || "",
@@ -349,7 +366,7 @@ angular
                     },
                     CreditCard: {
                         SecurityCode: $scope.payment.securityCode.toString(),
-                        Number: "378282246310005",
+                        Number: "374720202293610",
                         NameOnCard:$scope.payment.cardName,
                         BillingZip:$scope.payment.billingZip,
                         ExpirationDate: "/Date(" + finaldateUnix + ")/",
@@ -413,19 +430,28 @@ angular
                     $scope.$emit("notification", {
                         type: 'success',
                         message: "Your Appointment Has Been Created Successfully"
-                    });
+                    }); 
                    $scope.access_token = access_token;
+                   $location.path('/manage');
                 }
-                else if (data.ArgumentErrors)
+                else if (data.ArgumentErrors || data.ErrorMessage)
                 {
                     var message = '';
-                    data.ArgumentErrors.forEach(function(err){
-                        message = message + err.ArgumentName + err.ErrorMessage;
-                    })
+                    if(data.ArgumentErrors)
+                    {
+                        data.ArgumentErrors.forEach(function(err){
+                            message = message + err.ArgumentName + err.ErrorMessage;
+                        })    
+                    }
+                    else
+                    {
+                        message = data.ErrorMessage;
+                    }                    
                     $scope.$emit("notification", {
                         type: 'danger',
                         message: message
                     });
+                    $location.path('/booking');   
                 }
                 else
                 {
@@ -433,6 +459,7 @@ angular
                         type: 'danger',
                         message: "We're sorry, but the appointment time you requested is no longer available."
                     });   
+                    $location.path('/booking');
                 }
             })
             .catch(function(err){

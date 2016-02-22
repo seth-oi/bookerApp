@@ -31,12 +31,40 @@
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
     <feature name="NetworkStatus">
         <param name="ios-package" value="CDVConnection" />
     </feature>
     <feature name="Diagnostic">
         <param name="ios-package" value="Diagnostic" />
     </feature>
+    <icon height="180" src="www/images/Icon-60@3x.png" width="180" />
+    <icon height="60" src="www/images/Icon-60.png" width="60" />
+    <icon height="120" src="www/images/Icon-60@2x.png" width="120" />
+    <icon height="76" src="www/images/Icon-76.png" width="76" />
+    <icon height="152" src="www/images/Icon-76@2x.png" width="152" />
+    <icon height="40" src="www/images/Icon-40.png" width="40" />
+    <icon height="80" src="www/images/Icon-40@2x.png" width="80" />
+    <icon height="57" src="www/images/Icon.png" width="57" />
+    <icon height="114" src="www/images/Icon@2x.png" width="114" />
+    <icon height="72" src="www/images/Icon-72.png" width="72" />
+    <icon height="144" src="www/images/Icon-72@2x.png" width="144" />
+    <icon height="29" src="www/images/Icon-Small-40.png" width="29" />
+    <icon height="58" src="www/images/Icon-Small-40@2x.png" width="58" />
+    <icon height="50" src="www/images/Icon.png" width="50" />
+    <icon height="100" src="www/images/Icon.png" width="100" />
+    <splash height="480" src="www/images/Default~iphone.png" width="320" />
+    <splash height="960" src="www/images/Default@2x~iphone.png" width="640" />
+    <splash height="1024" src="www/images/Default-Portrait~ipad.png" width="768" />
+    <splash height="2048" src="www/images/Default-Portrait@2x~ipad.png" width="1536" />
+    <splash height="768" src="www/images/Default-Landscape~ipad.png" width="1024" />
+    <splash height="1536" src="www/images/Default-Landscape@2x~ipad.png" width="2048" />
+    <splash height="1136" src="www/images/Default-568h@2x~iphone.png" width="640" />
+    <splash height="1334" src="www/images/Default-667h.png" width="750" />
+    <splash height="2208" src="www/images/Default-736h.png" width="1242" />
+    <splash height="1242" src="www/images/Default-Landscape-736h.png" width="2208" />
     <allow-intent href="itms:*" />
     <allow-intent href="itms-apps:*" />
     <name>MARILYN MONROE</name>
@@ -54,4 +82,5 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon height="57" platform="ios" src="www/images/icon1.png" width="57" />
 </widget>
