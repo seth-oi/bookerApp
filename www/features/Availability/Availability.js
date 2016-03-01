@@ -4,6 +4,7 @@ angular
     $scope.minDate = new Date();
     $scope.date = new Date();
     $scope.$emit('wait:start');
+    var LocationID = JSON.parse(sessionStorage.serviceLocationID);
     var appointmentMetaData = {
         IsPackage: null,
         PackageID: null,
@@ -18,6 +19,31 @@ angular
         selectedDate:null
     }
     var access;
+    var Itineraries = [];
+    var services = JSON.parse(sessionStorage.selectedServices);
+    var treatmentids = [];
+    if(services != null)
+    {
+        services.forEach(function(service){
+            treatmentids.push(service.ID);
+            Itineraries.push({
+                "IsPackage": false,
+                "PackageID": null,
+                "Treatments": [{
+                    "Employee2ID": null,
+                    "EmployeeGenderID": null,
+                    "EmployeeID": null,
+                    "TreatmentID": service.ID
+                }],
+                "IncludeCutOffTimes": true
+            });
+        });
+    }
+    else{
+        console.log('NO SERVICES WERE SELECTED');
+    }
+    
+    
     BookerService
         .getAccessTokenFromSS()
         .then(function(access_token){
@@ -30,31 +56,18 @@ angular
             var input = {
               EndDateTime: "/Date(" + future + ")/",
               StartDateTime:"/Date(" + startTimeString + ")/",
-              Itineraries: [
-                {
-                    "IsPackage": false,
-                    "PackageID": null,
-                    "Treatments": [
-                        {
-                            "Employee2ID": null,
-                            "EmployeeGenderID": null,
-                            "EmployeeID": null,
-                            "TreatmentID": $routeParams.treatmentID
-                        }
-                    ],
-                    "IncludeCutOffTimes": true
-                }
-                ],
-              LocationID: $routeParams.locationID,
+              Itineraries: Itineraries,
+              LocationID: LocationID,
               access_token: access_token
             };
+            
             
             BookerService
             .runMultiServiceAvailability(input)
             .then(function(data){
                 $scope.$emit('wait:stop');
                 $scope.availableTimeSlots = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots;
-                sessionStorage.locationId = $routeParams.locationID;
+                sessionStorage.locationId = LocationID;
                 
                 $scope.datesArr = [];
                 $scope.timeArr = [];
@@ -95,14 +108,14 @@ angular
                 console.log(err);
                 $scope.$emit("notification", {
                     type: 'danger',
-                    message: err.data || "Server error"
+                    message: "Server error"
                 });
             });
         })
         .catch(function(err){
             $scope.$emit("notification", {
                 type: 'danger',
-                message: err.data || "Server error"
+                message: "Server error"
         });
     });
     $scope.cancel = function(){
@@ -112,28 +125,42 @@ angular
         $location.path('/Bookings');
     };
     $scope.addIncompleteBooking = function(){
+        var amount = 0;
+        services.forEach(function(service){
+            amount = amount + service.Price.Amount;
+        });
+        console.log(amount);
         var SelectedTimeSlotAppointment = $scope.availableTimeSlots[$scope.selected.selectedTime];
         var brac = SelectedTimeSlotAppointment.StartDateTime.indexOf('(') + 1;
         var minus = SelectedTimeSlotAppointment.StartDateTime.indexOf(')');
         var selectedTimeStamp = parseInt(SelectedTimeSlotAppointment.StartDateTime.slice(brac, minus));
         appointmentMetaData.IsPackage = SelectedTimeSlotAppointment.IsPackage;
         appointmentMetaData.PackageID = SelectedTimeSlotAppointment.PackageID;
-        appointmentMetaData.Amount = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].CurrentPrice.Amount;
-        appointmentMetaData.Duration = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].Duration;
+        appointmentMetaData.Amount = amount;
+        // appointmentMetaData.Duration = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].Duration;
         appointmentMetaData.EmployeeID = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].EmployeeID;
         appointmentMetaData.CurrencyCode = SelectedTimeSlotAppointment.TreatmentTimeSlots[0].CurrentPrice.CurrencyCode;
         appointmentMetaData.StartDateTime = selectedTimeStamp;
         sessionStorage.appointmentMetaData = JSON.stringify(appointmentMetaData);
+        var finalDateTimeStamps = [];
+        var index = 0;
+        var timeStamp = selectedTimeStamp;
+        finalDateTimeStamps.push(selectedTimeStamp);
+        services.forEach(function(service, index){
+            timeStamp = timeStamp + service.TreatmentDuration * 60 * 1000;
+            finalDateTimeStamps.push(timeStamp);
+        });
         var data = {
-            LocationID: $routeParams.locationID,
+            LocationID: LocationID,
             access_token: access,
-            TreatmentID: $routeParams.treatmentID, 
-            StartDateTime: selectedTimeStamp
+            TreatmentID: treatmentids, 
+            StartDateTime: finalDateTimeStamps
         };
         $scope.$emit('wait:start');
         BookerService
         .createIncompleteAppointment(data)
         .then(function(data){
+            console.log(data);
             $scope.$emit('wait:stop');
             if(data.IncompleteAppointmentID && data.IsSuccess)
             {   
@@ -174,20 +201,27 @@ angular
             {
                 $scope.$emit("notification", {
                     type: 'danger',
-                    message: data.ErrorMessage
+                    message: "Server Error"
                 });   
+                $location.path('/Bookings');
             }
             else
             {
                 $scope.$emit("notification", {
                     type: 'success',
                     message: "Incomplete Appointment Booking Failed"
-                });   
+                });
+                $location.path('/Bookings');
             }
 
         })
         .catch(function(err){
-            console.log(err);
+            $scope.$emit('wait:stop');
+            $scope.$emit("notification", {
+                        type: 'danger',
+                        message: "Server Error"
+            });
+            $location.path('/Bookings');
         })
     };
 }]);

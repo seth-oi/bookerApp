@@ -11,36 +11,30 @@ angular
     		access_token: access_token
     	};
     	$scope.$emit('wait:stop');
-        //$scope.$emit('wait:start');
-        //For now we have locations statically no need to request
-        //	BookerService
-		// .findLocationsGeoAware(input)
-		// .then(function(locations){
-		// 	$scope.$emit('wait:stop');
-		// })
-		// .catch(function(err){
-		// 	$scope.$emit('wait:stop');
-		// 	$scope.$emit("notification", {
-		//         type: 'danger',
-		//         message: err.data || "Server error"
-		//     });
-		// 	console.log(err);
-		// });
-    })
-    .catch(function(err){
-        $scope.$emit('wait:stop');
-        $scope.$emit("notification", {
-            type: 'danger',
-            message: err.data || "Server error"
-        });
-        console.log(err);
+        $scope.$emit('wait:start');
+    	BookerService
+		.findLocationsGeoAware(input)
+		.then(function(locations){
+			$scope.$emit('wait:stop');
+			console.log(locations);
+		})
+		.catch(function(err){
+			$scope.$emit('wait:stop');
+			$scope.$emit("notification", {
+		        type: 'danger',
+		        message: err.data || "Server error"
+		    });
+			console.log(err);
+		});
     });
     $scope.$emit('wait:start');
     // current location
     var currrentLocation = sessionStorage.location ? JSON.parse(sessionStorage.location) : {Latitude: 0, Longitude: 0};
-
+    console.log("HERE IS THE CURRENT LOCATION");
+    console.log(currrentLocation.Latitude);
+    console.log(currrentLocation.Longitude);
     $scope.airports = [
-         { "name": "Your Current Location", "code": "Loc", "city": "Any", "state": "Any", "lat": currrentLocation.Latitude, "lon": currrentLocation.Longitude, "vol2016": 4414121 },
+         { "name": "Your Current Location", "code": "Loc", "city": "", "state": "", "lat": currrentLocation.Latitude, "lon": currrentLocation.Longitude, "vol2016": 4414121 },
          { "name": "Florida: Orlando Mills Park", "code": "NAIL LOUNGE", "city": "Orlando", "state": "FL", "lat": 28.564, "lon": -81.365, "vol2011": 44414121 },
          { "name": "Florida: Windermere Grove at Isleworth", "code": "GLAMOUR ROOM", "city": "Orlando", "state": "FL", "lat": 28.492, "lon": -81.511, "vol2011": 31892301 },
          { "name": "Florida: Winter Park Lakeside", "code": "GLAMOUR ROOM", "city": "Orlando", "state": "FL", "lat": 28.597, "lon": -81.366, "vol2011": 30528737 },

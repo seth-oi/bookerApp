@@ -31,6 +31,21 @@ angular
 		});
 		return deffered.promise;
   	},
+  	sendReferralMail: function(input){
+  		var deffered = $q.defer();
+  		$http({
+			method: 'POST',
+			url: apiRequestUrl + '/apiRequest/sendEmailReferral',
+			data: input
+		})
+		.then(function(r) {
+			deffered.resolve(r.data);
+		})
+		.catch(function(err){
+			deffered.reject(err);
+		});
+		return deffered.promise;
+  	},
   	getFacebookId: function(){
   		var deffered = $q.defer();
   		$http({

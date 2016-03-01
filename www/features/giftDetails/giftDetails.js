@@ -8,6 +8,7 @@ angular
   }
   $scope.$emit('wait:start');
   $scope.details = JSON.parse(sessionStorage.template);
+  $scope.giftAmount = 100;
    BookerService
    .getAccessToken()
    .then(function(data){
@@ -18,9 +19,8 @@ angular
         BookerService
         .getGiftTemplates(access)
         .then(function(data){
-          console.log(data);
           $scope.$emit('wait:stop');
-           $scope.locations = data.GiftCertificateTemplates;
+          $scope.locations = data.GiftCertificateTemplates;
         })
         .catch(function(err){
           $scope.$emit('wait:stop');
@@ -51,6 +51,23 @@ angular
                 }); 
           return;
         }
+
+        if($scope.giftAmount < 99)
+        {
+          $scope.$emit("notification", {
+                    type: 'info',
+                    message: 'Gift Amount can\'t be less then 100'
+                }); 
+          return;
+        }
+        if($scope.giftAmount % 1 != 0)
+        {
+          $scope.$emit("notification", {
+                    type: 'info',
+                    message: 'Enter a valid Gift Amount'
+                }); 
+          return;
+        }
       $scope.$emit('wait:start');
       var data = {
         access_token: sessionStorage.accessToken,
@@ -61,6 +78,7 @@ angular
         GiftTemplateId: $scope.details.ID,
         Amount: $scope.giftAmount
       }
+      console.log(data)
       BookerService
       .createCertificate(data)
       .then(function(data){

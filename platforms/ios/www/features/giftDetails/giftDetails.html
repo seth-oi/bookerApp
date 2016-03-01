@@ -22,8 +22,8 @@ textarea{
                     <input ng-disabled="true" ng-model='gift.name' type="text" placeholder='{{details.Name}}'>
                 </div>
                 <div class="login-mail">
-                    <i class="fa fa-money"></i>
-                    <input ng-model='giftAmount' type="number" min='100' required>
+                    <i class="fa fa-money" ></i>
+                    <input ng-model='giftAmount' type="number" min='100' pattern="\d*" required>
                 </div>
                 
                 <div class="login-mail">

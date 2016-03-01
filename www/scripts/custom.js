@@ -851,7 +851,7 @@ $( document ).ready(function() {
                 elementMirror2: document.getElementById('footer-fixed'),
                 disable: 'right',
                 tapToClose: true,
-                touchToDrag: true,
+                touchToDrag: false,
                 maxPosition: 90,
                 minPosition: -90
             });  

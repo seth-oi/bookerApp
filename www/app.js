@@ -12,13 +12,15 @@ var phonecatApp = angular.module('booker', [
   'rewardPoints',
   'location',
   'gifts',
+  'referFriend',
   'booker.service.book',
   'giftDetails',
   'ui.bootstrap',
   "ngCordova",
   "ngCordovaOauth",
   '720kb.socialshare',
-  'facebook'
+  'facebook',
+  "selectionModel"
 ])
 .run([
       '$rootScope', function ($rootScope) {
@@ -26,11 +28,13 @@ var phonecatApp = angular.module('booker', [
       }
 ])
 .controller('MainController', ['$scope', '$timeout', '$rootScope', '$location', '$interval', 'booker.service.book.BookerService', function($scope, $timeout, $rootScope, $location, $interval, BookerService){
-  var notificationTimeout;
   $scope.showNotification = false;
-  $scope.fb={
+  
+  var notificationTimeout;
+  $rootScope.alreadyLoggedIn = false;
+  $scope.fb = {
     URL: "https://www.facebook.com/MarilynMonroeSpas"
-  }
+  };
   //start Loader
   $rootScope.$on('wait:start', function(){
     $rootScope.showSpinner = true;
@@ -55,12 +59,14 @@ var phonecatApp = angular.module('booker', [
       sessionStorage.clear();
       $scope.showLogin = true;
       $scope.showLogout = false;
+      localStorage.removeItem("UserCridentials");
       $location.path('/login');
   };
   $scope.$on('user:loggedIn', function(){
+
     $rootScope.showSpinner = false;
     $scope.showLogin = false;
-      $scope.showLogout = true;
+    $scope.showLogout = true;
   });
   
   $scope.$on('notification', function (evt, notification){
@@ -77,14 +83,30 @@ var phonecatApp = angular.module('booker', [
             }, 3000);
             $('.back-to-top-badge, .back-to-top').trigger( "click" );
         });
+  if(localStorage)
+  {
+    var user = JSON.parse(localStorage.getItem('UserCridentials'));
+    if(user)
+    {
+      $rootScope.alreadyLoggedIn = true;
+      $rootScope.showSpinner = false;
+      $scope.showLogin = false;
+      $scope.showLogout = true;
+    }
+  }
   $interval(function(){ BookerService.authenticateAccessToken();  }, 120000);
-  //$interval(function(){ BookerService.authenticateAccessToken();  }, 25 * 60000);
 }]);
 //phonecatApp.value('apiRequestUrl', 'http://localhost:4000');
 phonecatApp.value('apiRequestUrl', 'http://marilyn-monroe.herokuapp.com');
 
-phonecatApp.config(function($routeProvider) {
-  
+phonecatApp.config(function($routeProvider, selectionModelOptionsProvider) {
+    selectionModelOptionsProvider.set({
+    selectedAttribute: 'mySelectedObjectAttribute',
+    selectedClass: 'my-selected-dom-node',
+    type: 'checkbox',
+    mode: 'multiple-additive',
+    cleanupStrategy: 'deselect'
+  });
     $routeProvider.
       when('/booking', {
         templateUrl: './features/Booking/Booking.html',
@@ -106,13 +128,21 @@ phonecatApp.config(function($routeProvider) {
         templateUrl: './features/Register/Register.html',
         controller: 'registerController'
       }).
-      when('/availability/:locationID/:treatmentID', {
+      when('/availability', {
         templateUrl: './features/Availability/Availability.html',
         controller: 'availabilityController'
+      }).
+      when('/referFriend', {
+        templateUrl: './features/referFriend/referFriend.html',
+        controller: 'referFriendController'
       }).
       when('/payment/:gift', {
         templateUrl: './features/Payment/Payment.html',
         controller: 'paymentController'
+      }).
+      when('/referDetails/:email', {
+        templateUrl: './features/referFriend/referDetails.html',
+        controller: 'referDetailsController'
       }).
       when('/manage', {
         templateUrl: './features/ManageAppointments/ManageAppointments.html',
@@ -131,7 +161,7 @@ phonecatApp.config(function($routeProvider) {
         controller: 'giftDetailsController'
       }).
       otherwise({
-        redirectTo: '/booking'
+        redirectTo: '/login'
       });
 
   });
@@ -160,6 +190,25 @@ phonecatApp.filter('lon', function () {
         var min = Math.floor((input - deg) * 60);
         var sec = ((input - deg - min / 60) * 3600).toFixed(decimals);
         return deg + "°" + min + "'" + sec + '"' + ew;
+    }
+});
+
+phonecatApp.filter('serviceFilter', function () {
+    return function (items, search) {
+        var result = [];
+        angular.forEach(items, function (value, key) {
+          if(search === 'All')
+          {
+            result.push(value);
+          }
+          else
+          {
+            if (value.Category.Name === search) {
+                  result.push(value);
+            }
+          }
+        });
+        return result;
     }
 });
 

@@ -15,7 +15,7 @@ angular
             billingZip: null,
             cardName: null,
             cardNumber: null,
-            securityCode: null,
+            securityCode: 100,
             amount: appointmentData.Amount
         };
         $scope.disabled = true;
@@ -92,11 +92,16 @@ angular
             $location.path('/login');
             return;
         }
-        console.log(!$scope.payment.securityCode);
-        console.log(isNaN($scope.payment.securityCode));
-        console.log(parseInt($scope.payment.securityCode) > 0);
-        console.log($scope.payment.securityCode.length <= 3|| $scope.payment.securityCode.length >= 5);
-        if(!$scope.payment.securityCode || isNaN($scope.payment.securityCode) || !(parseInt($scope.payment.securityCode) > 0) || $scope.payment.securityCode.length <= 3|| $scope.payment.securityCode.length >= 5)
+        var giftCode = $scope.payment.securityCode + '';
+        if($scope.payment.securityCode % 1 != 0)
+        {
+          $scope.$emit("notification", {
+                    type: 'info',
+                    message: 'Enter a valid Amount'
+                }); 
+          return;
+        }
+        if(!$scope.payment.securityCode || isNaN($scope.payment.securityCode) || !(parseInt($scope.payment.securityCode) > 0) || giftCode.length < 3|| giftCode.length > 5)
         {
             $scope.$emit("notification", {
                 type: 'info',
@@ -229,18 +234,20 @@ angular
                     if(data.ArgumentErrors)
                     {
                         data.ArgumentErrors.forEach(function(err){
-                        message = message + err.ArgumentName + err.ErrorMessage;
-                    })
+                            message = message + err.ArgumentName + err.ErrorMessage;
+                        })
                         $scope.$emit("notification", {
                             type: 'danger',
                             message: message
                         });    
+                        $location.path('/sendGifts');
                     }
                     else{
                         $scope.$emit("notification", {
                             type: 'danger',
                             message: data.ErrorMessage
-                        });   
+                        });
+                         $location.path('/sendGifts');
                     }
                     
                 }
@@ -249,7 +256,8 @@ angular
                     $scope.$emit("notification", {
                         type: 'danger',
                         message: "We're sorry, Please Try Again Later."
-                    });   
+                    });
+                     $location.path('/sendGifts');
                 }
             })
             .catch(function(err){
@@ -258,6 +266,7 @@ angular
                         type: 'danger',
                         message: err.data || "Server error"
                 });
+                $location.path('/sendGifts');
             });
     };
     $scope.submitPaymentDetails = function(){
@@ -277,7 +286,16 @@ angular
             $location.path('/login');
             return;
         }
-        if(!$scope.payment.securityCode || isNaN(parseInt($scope.payment.securityCode)) || !(parseInt($scope.payment.securityCode) > 0) || $scope.payment.securityCode.length <= 3|| $scope.payment.securityCode.length >= 5)
+        var code = $scope.payment.securityCode + '';
+        if($scope.payment.securityCode % 1 != 0)
+        {
+          $scope.$emit("notification", {
+                    type: 'info',
+                    message: 'Enter a valid Amount'
+                }); 
+          return;
+        }
+        if(!$scope.payment.securityCode || isNaN(parseInt($scope.payment.securityCode)) || !(parseInt($scope.payment.securityCode) > 0) || code.length < 3 || code.length > 5)
         {
             $scope.$emit("notification", {
                 type: 'info',
@@ -348,16 +366,42 @@ angular
         var IncompleteAppointmentID = JSON.parse(sessionStorage.IncompleteAppointmentID);
         var appointmentData = JSON.parse(sessionStorage.appointmentData);
         var appointmentMetaData = JSON.parse(sessionStorage.appointmentMetaData);
+        var services = JSON.parse(sessionStorage.selectedServices);
         var access_token = sessionStorage.accessToken;
-        var finalObject = {
-            Customer: {
+        var locationID = JSON.parse(sessionStorage.serviceLocationID);
+        var Customer = {
                 MobilePhone: user.Customer.CellPhone || "",
                 LastName: user.Customer.LastName || "",
                 HomePhone: user.Customer.HomePhone || "",
                 FirstName: user.Customer.FirstName || "",
                 Email: user.Customer.Email,
                 ID: user.Customer.CustomerID
-            },
+        }; 
+        console.log(Customer);
+        var ItineraryTimeSlotList =  [];
+        var index = 0;
+        var time = appointmentMetaData.StartDateTime;
+
+        services.forEach(function(service, index){
+            if(index != 0)
+            {
+                time = time +  index * services[index-1].TreatmentDuration * 60 * 1000;
+            }
+            ItineraryTimeSlotList.push({
+                    CurrentPrice:{
+                        Amount: service.Price.Amount,
+                        CurrencyCode: service.Price.CurrencyCode
+                    },
+                    Duration: service.TreatmentDuration,
+                    EmployeeID: appointmentMetaData.EmployeeID,
+                    StartDateTime: "/Date(" + time + ")/",
+                    TreatmentID: service.ID,
+                    RoomID: null,
+                    Employee2ID: null
+            });
+        });
+        var finalObject = {
+            Customer: Customer,
             AppointmentPayment: {
                 PaymentItem: {
                     Amount:{
@@ -399,24 +443,13 @@ angular
                 },
                 IsPackage: appointmentMetaData.IsPackage || false,
                 PackageID: appointmentMetaData.PackageID || null,
-                LocationID: appointmentData.LocationID || sessionStorage.locationId,
+                LocationID:locationID,
                 access_token: access_token,
                 StartDateTime: "/Date(" + appointmentMetaData.StartDateTime + ")/",
                 PrefferedStaffGender: null,
-                TreatmentTimeSlots:[{
-                    CurrentPrice:{
-                        Amount: appointmentMetaData.Amount,
-                        CurrencyCode: appointmentMetaData.CurrencyCode
-                    },
-                    Duration: appointmentMetaData.Duration,
-                    EmployeeID: appointmentMetaData.EmployeeID,
-                    StartDateTime: "/Date(" + appointmentMetaData.StartDateTime + ")/",
-                    TreatmentID: appointmentData.TreatmentID,
-                    RoomID: null,
-                    Employee2ID: null
-                }]
+                TreatmentTimeSlots:ItineraryTimeSlotList
             }],
-            LocationID:appointmentData.LocationID,
+            LocationID:locationID,
             access_token: access_token
         };
         $scope.$emit('wait:start');
@@ -463,11 +496,11 @@ angular
                 }
             })
             .catch(function(err){
-                console.log(err);
                 $scope.$emit("notification", {
                         type: 'danger',
-                        message: err.data || "Server error"
+                        message: "Server error"
                 });
+                $location.path('/booking');
             });
     };
 }]);

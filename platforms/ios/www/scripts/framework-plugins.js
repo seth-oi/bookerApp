@@ -343,11 +343,11 @@
                     n("#swipebox-next").addClass("disabled")
                 }
             },
-            openSlide: function(t) {
-                n("html").addClass("swipebox");
-                n(e).trigger("resize");
-                this.setSlide(t, true)
-            },
+            // openSlide: function(t) {
+            //     n("html").addClass("swipebox");
+            //     n(e).trigger("resize");
+            //     this.setSlide(t, true)
+            // },
             preloadImg: function(e) {
                 var t = this;
                 setTimeout(function() {

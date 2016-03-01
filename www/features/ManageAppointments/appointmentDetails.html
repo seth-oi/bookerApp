@@ -6,19 +6,15 @@
 		<tbody>
 			<tr>
 				<td class="text-left"><h4><strong>Amount</strong></h4></td>
-				<td class="text-right"><h5>{{appointment.FinalTotal.Amount}} {{appointment.FinalTotal.CurrencyCode}}</h5></td>
+				<td class="text-right">{{appointment.FinalTotal.Amount}} {{appointment.FinalTotal.CurrencyCode}}</td>
 			</tr>
 			<tr>
 				<td class="text-left"><h4><strong>Category</strong></h4></td>
-				<td class="text-right"><h5>{{appointment.Treatment.Category.Name}}</h5></td>
+				<td class="text-right"> <span ng-repeat='app in appointment.AppointmentTreatments'>{{app.Treatment.Category.Name}}<span ng-if='!$last'>, </span></span></td>
 			</tr>
 			<tr>
 				<td class="text-left"><h4><strong>Sub Category</strong></h4></td>
-				<td class="text-right"><h5>{{appointment.Treatment.SubCategory.Name}}</h5></td>
-			</tr>
-			<tr>
-				<td class="text-left"><h4><strong>Treatment Duration</strong></h4></td>
-				<td class="text-right"><h5>{{appointment.Treatment.TreatmentDuration}} min</h5></td>
+				<td class="text-right"><span ng-repeat='app in appointment.AppointmentTreatments'>{{app.Treatment.SubCategory.Name}}<span ng-if='!$last'>, </span></span></td>
 			</tr>
 			<tr>
 				<td class="text-left"><h4><strong>Payment Method</strong></h4></td>

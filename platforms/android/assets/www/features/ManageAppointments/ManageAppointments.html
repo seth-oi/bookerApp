@@ -21,22 +21,12 @@
 				</tr>
 				<tr>
 					<td>
-						<b>Treatment</b>
+						<b>Treatments</b>
 					</td>
 				</tr>
 				<tr>
 					<td>
-						{{appointment.Treatment.Name}}
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<b>Category</b>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						{{appointment.Treatment.Category.Name}} - {{appointment.Treatment.SubCategory.Name}}
+						<span ng-repeat='app in appointment.AppointmentTreatments'>{{app.Treatment.Name}}<span ng-if='!$last'>,</span> </span>
 					</td>
 				</tr>
 				<tr>

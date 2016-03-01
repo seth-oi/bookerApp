@@ -46,6 +46,20 @@ angular
 			$scope.$emit('wait:stop');
 			$scope.locationID = locations[0].ID;
 			$scope.locations = locations;
+			console.log('$rootScope.alreadyLoggedIn');
+			console.log($rootScope.alreadyLoggedIn)
+			if($rootScope.alreadyLoggedIn)
+			{
+				var user = JSON.parse(localStorage.getItem("UserCridentials"));
+				console.log(user)
+				if(user)
+				{
+					$scope.username = user.Email;
+					$scope.password= user.Password;
+					$scope.locationID = user.LocationID;
+					$scope.login();			
+				}
+			}
 		})
 		.catch(function(err){
 			$scope.$emit('wait:stop');
@@ -86,7 +100,18 @@ angular
 			$scope.$emit('wait:stop');
 			if(!data.data.error)
 			{
+				console.log('OK NOW I WILL  EMIT THE LOGIN')
 				$scope.$emit('user:loggedIn');
+				var userCridentials = JSON.stringify({
+					"Email": $scope.username,
+					"Password": $scope.password,
+					"LocationID": $scope.locationID
+				});
+				if(localStorage)
+				{
+					localStorage.setItem('UserCridentials', userCridentials);
+					console.log(localStorage.getItem("UserCridentials"));
+				}
 				$rootScope.loggedIn = true;
 				data.data.Customer.access_token = data.data.access_token;
 				var customerData = data.data.Customer;

@@ -18,6 +18,10 @@
     background-color:#F1EFEF;
     opacity: .8;
  }
+.foobar{
+    color:#000;
+    background-color: red;
+}
 #globalNotification {
     text-align: center;
   opacity:1;
@@ -238,8 +242,7 @@ body{
 
 .sidebar-logo{
     /*background-color:#081623;*/
-    background-image:url(../images/icon3.png);
-    border-radius: 50%;
+    background-image:url(../images/icon1.jpg);
     background-align:center;
     background-repeat:no-repeat;
     background-position:22px 15px;

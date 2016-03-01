@@ -29,6 +29,7 @@
 <link href="styles/bootstrap.min.css"         rel="stylesheet" type="text/css">
 <link href="features/Booking/Booking.css"           rel="stylesheet" type="text/css">
     <script type="text/javascript">
+            
             function requestLocation(){
                 console.log('NOW I M GOING TO REQUEST LOCATION');
                 navigator.geolocation.getCurrentPosition(onSuccess, onError,  {timeout:10000, enableHighAccuracy: false});
@@ -72,7 +73,17 @@
             console.log(navigator.network.connection.type);
             console.log("INSIDE DEVICE READY");
             cordova.plugins.diagnostic.getLocationAuthorizationStatus(function(status){
-                console.log('INSIDE GET LOCATION AUTHERIZE' + status);
+            console.log('INSIDE GET LOCATION AUTHERIZE' + status);
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            console.log(userAgent);
+            if(userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i))
+            {
+               navigator.geolocation.getCurrentPosition(onSuccess, function onError(error){
+              console.log('HERE INSIDE ERROR');
+              console.log(error.code + error.message)},{enableHighAccuracy: false});
+            }
+            else if(userAgent.match(/Android/i))
+            {
                 if(status == "GRANTED"){
                     console.log('INSIDE GET LOCATION AUTHERIZE IF' + status);
                     requestLocation();
@@ -88,6 +99,7 @@
                             console.error(error);
                     });
                 }
+            }                
             }, onError);
         }, false);
     </script>
@@ -152,12 +164,17 @@
             <p ng-if='showLogout' ng-click='logout()' class="activeMenuItem">
                 <i class="fa fa-sign-out"></i>
                 <em>Logout</em>
-            </p>            
+            </p>
+            <div ng-if='showLogout' class="sidebar-deco"></div>
+            <a ng-if='showLogout' href="#/referFriend" class="activeMenuItem">
+                <i class="fa fa-user-plus"></i>
+                <em>Refer a friend</em>
+            </a>
             <div ng-if='showLogout' class="sidebar-deco"></div>
             <a ng-if='showLogin' href="#/register" class="activeMenuItem">
                 <i class="fa fa-user-plus"></i>
                 <em>Register</em>
-            </a>           
+            </a>         
             <div ng-if='showLogin' class="sidebar-deco"></div>
         </div>
         <div id="content" class="snap-content">
@@ -181,11 +198,11 @@
                         data-action="like" 
                         data-show-faces="true">
                     </div> -->
-                   <div class="footer-icons">
+                   <div class="footer-icons text-center">
                        <!-- <div ng-click="likeFb()"><i class="fa fa-facebook"></i></div> -->
-                        <p ng-click="likeFb()" class="scale-hover facebook-color social-ball"><i class="fa fa-facebook"></i></p>
+                       <!--  <p ng-click="likeFb()" class="scale-hover facebook-color social-ball"><i class="fa fa-facebook"></i></p>
                         <p ng-click="twitter()" class="scale-hover twitter-color social-ball"><i class="fa fa-twitter"></i></p>
-                        <p  ng-click="folowGooglePlus()" class="scale-hover google-color social-ball"><i class="fa fa-google-plus"></i></p>
+                        <p  ng-click="folowGooglePlus()" class="scale-hover google-color social-ball"><i class="fa fa-google-plus"></i></p> -->
                         <p class="scale-hover back-to-top bg-green-dark social-ball"><i class="fa fa-angle-up"></i></p>
                         <p class="scale-hover show-share-bottom bg-magenta-dark social-ball"><i class="fa fa-retweet"></i></p>
                     </div>
@@ -303,6 +320,7 @@
 <script type="text/javascript" src="scripts/ui-bootstrap-tpls-1.1.1.min.js"></script>
 <script type="text/javascript" src="scripts/angulike.js"></script>
 <script type="text/javascript" src="scripts/angular-facebook.js"></script>
+<script type="text/javascript" src="scripts/selection-model.js"></script>
 <!-- Services -->
 <script type="text/javascript" src="services/MainService.js"></script>
 <!-- Controllers -->
@@ -316,6 +334,7 @@
 <script type="text/javascript" src="features/RewardPoints/RewardPoints.js"></script>
 <script type="text/javascript" src="features/ManageAppointments/ManageAppointments.js"></script>
 <script type="text/javascript" src="features/locations/locations.js"></script>
+<script type="text/javascript" src="features/referFriend/referFriend.js"></script>
 <script type="text/javascript" src="features/giftDetails/giftDetails.js"></script>
 <script type="text/javascript" src="app.js"></script>
 </body>

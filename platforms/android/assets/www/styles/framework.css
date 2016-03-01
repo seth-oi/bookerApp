@@ -1,3 +1,4 @@
+
 /* Framework.CSS*/
 /*
 
@@ -1999,7 +2000,6 @@ calendar*{
 }
 .preloader-logo{
     background-image:url(../images/icon1.jpg);
-    border-radius: 50%;
     background-size:75px 75px;
     height:75px;
     width:75px;
@@ -4755,7 +4755,6 @@ ul.tabs li.active-tab{
     width:130px;
     height:130px;
     background-image:url(../images/icon1.jpg);
-    border-radius: 50%; 
     background-size:130px 130px;
     margin-left:auto;
     margin-right:auto;
