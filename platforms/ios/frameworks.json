@@ -4,5 +4,13 @@
     "CoreTelephony.framework": 1,
     "CoreBluetooth.framework": 1,
     "AVFoundation.framework": 1,
-    "Photos.framework": 1
+    "Photos.framework": 1,
+    "MessageUI.framework": 2,
+    "Security.framework": 2,
+    "Storekit.framework": 2,
+    "libstdc++.dylib": 2,
+    "libz.dylib": 2,
+    "AddressBook.framework": 1,
+    "AddressBookUI.framework": 1,
+    "AudioToolbox.framework": 1
 }

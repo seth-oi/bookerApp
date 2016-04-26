@@ -1,0 +1,20 @@
+<div class='content'>
+	<div class="container heading-style-5">
+	    <h4 style="font-size: 24px;" class="heading-title"><strong>Select Employee</strong></h4>
+	    <i class="fa fa-check-square-o heading-icon"></i>
+	    <div class="line bg-black"></div>
+	</div>
+	<div class="listitems">
+		<div ng-if='employees.length != 0'>
+			<ul>
+				<li ng-repeat='result in employees' ng-click='CheckAvailability(result.ID)'>
+					<p> {{result.FirstName}} {{result.LastName}}</p>
+					<p>{{result.Gender.Name}}</p>
+				</li>
+			</ul>
+		</div>
+		<div ng-if='employees.length == 0' class='alert alert-danger'>
+			No Employees Available
+		</div>
+	</div>
+</div>

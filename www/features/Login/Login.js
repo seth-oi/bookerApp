@@ -10,7 +10,7 @@ angular
 	$scope.$emit('wait:start');
 	// Set the default value of inputType
 	  $scope.inputType = 'password';
-	  
+
 	  // Hide & show password function
 	  $scope.hideShowPassword = function(){
 	    if ($scope.inputType == 'password')
@@ -34,11 +34,11 @@ angular
 
 
     	$scope.access_token = access_token;
-    	
+
     	var input = {
     		access_token: access_token
     	};
-    	
+
     	BookerService
 		.getLocations(input)
 		.then(function(locations){
@@ -57,7 +57,7 @@ angular
 					$scope.username = user.Email;
 					$scope.password= user.Password;
 					$scope.locationID = user.LocationID;
-					$scope.login();			
+					$scope.login();
 				}
 			}
 		})
@@ -116,7 +116,7 @@ angular
 				data.data.Customer.access_token = data.data.access_token;
 				var customerData = data.data.Customer;
 				sessionStorage.setItem('User', JSON.stringify(customerData));
-				sessionStorage.setItem('locationID', 21324);
+				sessionStorage.setItem('locationID', $scope.locationID);
 				if(sessionStorage.IncompleteAppointmentID)
     			{
     				$location.path('/payment/false');

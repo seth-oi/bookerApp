@@ -4,6 +4,7 @@
 	    <i class='heading-icon'><img style="width: 82px;height: 82px;margin-top: -22px;margin-left: -10px;" src="images/4.png"></i>
 	    <div class="line bg-black"></div>
 	</div>
+	<label>Select your Service type</label>
 	<select class='form-control' ng-model='selectedCategory'>
 		<option  ng-repeat='category in categories'>{{category}}</option>
 	</select>
@@ -35,8 +36,7 @@
 				</div>
 			</li>
 		</ul>
-		<div ng-if='services.Treatments.length == 0' class='alert alert-danger'> 
+		<div ng-if='services.Treatments.length == 0' class='alert alert-danger'>
 			No Treatments Found.
 		</div>
 	</div>
-	<button ng-click='showServices()' class="login-button button button-small button-green button-fullscreen full-bottom">Proceed({{filterSelected.length}})</button>

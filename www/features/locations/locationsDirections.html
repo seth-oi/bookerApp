@@ -1,0 +1,20 @@
+<!-- <div id="map"></div>
+<div id="class" ng-repeat="marker in markers | orderBy : 'title'">
+<a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+</div> -->
+<div class="container heading-style-5">
+  <h4 style="font-size: 24px;" class="heading-title"><strong>Our Locations</strong></h4>
+  <i class="fa fa-map-marker" aria-hidden="true"></i>
+  <div class="line bg-black"></div>
+</div>
+  <ng-map  zoom="14"  center="-33, 151"
+      pan-control="true"
+      zoom-control="true"
+      scale-control="false">
+          <directions
+            draggable="false"
+            travel-mode="{{mdoe}}"
+            origin="current"
+            destination="{{dest}}">
+          </directions>
+  </ng-map>

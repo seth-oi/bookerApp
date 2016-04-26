@@ -4,7 +4,7 @@
     max-width: 100%;
     margin-bottom: 5px;
     font-weight: 700;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 input[type='radio'] {
 	position: relative;
@@ -18,11 +18,20 @@ input[type='radio'] {
     <i class="fa fa-check-square-o heading-icon"></i>
     <div class="line bg-black"></div>
 </div>
-<div class="listitems">
-		<div ng-click="proceed(location)" class='col-md-3 col-xs-6 text-center giftcertificate' ng-repeat='location in locations'>
-			<label>{{location.Name}}</label>
-			<img src={{location.CoverImageUrl}}>
-			<input type="radio" ng-hide="true" name="optradio" ng-model='templateID' value={{location.ID}}>
+	<!-- <h4 style="font-size: 18px;" class="heading-title"><strong>Select Location</strong></h4>
+	<div class='locations botMar'>
+		<select class='form-control' ng-model='locationID' ng-options="location.ID as location.Address.City for location in locations"></select>
+	</div> -->
+<div class="listitems" ng-if='gifts.length > 0'>
+		<div ng-click="proceed(gift)" class='col-md-3 col-xs-6 text-center giftcertificate' ng-repeat='gift in gifts'>
+			<label>{{gift.Name}}</label>
+			<img src={{gift.CoverImageUrl}}>
+			<input type="radio" ng-hide="true" name="optradio" ng-model='templateID' value={{gift.ID}}>
 		</div>
+</div>
+<div ng-if='gifts.length == 0'>
+			<div class='alert alert-info'>
+					No Gift's Available
+			</div>
 </div>
 </div>

@@ -5,34 +5,34 @@
     Template Name:      Enabled Mobile & Tablet Templates
     Theme URL:          http://enableds.com
     Author:             Enabled
-    Author URI:         http://themeforest.net/user/Enabled?ref=Enabled 
+    Author URI:         http://themeforest.net/user/Enabled?ref=Enabled
     Author Facebook:    https://www.facebook.com/enabled.labs
     Author Twitter:     https://twitter.com/iEnabled
     Version:            4.0
     License:            Regular or Extended via ThemeForest
     Plugin Licenses:    GPL / MIT - Redistribution Allowed
-    Structure:          Each chapter from the structure can be located using 
+    Structure:          Each chapter from the structure can be located using
                         CTRL + F ( Windows ) or CMD + F ( Mac ) The titles are
-                        copy pasted as they are in the code. 
-    
+                        copy pasted as they are in the code.
+
     Description:        The framework is built into one single CSS file to allow the template
                         universal, fast access to all the items. As -webkit- browsers cache the
                         CSS on load, this asures best loading times on all platforms and at the
-                        same time asures you will find everything you need in one single place. 
+                        same time asures you will find everything you need in one single place.
 
                         The style.css is built for individual features of templates. All the core
                         elements of the CSS are located in framework.css and chaptered as added
-                        below. 
+                        below.
 
                         Please Note! Not following the structure presented in the documentation
-                        or altering the framework.css without proper experience can lead to the 
+                        or altering the framework.css without proper experience can lead to the
                         item malfunctioning. We are not responsible for any edits you make outside
                         the as is item. All features of this CSS are explained in the second help
                         documentation file provided in the pack with the item purchased!
 
     Structure:
-                        
-    01. Reset 
+
+    01. Reset
     02. Typography
     03. Background and text colors and hovers
     04. Heading Settings
@@ -80,8 +80,8 @@
     26. Login Buttons
     27. This or That
         a. Style 1
-        b. Style 2 
-        c. Style 3 
+        b. Style 2
+        c. Style 3
     28. Modal Forms
     29. Simple Modal Form
     30. Social Modal Form
@@ -118,7 +118,7 @@
     57. PageApp Checklists
     58. PageApp Reminders
     59. Page Blog
-    60. Page Blog Sidebar   
+    60. Page Blog Sidebar
     61. Image Slider Settings
     62. Coverpage Slider
     63. Homepage Slider
@@ -135,7 +135,7 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 
 /*-------------*/
-/*----Reset----*/ 
+/*----Reset----*/
 /*-------------*/
 * {
 	margin: 0;
@@ -154,11 +154,11 @@
 	outline: none;
 }
 
-*,*:after,*:before {	
-    -webkit-box-sizing: border-box;	
-    -moz-box-sizing: border-box;	
-    box-sizing: border-box;	
-    padding: 0;	
+*,*:after,*:before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0;
     margin: 0;
 }
 
@@ -175,8 +175,8 @@ body {
 	overflow-x:hidden;
 }
 
-body::-webkit-scrollbar { 
-    display: none; 
+body::-webkit-scrollbar {
+    display: none;
 }
 
 a:hover{
@@ -208,7 +208,7 @@ textarea {
 
 /*------------------*/
 /*------------------*/
-/*----Typography----*/ 
+/*----Typography----*/
 /*------------------*/
 /*------------------*/
 
@@ -317,7 +317,7 @@ li {
 	margin-bottom:5px;
 }
 ol > li:last-child, ul > li:last-child {
-    margin-bottom:0px;	
+    margin-bottom:0px;
 }
 
 textarea{
@@ -397,19 +397,19 @@ textarea{
 .bg-black{background-color:#000000;}
 .color-black{color:#000000;}
 
-.bg-green-light i, 
+.bg-green-light i,
 .bg-green-dark i,
-.bg-teal-light i, 
-.bg-teal-dark i, 
-.bg-magenta-light i, 
-.bg-magenta-dark i, 
-.bg-yellow-light i, 
-.bg-yellow-dark i, 
-.bg-orange-light i, 
-.bg-orange-dark i, 
-.bg-red-dark i, 
-.bg-red-light i, 
-.bg-gray-light i, 
+.bg-teal-light i,
+.bg-teal-dark i,
+.bg-magenta-light i,
+.bg-magenta-dark i,
+.bg-yellow-light i,
+.bg-yellow-dark i,
+.bg-orange-light i,
+.bg-orange-dark i,
+.bg-red-dark i,
+.bg-red-light i,
+.bg-gray-light i,
 .bg-gray-dark i{
     color:#FFFFFF;
 }
@@ -516,18 +516,18 @@ body{
 }
 
 .font-icon-list li a{
-	color:#666666;	
+	color:#666666;
 }
 
 .icon-list li a{
-	color:#666666;	
+	color:#666666;
 }
 
 .font-icon-list i{
-	margin-right:10px;	
+	margin-right:10px;
     width:30px;
 }
-	
+
 
 .icon-list{
     list-style: none;
@@ -697,10 +697,10 @@ ol ol ol{
 }
 
 .heading-style-1 *{
-    -webkit-user-select: none;  
-    -moz-user-select: none;     
-    -ms-user-select: none;      
-    user-select: none;             
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .heading-style-1 a{
@@ -772,10 +772,10 @@ ol ol ol{
 }
 
 .heading-style-2{
-    -webkit-user-select: none;  
-    -moz-user-select: none;     
-    -ms-user-select: none;      
-    user-select: none;         
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /*Heading Style 3*/
@@ -788,7 +788,7 @@ ol ol ol{
         padding-top:25px;
         padding-bottom:20px;
         background-size:cover;
-    }    
+    }
 }
 
 @media(min-width:768px){
@@ -836,10 +836,10 @@ ol ol ol{
 }
 
 .heading-style-3{
-    -webkit-user-select: none;  
-    -moz-user-select: none;     
-    -ms-user-select: none;      
-    user-select: none;         
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /*Heading Style 4*/
@@ -867,10 +867,10 @@ ol ol ol{
 }
 
 .heading-style-4{
-    -webkit-user-select: none;  
-    -moz-user-select: none;     
-    -ms-user-select: none;      
-    user-select: none;         
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .new-header{
@@ -940,10 +940,10 @@ ol ol ol{
 }
 
 .heading-style-5{
-    -webkit-user-select: none;  
-    -moz-user-select: none;     
-    -ms-user-select: none;      
-    user-select: none;         
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 /*Heading Style 6*/
@@ -1126,7 +1126,7 @@ label{
 
 /*-----------------------------------------------*/
 /*-----------------------------------------------*/
-/*----Content Classes and Responsive Settings----*/ 
+/*----Content Classes and Responsive Settings----*/
 /*-----------------------------------------------*/
 /*-----------------------------------------------*/
 
@@ -1153,7 +1153,7 @@ label{
 	display: block!important;
 	content: ""!important;
 	clear: both!important;
-	height: 0!important;    
+	height: 0!important;
 }
 
 .container{
@@ -1200,19 +1200,19 @@ label{
 .space-left{padding-left:10px;}
 .space-right{padding-right:10px;}
 
-@media(min-width:750px){    
+@media(min-width:750px){
     .hide-if-mobile{
-        display:block!important;   
+        display:block!important;
     }
-    
+
     .hide-if-responsive{
-        display:none!important;   
+        display:none!important;
     }
-    
+
     .center-text-tablet{text-align:center;}
     .left-text-tablet{text-align:left;}
     .right-text-tablet{text-align:right;}
-    
+
     .center-text-mobile{text-align:left;}
     .left-text-tablet{text-align:left;}
     .right-text-tablet{text-align:left;}
@@ -1233,15 +1233,15 @@ label{
         float:left;
         margin-right:10%;
     }
-    
+
     .one-third{
         width:28%;
         float:left;
         margin-right:8%;
-    }    
-    
+    }
+
     .one-half-responsive{width:100%;}
-    .one-third-responsive{width:100%;} 
+    .one-third-responsive{width:100%;}
 }
 
 @media(min-width:767px){
@@ -1250,39 +1250,39 @@ label{
         float:left;
         margin-right:10%;
     }
-    
+
     .one-third, .one-third-responsive{
         width:28%;
         float:left;
         margin-right:8%;
-    }    
-    
+    }
+
     .one-forth-responsive{
         float:left;
         width:20%;
         margin-right:5%;
     }
-    
+
 	.sidebar-left-big{
 		width:70%;
 		float:left;
-		margin-right:5%	
+		margin-right:5%
 	}
-	
+
 	.sidebar-right-small{
 		width:25%;
-		float:right;	
+		float:right;
 	}
-		
+
 	.sidebar-right-big{
 		width:70%;
-		float:right;	
+		float:right;
 	}
-	
+
 	.sidebar-left-small{
 		width:25%;
 		float:left;
-		margin-right:5%;	
+		margin-right:5%;
 	}
 }
 
@@ -1316,7 +1316,7 @@ label{
 
 /*-------------------------------*/
 /*-------------------------------*/
-/*----Blockquotes and Reviews----*/ 
+/*----Blockquotes and Reviews----*/
 /*-------------------------------*/
 /*-------------------------------*/
 
@@ -1398,7 +1398,7 @@ label{
 
 .quote-2 .quote-text{
     font-weight:400;
-    color:rgba(0,0,0,0.7);   
+    color:rgba(0,0,0,0.7);
     padding-top:10px;
     font-size:15px;
     font-style:italic;
@@ -1590,7 +1590,7 @@ label{
 .review-3 .review-line i{
     color:#f39c12;
     float:right;
-    padding-top:10px;  
+    padding-top:10px;
     width:22px;
     text-align:center;
 }
@@ -1610,7 +1610,7 @@ label{
 .review-3 .review-line-last i{
     color:#d35400;
     float:right;
-    padding-top:10px;  
+    padding-top:10px;
     width:22px;
     text-align:center;
 }
@@ -1805,7 +1805,7 @@ label{
 
 /*-----------------------*/
 /*-----------------------*/
-/*----Calendar Design----*/ 
+/*----Calendar Design----*/
 /*-----------------------*/
 /*-----------------------*/
 
@@ -1905,11 +1905,11 @@ calendar*{
 }
 
 .calendar-hour-clear:hover{
-    background-color: rgba(39, 174, 96, 0.1);  
+    background-color: rgba(39, 174, 96, 0.1);
 }
 
 .calendar-hour-taken:hover{
-    background-color: rgba(192, 57, 43,0.1);   
+    background-color: rgba(192, 57, 43,0.1);
 }
 
 .calendar-hour strong{
@@ -1965,7 +1965,7 @@ calendar*{
 
 /*----------------------*/
 /*----------------------*/
-/*----Page Preloader----*/ 
+/*----Page Preloader----*/
 /*----------------------*/
 /*----------------------*/
 
@@ -1976,8 +1976,8 @@ calendar*{
 	left:0;
 	right:0;
 	bottom:0;
-	background-color:#FFF; 
-	z-index:99999999; 
+	background-color:#FFF;
+	z-index:99999999;
 }
 
 #status {
@@ -1986,17 +1986,17 @@ calendar*{
 	width:250px;
 	height:280px;
 	position:absolute;
-	left:50%; 
-	top:50%; 
+	left:50%;
+	top:50%;
     padding-bottom:40px;
-	background-image:url(../images/framework/page-loader.gif); 
+	background-image:url(../images/framework/page-loader.gif);
 	background-size:64px 64px;
 	background-repeat:no-repeat;
 	background-position:center bottom;
-	margin:-125px 0 0 -125px; 
+	margin:-125px 0 0 -125px;
 }
 .back-image{
-    
+
 }
 .preloader-logo{
     background-image:url(../images/icon1.jpg);
@@ -2022,7 +2022,7 @@ calendar*{
 
 /*------------*/
 /*------------*/
-/*----Tabs----*/ 
+/*----Tabs----*/
 /*------------*/
 /*------------*/
 
@@ -2070,7 +2070,7 @@ ul.tabs li.active-tab{
 
 /*-----------------*/
 /*-----------------*/
-/*----Accordion----*/ 
+/*----Accordion----*/
 /*-----------------*/
 /*-----------------*/
 
@@ -2095,7 +2095,7 @@ ul.tabs li.active-tab{
     -webkit-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
-    transform: rotate(0deg);  
+    transform: rotate(0deg);
     -webkit-transition: all 250ms ease-in-out;
     -moz-transition: all 250ms ease-in-out;
     -ms-transition: all 250ms ease-in-out;
@@ -2116,7 +2116,7 @@ ul.tabs li.active-tab{
 }
 
 .accordion-content p{
-    margin-bottom:-10px; 
+    margin-bottom:-10px;
     padding-top:15px;
     padding-bottom:15px;
     padding-left:0px;
@@ -2133,7 +2133,7 @@ ul.tabs li.active-tab{
     -webkit-transform: rotate(180deg)!important;
     -o-transform: rotate(180deg)!important;
     -ms-transform: rotate(180deg)!important;
-    transform: rotate(180deg)!important;  
+    transform: rotate(180deg)!important;
     -webkit-transition: all 250ms ease-in-out;
     -moz-transition: all 250ms ease-in-out;
     -ms-transition: all 250ms ease-in-out;
@@ -2146,7 +2146,7 @@ ul.tabs li.active-tab{
     -webkit-transform: rotate(90deg)!important;
     -o-transform: rotate(90deg)!important;
     -ms-transform: rotate(90deg)!important;
-    transform: rotate(90deg)!important;  
+    transform: rotate(90deg)!important;
     -webkit-transition: all 250ms ease-in-out;
     -moz-transition: all 250ms ease-in-out;
     -ms-transition: all 250ms ease-in-out;
@@ -2156,12 +2156,12 @@ ul.tabs li.active-tab{
 
 /*---------------*/
 /*---------------*/
-/*----Toggles----*/ 
+/*----Toggles----*/
 /*---------------*/
 /*---------------*/
 
 .toggle{
-    border-bottom:solid 1px rgba(0,0,0,0.1);   
+    border-bottom:solid 1px rgba(0,0,0,0.1);
 }
 
 .toggle a:first-child{
@@ -2203,7 +2203,7 @@ ul.tabs li.active-tab{
     -webkit-transform: rotate(0deg);
     -o-transform: rotate(0deg);
     -ms-transform: rotate(0deg);
-    transform: rotate(0deg);  
+    transform: rotate(0deg);
     -webkit-transition: all 250ms ease-in-out;
     -moz-transition: all 250ms ease-in-out;
     -ms-transition: all 250ms ease-in-out;
@@ -2217,17 +2217,17 @@ ul.tabs li.active-tab{
     -webkit-transform: rotate(45deg)!important;
     -o-transform: rotate(45deg)!important;
     -ms-transform: rotate(45deg)!important;
-    transform: rotate(45deg)!important;  
+    transform: rotate(45deg)!important;
     -webkit-transition: all 250ms ease-in-out;
     -moz-transition: all 250ms ease-in-out;
     -ms-transition: all 250ms ease-in-out;
     -o-transition: all 250ms ease-in-out;
-    transition: all 250ms ease-in-out;    
+    transition: all 250ms ease-in-out;
 }
 
 /*-----------------------------*/
 /*-----------------------------*/
-/*----Mobile Style Switches----*/ 
+/*----Mobile Style Switches----*/
 /*-----------------------------*/
 /*-----------------------------*/
 
@@ -2241,11 +2241,11 @@ ul.tabs li.active-tab{
 }
 
 .switch-box .switch{
-    float:right!important;   
+    float:right!important;
 }
 
 .switch-box .switch-icon{
-    float:right!important;   
+    float:right!important;
 }
 
 .switch-box-content{
@@ -2287,7 +2287,7 @@ ul.tabs li.active-tab{
     height:30px;
     line-height:30px;
     margin-left:33px;
-    font-style:normal;  
+    font-style:normal;
     font-size:10px;
 }
 
@@ -2360,7 +2360,7 @@ ul.tabs li.active-tab{
 
 .switch-2-on span{
     transform:translateX(43px);
-    -webkit-transform:translateX(43px); 
+    -webkit-transform:translateX(43px);
     /*background-color:#0e88b1;*/
     background-color:#27ae60;
     transition:all 200ms ease;
@@ -2403,7 +2403,7 @@ ul.tabs li.active-tab{
 .switch-3-on span{
      transform:translateX(-3px);
     -webkit-transform:translateX(-3px);
-    transition:all 200ms ease;   
+    transition:all 200ms ease;
 }
 
 .switch-3 strong{
@@ -2417,7 +2417,7 @@ ul.tabs li.active-tab{
     position:absolute;
     color:#FFFFFF;
     margin-left:0px;
-    font-style:normal;   
+    font-style:normal;
     font-size:10px;
     margin-top:-4px;
     width:35px;
@@ -2428,14 +2428,14 @@ ul.tabs li.active-tab{
     position:absolute;
     color:#FFFFFF;
     margin-left:19px!important;
-    font-style:normal;   
+    font-style:normal;
     font-size:10px;
     margin-top:-4px;
 }
 
 /*---------------------*/
 /*---------------------*/
-/*----Notifications----*/ 
+/*----Notifications----*/
 /*---------------------*/
 /*---------------------*/
 
@@ -2511,7 +2511,7 @@ ul.tabs li.active-tab{
 
 @media(min-width:568px){
     .top-notification{
-        width:320px;   
+        width:320px;
         right:40px;
         left:auto;
         top:20px;
@@ -2564,7 +2564,7 @@ ul.tabs li.active-tab{
 
 @media(min-width:568px){
     .bottom-notification{
-        width:320px;   
+        width:320px;
         right:40px;
         left:auto;
         bottom:40px;
@@ -2605,7 +2605,7 @@ ul.tabs li.active-tab{
 
 /*----------------------*/
 /*----------------------*/
-/*----Speach Bubbles----*/ 
+/*----Speach Bubbles----*/
 /*----------------------*/
 /*----------------------*/
 
@@ -2632,7 +2632,7 @@ ul.tabs li.active-tab{
 	padding-top:5px;
 	padding-bottom:5px;
 	border-radius:10px;
-	background-color:#FFFFFF;	
+	background-color:#FFFFFF;
 	border:solid 1px #cacaca;
 }
 
@@ -2642,7 +2642,7 @@ ul.tabs li.active-tab{
 	font-size:10px;
 	font-style:normal;
 	padding-left:5px;
-	color:#000000;	
+	color:#000000;
 	text-shadow:0px 1px 0px #FFFFFF;
 }
 
@@ -2657,7 +2657,7 @@ ul.tabs li.active-tab{
 	padding-top:5px;
 	padding-bottom:5px;
 	border-radius:10px;
-	background-color:#FFFFFF;	
+	background-color:#FFFFFF;
 	border:solid 1px #cacaca;
 }
 
@@ -2667,7 +2667,7 @@ ul.tabs li.active-tab{
 	font-size:10px;
 	font-style:normal;
 	padding-right:5px;
-	color:#000000;	
+	color:#000000;
 	text-shadow:0px 1px 0px #FFFFFF;
 }
 
@@ -2696,7 +2696,7 @@ ul.tabs li.active-tab{
 
 /*--------------*/
 /*--------------*/
-/*----Charts----*/ 
+/*----Charts----*/
 /*--------------*/
 /*--------------*/
 
@@ -2801,7 +2801,7 @@ ul.tabs li.active-tab{
 
 /*---------------*/
 /*---------------*/
-/*----Buttons----*/ 
+/*----Buttons----*/
 /*---------------*/
 /*---------------*/
 
@@ -3038,8 +3038,8 @@ ul.tabs li.active-tab{
 /*---Login Buttons---*/
 /*-------------------*/
 
-.facebook-login, 
-.twitter-login, 
+.facebook-login,
+.twitter-login,
 .google-login{
     height:50px;
     line-height:50px;
@@ -3052,15 +3052,15 @@ ul.tabs li.active-tab{
     transition:all 250ms ease;
 }
 
-.facebook-login:hover, 
-.twitter-login:hover, 
+.facebook-login:hover,
+.twitter-login:hover,
 .google-login:hover{
     opacity:0.9;
     transition:all 250ms ease;
 }
 
-.facebook-login i, 
-.twitter-login i, 
+.facebook-login i,
+.twitter-login i,
 .google-login i{
     width:10px;
     margin-right:20px;
@@ -3072,7 +3072,7 @@ ul.tabs li.active-tab{
 
 /*--------------------*/
 /*--------------------*/
-/*----This or That----*/ 
+/*----This or That----*/
 /*--------------------*/
 /*--------------------*/
 
@@ -3215,7 +3215,7 @@ ul.tabs li.active-tab{
 
 /*-------------------*/
 /*-------------------*/
-/*----Modal Forms----*/ 
+/*----Modal Forms----*/
 /*-------------------*/
 /*-------------------*/
 
@@ -3237,7 +3237,7 @@ ul.tabs li.active-tab{
 
 @media (max-width:350px){
     #simplemodal-container{
-        width:300px!important;   
+        width:300px!important;
     }
 }
 
@@ -3526,14 +3526,14 @@ ul.tabs li.active-tab{
 
 /*--------------------*/
 /*--------------------*/
-/*----Share Bottom----*/ 
+/*----Share Bottom----*/
 /*--------------------*/
 /*--------------------*/
 
 
 @media (min-width:768px){
     .share-socials-bottom{
-        width:600px!important;   
+        width:600px!important;
     }
 }
 
@@ -3646,7 +3646,7 @@ ul.tabs li.active-tab{
 
 /*------------------------*/
 /*------------------------*/
-/*----Device Detection----*/ 
+/*----Device Detection----*/
 /*------------------------*/
 /*------------------------*/
 
@@ -3670,7 +3670,7 @@ ul.tabs li.active-tab{
 
 /*----------------------------*/
 /*----------------------------*/
-/*----Animated Back To Top----*/ 
+/*----Animated Back To Top----*/
 /*----------------------------*/
 /*----------------------------*/
 
@@ -3695,7 +3695,7 @@ ul.tabs li.active-tab{
     background: -o-linear-gradient(top,  #499bea 0%,#207ce5 100%); /* Opera 11.10+ */
     background: -ms-linear-gradient(top,  #499bea 0%,#207ce5 100%); /* IE10+ */
     background: linear-gradient(to bottom,  #499bea 0%,#207ce5 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#207ce5',GradientType=0 ); /* IE6-9 */    
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#207ce5',GradientType=0 ); /* IE6-9 */
     -webkit-box-shadow: 0 1px 5px 1px rgba(0,0,0,0.2);
             box-shadow: 0 1px 5px 1px rgba(0,0,0,0.2);
     -webkit-transition: all 250ms ease-in-out;
@@ -3737,7 +3737,7 @@ ul.tabs li.active-tab{
     margin-bottom:20px;
 }
 
-.user-list-item img{    
+.user-list-item img{
     float:left;
     width:50px;
     height:50px;
@@ -3779,7 +3779,7 @@ ul.tabs li.active-tab{
     float:left;
     width:50px;
     height:50px;
-    border-radius:50px; 
+    border-radius:50px;
 }
 
 .user-list-follow strong{
@@ -3819,7 +3819,7 @@ ul.tabs li.active-tab{
     float:left;
     width:50px;
     height:50px;
-    border-radius:50px; 
+    border-radius:50px;
 }
 
 .user-list-socials strong{
@@ -3930,7 +3930,7 @@ ul.tabs li.active-tab{
     -webkit-transform: rotate(45deg);
     -o-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
-    transform: rotate(45deg);  
+    transform: rotate(45deg);
     color:#c0392b;
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;
@@ -4010,7 +4010,7 @@ ul.tabs li.active-tab{
 
 /*------------------*/
 /*------------------*/
-/*----Portfolios----*/ 
+/*----Portfolios----*/
 /*------------------*/
 /*------------------*/
 
@@ -4019,7 +4019,7 @@ ul.tabs li.active-tab{
 /*------------------------*/
 
 .portfolio-switch{
-    transition:all 250ms ease;   
+    transition:all 250ms ease;
 }
 
 .active-adaptive{
@@ -4278,7 +4278,7 @@ ul.tabs li.active-tab{
 .portfolio-wide .wide-title{
     display:block;
     position:relative;
-    overflow:hidden;      
+    overflow:hidden;
 }
 
 .portfolio-wide .wide-title img{
@@ -4326,8 +4326,8 @@ ul.tabs li.active-tab{
 /*----------------------*/
 
 .portfolio-filter-wrapper {
-    width:100%; 
-    margin:20px 0px; 
+    width:100%;
+    margin:20px 0px;
     margin-bottom:0px;
 }
 
@@ -4337,7 +4337,7 @@ ul.tabs li.active-tab{
 	content: "";
 	clear: both;
 	height: 0;
-    margin-bottom:10px;    
+    margin-bottom:10px;
 }
 
 .portfolio-filter-categories{
@@ -4355,12 +4355,12 @@ ul.tabs li.active-tab{
     transition:all 200ms ease;
 }
 
-.filter-category{ 
+.filter-category{
     display:table-cell;
-    padding:2px 10px; 
+    padding:2px 10px;
     text-align:center;
-    font-size: 12px; 
-    color: #333; 
+    font-size: 12px;
+    color: #333;
     transition:all 200ms ease;
 }
 
@@ -4374,7 +4374,7 @@ ul.tabs li.active-tab{
         margin-right:2%;
         margin-left:2%;
         float:left;
-    }    
+    }
 }
 
 @media(min-width:1020px){
@@ -4401,7 +4401,7 @@ ul.tabs li.active-tab{
         margin-left:2%;
         margin-bottom:4%;
         float:left;
-    }    
+    }
 }
 
 @media(min-width:1020px){
@@ -4417,7 +4417,7 @@ ul.tabs li.active-tab{
 
 /*-----------------*/
 /*-----------------*/
-/*----Galleries----*/ 
+/*----Galleries----*/
 /*-----------------*/
 /*-----------------*/
 
@@ -4449,7 +4449,7 @@ ul.tabs li.active-tab{
 }
 
 .gallery a:nth-child(3n+1){
-   padding-right:10px; 
+   padding-right:10px;
 }
 
 .gallery a:nth-child(3n+2){
@@ -4457,7 +4457,7 @@ ul.tabs li.active-tab{
     padding-left:5px;
 }
 .gallery a:nth-child(3n+3){
-   padding-left:10px; 
+   padding-left:10px;
 }
 
 .gallery a img{
@@ -4496,7 +4496,7 @@ ul.tabs li.active-tab{
 
 /*--------------------------*/
 /*--------------------------*/
-/*----Pages and PageApps----*/ 
+/*----Pages and PageApps----*/
 /*--------------------------*/
 /*--------------------------*/
 
@@ -4543,7 +4543,7 @@ ul.tabs li.active-tab{
 }
 
 .contactNameField{
-	padding-bottom:5px;	
+	padding-bottom:5px;
 	font-size:12px;
 }
 
@@ -4573,7 +4573,7 @@ ul.tabs li.active-tab{
 }
 
 .formFieldWrap{
-	margin-top:-5px;	
+	margin-top:-5px;
 }
 
 #contactNameField{
@@ -4581,7 +4581,7 @@ ul.tabs li.active-tab{
 }
 
 .contactField{
-	min-width:100%;	
+	min-width:100%;
 	display:block;
 	box-sizing:border-box;
 }
@@ -4644,7 +4644,7 @@ ul.tabs li.active-tab{
 
 @media (min-width:768px){
 	.contact-information{
-		padding-left:20px;	
+		padding-left:20px;
 	}
 }
 
@@ -4663,7 +4663,7 @@ ul.tabs li.active-tab{
 .contact-call i{
 	width:12px;
 	diplay:block;
-	margin-right:20px;	
+	margin-right:20px;
     color:#1f1f1f;
 }
 
@@ -4691,7 +4691,7 @@ ul.tabs li.active-tab{
 .contact-mail i{
 	width:12px;
 	diplay:block;
-	margin-right:20px;	
+	margin-right:20px;
     color:#1f1f1f;
 }
 
@@ -4705,7 +4705,7 @@ ul.tabs li.active-tab{
 .contact-facebook i{
 	width:12px;
 	diplay:block;
-	margin-right:20px;	
+	margin-right:20px;
     color:#1f1f1f;
 }
 
@@ -4718,7 +4718,7 @@ ul.tabs li.active-tab{
 .contact-twitter i{
 	width:12px;
 	diplay:block;
-	margin-right:20px;	
+	margin-right:20px;
     color:#1f1f1f;
 }
 
@@ -4761,9 +4761,9 @@ ul.tabs li.active-tab{
     margin-bottom:40px;
 }
 
-.page-login .login-password input, 
-.page-login .login-mail input, 
-.page-login .login-date input, 
+.page-login .login-password input,
+.page-login .login-mail input,
+.page-login .login-date input,
 .page-login .login-input input{
     -webkit-appearance: none;
     padding-top:0px;
@@ -4774,14 +4774,14 @@ ul.tabs li.active-tab{
     color:rgba(0,0,0,0.5);
     border-bottom:solid 2px rgba(0,0,0,0.1);
     margin-bottom:20px;
-    font-size:12px;   
+    font-size:12px;
     padding-left:40px;
     transition:all 250ms ease;
 }
 
-.page-login .login-password i, 
-.page-login .login-mail i, 
-.page-login .login-date i, 
+.page-login .login-password i,
+.page-login .login-mail i,
+.page-login .login-date i,
 .page-login .login-input i{
     -webkit-appearance: none;
     position:absolute;
@@ -4792,9 +4792,9 @@ ul.tabs li.active-tab{
     margin-left:11px;
 }
 
-.page-login .login-password input:focus, 
-.page-login .login-mail input:focus, 
-.page-login .login-date input:focus, 
+.page-login .login-password input:focus,
+.page-login .login-mail input:focus,
+.page-login .login-date input:focus,
 .page-login .login-input input:focus{
     color:#1f1f1f;
     border-bottom:solid 2px #27ae60;
@@ -4824,11 +4824,9 @@ ul.tabs li.active-tab{
 }
 
 .page-login .login-create{
-    width:60%;
     float:right;
     text-align:right;
-    font-size:19px;
-    color:#cacaca;
+    font-size:15px;
     margin-bottom:30px;
     transition:all 250ms ease;
 }
@@ -5160,7 +5158,7 @@ ul.tabs li.active-tab{
     font-size:12px;
     font-weight:400;
     font-size:12px;
-    color:rgba(255,255,255,0.5);   
+    color:rgba(255,255,255,0.5);
 }
 
 .error-page .unboxed-layout p{
@@ -5320,25 +5318,25 @@ ul.tabs li.active-tab{
 
 @media screen and ( max-height: 570px ){
     .pageapp-login-logo{
-        display:none;   
+        display:none;
     }
     .pageapp-login-content .unboxed-layout{
         margin-top:-40px;
-    }    
-    
+    }
+
     .pageapp-login-content .boxed-layout{
         padding-top:10px;
         padding-bottom:20px;
         margin-top:-30px;
     }
-    
+
     .pageapp-login-content .boxed-layout a{
         height:40px;
         line-height:40px;
         padding-top:0px;
         padding-bottom:0px;
     }
-    
+
     .pageapp-login-content .boxed-layout a i{
         line-height:40px;
         padding-top:0px;
@@ -5451,12 +5449,12 @@ ul.tabs li.active-tab{
 
 @media screen and ( max-height: 570px ){
     .pageapp-signup-logo{
-        display:none;   
+        display:none;
     }
     .pageapp-signup-content .unboxed-layout{
         margin-top:-30px;
-    }    
-    
+    }
+
     .pageapp-signup-content .boxed-layout{
         padding-top:10px;
         padding-bottom:20px;
@@ -5601,7 +5599,7 @@ ul.tabs li.active-tab{
 /*----------------*/
 
 .pageapp-timeline-2{
-	margin-top:30px;	
+	margin-top:30px;
 }
 
 .pageapp-timeline-2 .timeline-item{
@@ -5631,7 +5629,7 @@ ul.tabs li.active-tab{
 	padding-left:70px;
 	margin-top:-48px;
 	min-height:100px;
-	width:100%;	
+	width:100%;
 }
 
 .pageapp-timeline-2 .timeline-text .subtitle{
@@ -5644,7 +5642,7 @@ ul.tabs li.active-tab{
 }
 
 .pageapp-timeline-2 .timeline-text p{
-	margin-top:-10px;	
+	margin-top:-10px;
 }
 
 .pageapp-timeline-2 .timeline-icon i{
@@ -5655,7 +5653,7 @@ ul.tabs li.active-tab{
 	height:50px;
 	background-color:#FFFFFF;
 	color:#1f1f1f;
-	border:solid 1px rgba(0,0,0,0.2);	
+	border:solid 1px rgba(0,0,0,0.2);
 	border-radius:50px;
 	font-size:17px;
 	line-height:50px;
@@ -5664,7 +5662,7 @@ ul.tabs li.active-tab{
 
 .pageapp-timeline-2 .timeline-quote .title{
 	font-size:14px;
-	line-height:30px;	
+	line-height:30px;
 	font-weight:300;
 	margin-bottom:20px;
 	margin-top:-10px;
@@ -5672,15 +5670,15 @@ ul.tabs li.active-tab{
 
 .pageapp-timeline-2 .timeline-quote .subtitle{
 	display:block;
-	text-align:right;	
+	text-align:right;
 }
 
 @media (min-width:768px){
 	.pageapp-timeline-2{
 		padding-left:30px;
-		padding-right:30px;	
+		padding-right:30px;
 	}
-	
+
 	.pageapp-timeline-2 .timeline-decoration{
 		position:absolute;
 		width:1px;
@@ -5689,14 +5687,14 @@ ul.tabs li.active-tab{
 		background-color:rgba(0,0,0,0.1);
 		margin-left:32px;
 	}
-	
+
 	.pageapp-timeline-2 .timeline-icon{
 		width:150px;
 		height:100%;
 		float:left;
 		display:inline;
 	}
-	
+
 	.pageapp-timeline-2 .timeline-text{
 		display:inline-block;
 		padding-left:100px;
@@ -5711,16 +5709,16 @@ ul.tabs li.active-tab{
         height:65px;
         background-color:#FFFFFF;
         color:#1f1f1f;
-        border:solid 1px rgba(0,0,0,0.2);	
+        border:solid 1px rgba(0,0,0,0.2);
         border-radius:65px;
         font-size:17px;
         line-height:65px;
         text-align:center;
 	}
-	
+
 	.pageapp-timeline-2 .timeline-quote .title{
 		font-size:14px;
-		line-height:30px;	
+		line-height:30px;
 		font-weight:300;
 		margin-bottom:20px;
 		margin-top:-3px;
@@ -5839,7 +5837,7 @@ ul.tabs li.active-tab{
 
 .tasklist-completed i:first-child{
     color:#27ae60!important;
-    transition:all 200ms ease;   
+    transition:all 200ms ease;
 }
 
 .tasklist-completed h5{
@@ -5921,7 +5919,7 @@ ul.tabs li.active-tab{
         width:60%;
         float:left;
     }
-    
+
     .page-blog-sidebar{
         width:35%;
         float:left;
@@ -5992,7 +5990,7 @@ ul.tabs li.active-tab{
     line-height:40px;
     color:#FFFFFF;
     background-color:#2980b9;
-    border-radius:40px;  
+    border-radius:40px;
     transition:all 200ms ease;
 }
 
@@ -6141,7 +6139,7 @@ ul.tabs li.active-tab{
 /*Blog Comments*/
 
 .blog-post-comment-nested{
-    padding-left:50px;   
+    padding-left:50px;
 }
 
 .blog-post-comment em{
@@ -6177,7 +6175,7 @@ ul.tabs li.active-tab{
     border-bottom:solid 2px #27ae60;
     transition:all 200ms ease;
 }
-    
+
 .blog-post-comment-add input{
     display:block;
     width:100%;
@@ -6201,7 +6199,7 @@ ul.tabs li.active-tab{
 
 .blog-post-comment-add textarea:focus{
     border-bottom:solid 2px #27ae60;
-    transition:all 200ms ease;    
+    transition:all 200ms ease;
 }
 
 /*-----------------------------*/
@@ -6213,7 +6211,7 @@ ul.tabs li.active-tab{
 /*----------------------*/
 
 
-.coverpage-slider .owl-dots{   
+.coverpage-slider .owl-dots{
     margin-top:-50px;
     opacity:0.5;
 }
@@ -6398,9 +6396,9 @@ ul.tabs li.active-tab{
 @media (min-width:0px) and (max-width:340px){/*Small Devices*/
     .next-home-slider,
     .prev-home-slider,
-    .next-staff-slider, 
-    .prev-staff-slider, 
-    .next-quote-slider, 
+    .next-staff-slider,
+    .prev-staff-slider,
+    .next-quote-slider,
     .prev-quote-slider{
         top:41%;
     }
@@ -6409,9 +6407,9 @@ ul.tabs li.active-tab{
 @media (min-width:340px) and (max-width:360px){/*Medium Devices*/
     .next-home-slider,
     .prev-home-slider,
-    .next-staff-slider, 
-    .prev-staff-slider, 
-    .next-quote-slider, 
+    .next-staff-slider,
+    .prev-staff-slider,
+    .next-quote-slider,
     .prev-quote-slider{
         top:43%;
     }
@@ -6420,9 +6418,9 @@ ul.tabs li.active-tab{
 @media (min-width:360px) and (max-width:568px){/*Phablet Devices*/
     .next-home-slider,
     .prev-home-slider,
-    .next-staff-slider, 
-    .prev-staff-slider, 
-    .next-quote-slider, 
+    .next-staff-slider,
+    .prev-staff-slider,
+    .next-quote-slider,
     .prev-quote-slider{
         top:47%;
     }
@@ -6431,9 +6429,9 @@ ul.tabs li.active-tab{
 @media (min-width:568px) and (max-width:768px){/*Phablet & Small Tablet Devices*/
     .next-home-slider,
     .prev-home-slider,
-    .next-staff-slider, 
-    .prev-staff-slider, 
-    .next-quote-slider, 
+    .next-staff-slider,
+    .prev-staff-slider,
+    .next-quote-slider,
     .prev-quote-slider{
         top:41%;
     }
@@ -6442,12 +6440,12 @@ ul.tabs li.active-tab{
 @media(min-width:768px){ /*Tablet in Landscape Devices*/
     .next-home-slider,
     .prev-home-slider,
-    .next-staff-slider, 
-    .prev-staff-slider, 
-    .next-quote-slider, 
+    .next-staff-slider,
+    .prev-staff-slider,
+    .next-quote-slider,
     .prev-quote-slider{
         top:45%;
-    }  
+    }
     .quote-slider{
         padding-left:100px!important;
         padding-right:100px!important;
@@ -6459,9 +6457,9 @@ ul.tabs li.active-tab{
     margin-top:-20px;
     width:50px;
     height:50px;
-    right:10px; 
-    color:#FFFFFF; 
-    position:absolute; 
+    right:10px;
+    color:#FFFFFF;
+    position:absolute;
     z-index:9;
     transition:all 200ms ease;
 }
@@ -6492,9 +6490,9 @@ ul.tabs li.active-tab{
     margin-top:-20px;
     width:50px;
     height:50px;
-    left:10px; 
-    color:#FFFFFF; 
-    position:absolute; 
+    left:10px;
+    color:#FFFFFF;
+    position:absolute;
     z-index:9;
     transition:all 200ms ease;
 }
@@ -6585,7 +6583,7 @@ ul.tabs li.active-tab{
 
 .all-elements{
 	position:absolute;
-	overflow-x:hidden!important;	
+	overflow-x:hidden!important;
 	width:100%;
 	height:100%;
 	min-height:100%;
@@ -6697,7 +6695,7 @@ ul.tabs li.active-tab{
 }
 
 
-.snap-drawer::-webkit-scrollbar { width: 0 !important }   
+.snap-drawer::-webkit-scrollbar { width: 0 !important }
 
 
 .snap-drawer-left {
@@ -6731,11 +6729,11 @@ ul.tabs li.active-tab{
 }
 
 .drawer-inner {
-	-webkit-transition: opacity 0.25s ease; 
-	   -moz-transition: opacity 0.25s ease; 
-	    -ms-transition: opacity 0.25s ease; 
-	     -o-transition: opacity 0.25s ease; 
-	        transition: opacity 0.25s ease; 
+	-webkit-transition: opacity 0.25s ease;
+	   -moz-transition: opacity 0.25s ease;
+	    -ms-transition: opacity 0.25s ease;
+	     -o-transition: opacity 0.25s ease;
+	        transition: opacity 0.25s ease;
 }
 
 .snapjs-expand-left .drawer-inner,
@@ -6753,12 +6751,12 @@ ul.tabs li.active-tab{
     background-size:100px 100px;
 }
 
-.no-user-select{  
+.no-user-select{
   -webkit-user-select: none;  /* Chrome all / Safari all */
   -moz-user-select: none;     /* Firefox all */
   -ms-user-select: none;      /* IE 10+ */
   -o-user-select: none;
-  user-select: none;  
+  user-select: none;
 }
 
 /*------------------------------*/
@@ -6770,7 +6768,7 @@ ul.tabs li.active-tab{
 /*Fix Jumping Image*/
 
 .owl-item{
-    transform: translate3d(0, 0, 0)!important;   
+    transform: translate3d(0, 0, 0)!important;
 }
 
 .owl-carousel .animated {
@@ -7037,7 +7035,7 @@ ul.tabs li.active-tab{
 	left:0px;
 	bottom:0px;
 	right:0px;
-	z-index:99999!important	
+	z-index:99999!important
 }
 
 @media (min-width:768px) and (orientation:landscape){
@@ -7527,11 +7525,11 @@ ul.tabs li.active-tab{
 	}
 }
 
-/*Adjustments for Header*/ 
+/*Adjustments for Header*/
 
-.pageapp-signup-content .unboxed-layout, 
+.pageapp-signup-content .unboxed-layout,
 .pageapp-signup-content .boxed-layout,
-.pageapp-login-content .unboxed-layout, 
+.pageapp-login-content .unboxed-layout,
 .pageapp-login-content .boxed-layout
 {
    margin-top:-30px!important;
@@ -7545,23 +7543,3 @@ ul.tabs li.active-tab{
 {
     margin-top:-50px!important;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

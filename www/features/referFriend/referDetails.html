@@ -8,24 +8,74 @@
         <div ng-if='email'>
         	<div class="listitems">
                     <div class="text-center">
+                      <form ng-submit="sent()" action="http://app.marilynmonroespas.com/refer-a-friend" method="post">
                         <label>
                             <h4>Email To</h4>
                         </label>
-                        <input class="form-control" type='email'  ng-modal='emailRec'/>
-                        <br>
-                        <br>
-                        <button style="font-size: 20px;color: #FFFFFF;border-radius: 0px;" ng-click='sendEmail()' class="login-button button button-small btn btn-success button-fullscreen full-bottom">Send Referral Email</button>
+                        <input class="form-control" type='text'  ng-model='e.to' placeholder="To" />
+                        <label>
+                            <h4>Email From</h4>
+                        </label>
+                        <input class="form-control" type='text'  ng-model='e.from' placeholder="From" />
+                        <label>
+                            <h4>Message</h4>
+                        </label>
+                        <textarea class="form-control" ng-model='e.message' placeholder="Message........"></textarea>
+                        <label>
+                          <span style="font-size:26px">Or</span>
+                        </label><br/>
+                          <label>
+                              <h4 class='text-right btn btn-primary' ng-click='pickContact()'>Pick contact</h4>
+                          </label><br/>
+                          <label style="font-size:16px;" ng-if='contactName'>{{contactName}} ( {{ContactEmail}} )</label>
+                        <br/>
+                            <input type="hidden" name="client_id" value="1770eny1j9">
+                            <input type="hidden" name="secret" value="jgIpz90D1p9jA1UWvnfeud5mNnk7S1H7">
+                            <input type="hidden" name="type" value="email">
+                            <input type="hidden" name="to" value={{e.to}}>
+                            <input type="hidden" name="guest_name" value="Diego">
+                            <input type="hidden" name="host_name" value="Diego From">
+                            <input type="hidden" name="host_email" value="diego@deltacardcorp.com">
+                            <input type="submit" class='btn btn-success button-fullscreen full-bottom' style='font-size:20px;' value="Send Referral Email">
+                            <input type="hidden" name="host_name" value="Diego From">
+                            <input type="hidden" name="host_email" value="diego@deltacardcorp.com">
+                        </form>
+                        <!-- <button style="font-size: 20px;color: #FFFFFF;border-radius: 0px;" ng-click='sendMessage()' class="login-button button button-small btn btn-success button-fullscreen full-bottom">Send Referral Message</button> -->
+                        <!-- <button style="font-size: 20px;color: #FFFFFF;border-radius: 0px;" ng-click='cancel()' class="login-button button button-small btn btn-danger button-fullscreen full-bottom">Cancel</button> -->
+                        <!-- <button style="font-size: 20px;color: #FFFFFF;border-radius: 0px;" ng-click='sendEmail()' class="login-button button button-small btn btn-success button-fullscreen full-bottom">Send Referral Email</button> -->
                         <button style="font-size: 20px;color: #FFFFFF;border-radius: 0px;" ng-click='cancel()' class="login-button button button-small btn btn-danger button-fullscreen full-bottom">Cancel</button>
                      </div>
-                </div>
+          </div>
 	    </div>
         <div ng-if='!email'>
         		<div class="listitems">
                     <div class="text-center">
-                        <label>
-                            <h4>Sorry I M WORKING ON THIS</h4>
-                        </label>
-                        </div>
+                          <label>
+                              <span style="font-size:18px;">To</span>
+                              <input class="form-control" type='text' ng-model='e.to'  placeholder="Enter number Here....."/ required>
+                          </label><br/>
+                          <label>
+                            <span style="font-size:26px">Or</span>
+                          </label><br/>
+                          <label>
+                              <h4 class='text-right btn btn-primary' ng-click='pickContact()'>Pick contact</h4>
+                          </label><br/>
+                          <label style="font-size:16px;" ng-if='contactName'>{{contactName}} ( {{phoneNumber}} )</label>
+                          <form ng-submit="sent()" action="http://app.marilynmonroespas.com/refer-a-friend" method="post">
+                              <input type="hidden" name="client_id" value="1770eny1j9">
+                              <input type="hidden" name="secret" value="jgIpz90D1p9jA1UWvnfeud5mNnk7S1H7">
+                              <input type="hidden" name="type" value="sms">
+                              <input type="hidden" name="to" value="+554198457408">
+                              <input type="hidden" name="guest_name" value="Diego">
+                              <input type="hidden" name="host_name" value="Diego From">
+                              <input type="hidden" name="host_email" value="diego@deltacardcorp.com">
+                              <input type="submit" class='btn btn-success button-fullscreen full-bottom' style='font-size:20px;' value="Send Referral Message">
+                              <input type="hidden" name="host_name" value="Diego From">
+                              <input type="hidden" name="host_email" value="diego@deltacardcorp.com">
+                              <!-- <button style="font-size: 20px;color: #FFFFFF;border-radius: 0px;" ng-click='sendMessage()' class="login-button button button-small btn btn-success button-fullscreen full-bottom">Send Referral Message</button> -->
+                              <input type='reset' style="font-size: 20px;color: #FFFFFF;border-radius: 0px;" ng-click='cancel()' class="login-button button button-small btn btn-danger button-fullscreen full-bottom" value="Cancel"/>
+                         </form>
+                    </div>
                 </div>
         </div>
     </div>

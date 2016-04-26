@@ -1,7 +1,7 @@
 angular
 .module('register', ['booker.service.book', "ngCordova"])
 .controller('registerController', ['$scope', '$location', 'booker.service.book.BookerService', '$cordovaOauth', '$http', function($scope, $location, BookerService, $cordovaOauth, $http){
-    
+
     $scope.googleLogin = function(){
         $scope.$emit('wait:start');
         BookerService
@@ -66,75 +66,16 @@ angular
                 message: "Failed to sign in"
             });
             console.log(err);
-        })            
+        })
     }
 
-    $scope.facebookLogin = function()
-    {
-        $scope.$emit('wait:start');
-         BookerService
-        .getFacebookId()
-        .then(function(data){
-            $scope.$emit('wait:stop');
-            $cordovaOauth
-            .facebook(window.atob(data), ["email"])
-            .then(function(result) {
-                $scope.$emit('wait:start');
-                $http
-                .get("https://graph.facebook.com/v2.2/me?access_token=" + result.access_token + "&fields=id,name,email")
-                .then(function(result) {
-                    $scope.$emit('wait:stop');
-                    $scope.$emit('notification',{
-                        type: "success",
-                        message: "Facebook Profile Fetched Successfully"
-                    });
-                    var user_data = result.data;
-                    var index = user_data.name.indexOf(' ');
-                    var fname = user_data.name.slice(0, index);
-                    var lname = user_data.name.slice(index + 1, user_data.name.length);
-                    var user = {
-                        fname: fname,
-                        lname: lname,
-                        email: user_data.email,
-                        phone: user_data.phone ? user_data.phone : null,
-                    };
-                    $scope.fname = user.fname;
-                    $scope.lname = user.lname;
-                    $scope.email = user.email;
-                    $scope.phone = user.phone ? user.phone : null;
-                }, function(error) {
-                    $scope.$emit('wait:stop');
-                    $scope.$emit('notification',{
-                        type: "danger",
-                        message: "Facebook Profile Fetch Failed"
-                    });
-                    console.log(error.message);
-                });
-            }, function(error) {
-                $scope.$emit('wait:stop');
-                $scope.$emit('notification',{
-                        type: "danger",
-                        message: "Facebook Profile Fetch Failed"
-                });
-                console.log(error);
-            });
-        })
-        .catch(function(err){
-            $scope.$emit('wait:stop');
-            $scope.$emit('notification',{
-                type: "danger",
-                message: "Failed to sign in"
-            });
-            console.log(error);
-        })
-    }
     if(sessionStorage.User != undefined)
     {
         $location.path('/booking');
     }
     // Set the default value of inputType
       $scope.inputType = 'password';
-      
+
       // Hide & show password function
       $scope.hideShowPassword = function(){
         console.log($scope.passwordCheckbox);
@@ -153,15 +94,15 @@ angular
         else
           $scope.passwordCheckbox = true;
       }
-    
-    $scope.loginfB = function() {
-     FB.login(function(response){
-        console.log(response);
-        FB.api('/me', function(re){
-            console.log(re);
-        });
-    });
-};
+
+//     $scope.loginfB = function() {
+//      FB.login(function(response){
+//         console.log(response);
+//         FB.api('/me', function(re){
+//             console.log(re);
+//         });
+//     });
+// };
 
     $scope.getLoginStatus = function() {
       Facebook.getLoginStatus(function(response) {
@@ -178,7 +119,7 @@ angular
         $scope.user = response;
       });
     };
-	
+
     $scope.$emit('wait:start');
 	BookerService
     .getAccessTokenFromSS()
@@ -237,14 +178,14 @@ angular
     			$scope.$emit("notification", {
                     type: 'info',
                     message: 'Please Enter a Valid Email Address'
-                });	
+                });
     			return;
     		}
     		if(!$scope.password || $scope.password == '' || !passwordReg.test($scope.password))
     		{
                 $scope.$emit("notification", {
                     type: 'info',
-                    message: 'Please Enter a Valid Password. Password must be at least 8 characters, no more than 25 characters, and must include at least one numeric digit and no alpha numeric characters.'
+                    message: 'Please, enter a valid password. It must be at least 8 characters long and no more than 25, include at least one numeric digit and no non-alphanumeric characters'
                 });
     			return;
     		}
@@ -253,7 +194,7 @@ angular
     			$scope.$emit("notification", {
                     type: 'info',
                     message: 'Please Enter a Valid Phone Number'
-                }); 
+                });
     			return;
     		}
     		var input = {
@@ -290,15 +231,15 @@ angular
                         $scope.$emit("notification", {
                             type: 'danger',
                             message: message
-                        });    
+                        });
                     }
                     else{
                         $scope.$emit("notification", {
                             type: 'danger',
                             message: data.data.ErrorMessage
-                        });   
+                        });
                     }
-                    
+
                 }
                 else
                 {

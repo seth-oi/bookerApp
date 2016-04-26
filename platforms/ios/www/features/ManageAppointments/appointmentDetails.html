@@ -36,6 +36,6 @@
 	</table>
 </div>
 <div class="modal-footer">
-    <button ng-disabled='appointment.IsCancelled' class="btn btn-danger" type="button" ng-click="cancel()">Cancel Appointment</button>
+    <button ng-disabled='{{appointment.IsCancelled}}' class="btn btn-danger" type="button" ng-click="cancel()">Cancel Appointment</button>
     <button class="btn btn-primary" type="button" ng-click="close()">Close</button>
 </div>

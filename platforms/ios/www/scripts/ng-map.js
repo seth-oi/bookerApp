@@ -1,29 +1,29 @@
 (function(root, factory) {
-	if (typeof exports === "object") {
-		module.exports = factory(require('angular'));
-	} else if (typeof define === "function" && define.amd) {
-		define(['angular'], factory);
-	} else{
-		factory(root.angular);
-	}
+if (typeof exports === "object") {
+module.exports = factory(require('angular'));
+} else if (typeof define === "function" && define.amd) {
+define(['angular'], factory);
+} else{
+factory(root.angular);
+}
 }(this, function(angular) {
-	/**
- * AngularJS Google Maps Ver. 1.16.8
+/**
+ * AngularJS Google Maps Ver. 1.17.2
  *
  * The MIT License (MIT)
- * 
+ *
  * Copyright (c) 2014, 2015, 1016 Allen Kim
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
  * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in all
  * copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -137,6 +137,9 @@ angular.module('ngMap', []);
       for (var k2 in vm.map.customMarkers) {
         bounds.extend(vm.map.customMarkers[k2].getPosition());
       }
+	  if (vm.mapOptions.maximumZoom) {
+		  vm.enableMaximumZoomCheck = true; //enable zoom check after resizing for markers
+	  }
       vm.map.fitBounds(bounds);
     };
 
@@ -245,6 +248,18 @@ angular.module('ngMap', []);
           $parse($attrs.mapInitialized)($scope, {map: vm.map});
         }
       });
+
+	  //add maximum zoom listeners if zoom-to-include-markers and and maximum-zoom are valid attributes
+	  if (mapOptions.zoomToIncludeMarkers && mapOptions.maximumZoom) {
+	    google.maps.event.addListener(vm.map, 'zoom_changed', function() {
+          if (vm.enableMaximumZoomCheck == true) {
+			vm.enableMaximumZoomCheck = false;
+	        google.maps.event.addListenerOnce(vm.map, 'bounds_changed', function() {
+		      vm.map.setZoom(Math.min(mapOptions.maximumZoom, vm.map.getZoom()));
+		    });
+	  	  }
+	    });
+	  }
     };
 
     $scope.google = google; //used by $scope.eval to avoid eval()
@@ -266,7 +281,14 @@ angular.module('ngMap', []);
     vm.eventListeners = {};
 
     if (options.lazyInit) { // allows controlled initialization
-      vm.map = {id: $attrs.id}; //set empty, not real, map
+      // parse angular expression for dynamic ids
+      if (!!$attrs.id && $attrs.id.startsWith('{{') && $attrs.id.endsWith('}}')) {
+        var idExpression = $attrs.id.slice(2,-2);
+        var mapId = $parse(idExpression)($scope);
+      } else {
+        var mapId = $attrs.id;
+      }
+      vm.map = {id: mapId}; //set empty, not real, map
       NgMap.addMap(vm);
     } else {
       vm.initializeMap();
@@ -499,7 +521,7 @@ angular.module('ngMap', []);
           _this.el.style.top = y + "px";
           _this.el.style.visibility = "visible";
         };
-        if (_this.el.offsetWidth && _this.el.offsetHeight) { 
+        if (_this.el.offsetWidth && _this.el.offsetHeight) {
           setPosition();
         } else {
           //delayed left/top calculation when width/height are not set instantly
@@ -569,24 +591,27 @@ angular.module('ngMap', []);
       void 0;
       var customMarker = new CustomMarker(options);
 
-      
-	  scope.$watch('[' + varsToWatch.join(',') + ']', function() {
-	    customMarker.setContent(orgHtml, scope);
-	  });
+      $timeout(function() { //apply contents, class, and location after it is compiled
 
-	  customMarker.setContent(element[0].innerHTML, scope);
-	  var classNames = element[0].firstElementChild.className;
-	  customMarker.addClass('custom-marker');
-	  customMarker.addClass(classNames);
-	  void 0;
+        scope.$watch('[' + varsToWatch.join(',') + ']', function() {
+          customMarker.setContent(orgHtml, scope);
+        }, true);
 
-	  if (!(options.position instanceof google.maps.LatLng)) {
-	    NgMap.getGeoLocation(options.position).then(
-		  function(latlng) {
-		    customMarker.setPosition(latlng);
-		  }
-	    );
-	  }
+        customMarker.setContent(element[0].innerHTML, scope);
+        var classNames = element[0].firstElementChild.className;
+        customMarker.addClass('custom-marker');
+        customMarker.addClass(classNames);
+        void 0;
+
+        if (!(options.position instanceof google.maps.LatLng)) {
+          NgMap.getGeoLocation(options.position).then(
+                function(latlng) {
+                  customMarker.setPosition(latlng);
+                }
+          );
+        }
+
+      });
 
       void 0;
       for (var eventName in events) { /* jshint ignore:line */
@@ -696,7 +721,7 @@ angular.module('ngMap', []);
     request.travelMode = request.travelMode || 'DRIVING';
     var validKeys = [
       'origin', 'destination', 'travelMode', 'transitOptions', 'unitSystem',
-      'durationInTraffic', 'waypoints', 'optimizeWaypoints', 
+      'durationInTraffic', 'waypoints', 'optimizeWaypoints',
       'provideRouteAlternatives', 'avoidHighways', 'avoidTolls', 'region'
     ];
     for(var key in request){
@@ -1169,7 +1194,7 @@ angular.module('ngMap', []);
       mapController.addObject('infoWindows', infoWindow);
       mapController.observeAttrSetObj(orgAttrs, attrs, infoWindow);
 
-      mapController.showInfoWindow = 
+      mapController.showInfoWindow =
       mapController.map.showInfoWindow = mapController.showInfoWindow ||
         function(p1, p2, p3) { //event, id, marker
           var id = typeof p1 == 'string' ? p1 : p2;
@@ -1247,7 +1272,7 @@ angular.module('ngMap', []);
  *
  * @attr {Url} url url of the kml layer
  * @attr {KmlLayerOptions} KmlLayerOptions
- *   (https://developers.google.com/maps/documentation/javascript/reference#KmlLayerOptions) 
+ *   (https://developers.google.com/maps/documentation/javascript/reference#KmlLayerOptions)
  * @attr {String} &lt;KmlLayerEvent> Any KmlLayer events,
  *   https://developers.google.com/maps/documentation/javascript/reference
  * @example
@@ -1459,7 +1484,7 @@ angular.module('ngMap', []);
 /**
  * @ngdoc directive
  * @name map-type
- * @param Attr2MapOptions {service} 
+ * @param Attr2MapOptions {service}
  *   convert html attribute to Google map api options
  * @description
  *   Requires:  map directive
@@ -1563,7 +1588,7 @@ angular.module('ngMap', []);
     return {
       restrict: 'AE',
       controller: '__MapController',
-      conrollerAs: 'ngmap'
+      controllerAs: 'ngmap'
     };
   };
 
@@ -1951,7 +1976,7 @@ angular.module('ngMap', []);
       case "circle":
         if (!(options.center instanceof google.maps.LatLng)) {
           options.center = new google.maps.LatLng(0,0);
-        } 
+        }
         shape = new google.maps.Circle(options);
         break;
       case "polygon":
@@ -2544,7 +2569,7 @@ angular.module('ngMap', []);
     };
 
     /**
-     * converts attributes hash to scope-specific event function 
+     * converts attributes hash to scope-specific event function
      * @memberof Attr2MapOptions
      * @param {scope} scope angularjs scope
      * @param {Hash} attrs tag attributes
@@ -2737,7 +2762,7 @@ angular.module('ngMap', []);
    * @memberof NavigatorGeolocation
    * @param {Object} geoLocationOptions the navigator geolocations options.
    *  i.e. { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true }.
-   *  If none specified, { timeout: 5000 }. 
+   *  If none specified, { timeout: 5000 }.
    *  If timeout not specified, timeout: 5000 added
    * @param {function} success success callback function
    * @param {function} failure failure callback function
@@ -2814,10 +2839,27 @@ angular.module('ngMap', []);
     return map;
   };
 
-  var find = function(el) { //jshint ignore:line
+  var findById = function(el, id) {
     var notInUseMap;
     for (var i=0; i<mapInstances.length; i++) {
       var map = mapInstances[i];
+      if (map.id == id && !map.inUse) {
+        var mapDiv = map.getDiv();
+        el.appendChild(mapDiv);
+        notInUseMap = map;
+        break;
+      }
+    }
+    return notInUseMap;
+  };
+
+  var findUnused = function(el) { //jshint ignore:line
+    var notInUseMap;
+    for (var i=0; i<mapInstances.length; i++) {
+      var map = mapInstances[i];
+      if (map.id) {
+        continue;
+      }
       if (!map.inUse) {
         var mapDiv = map.getDiv();
         el.appendChild(mapDiv);
@@ -2835,7 +2877,7 @@ angular.module('ngMap', []);
    * @return map instance for the given element
    */
   var getMapInstance = function(el) {
-    var map = find(el);
+    var map = findById(el, el.id) || findUnused(el);
     if (!map) {
       map = add(el);
     } else {
@@ -2852,13 +2894,13 @@ angular.module('ngMap', []);
    * @memberof NgMapPool
    * @function returnMapInstance
    * @param {Map} an instance of google.maps.Map
-   * @desc sets the flag inUse of the given map instance to false, so that it 
+   * @desc sets the flag inUse of the given map instance to false, so that it
    * can be reused later
    */
   var returnMapInstance = function(map) {
     map.inUse = false;
   };
-  
+
   /**
    * @memberof NgMapPool
    * @function resetMapInstances
@@ -2930,15 +2972,15 @@ angular.module('ngMap', []);
   /**
    * @memberof NgMap
    * @function getMap
-   * @param {Hash} options optional, e.g., {id: 'foo, timeout: 5000}
+   * @param {String} optional, id e.g., 'foo'
    * @returns promise
    */
-  var getMap = function(options) {
-    options = options || {};
-    var deferred = $q.defer();
+  var getMap = function(id) {
+    id = typeof id === 'object' ? id.id : id;
+    id = id || 0;
 
-    var id = options.id || 0;
-    var timeout = options.timeout || 2000;
+    var deferred = $q.defer();
+    var timeout = 2000;
 
     function waitForMap(timeElapsed){
       if(mapControllers[id]){
@@ -3211,6 +3253,5 @@ angular.module('ngMap', []);
   angular.module('ngMap').service('StreetView', StreetView);
 })();
 
-
-	return 'ngMap';
+return 'ngMap';
 }));

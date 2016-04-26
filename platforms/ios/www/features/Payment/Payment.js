@@ -1,6 +1,11 @@
 angular
 .module('payment', ['booker.service.book'])
-.controller('paymentController', ['$scope', '$location', '$routeParams', 'booker.service.book.BookerService',  function($scope, $location,$routeParams, BookerService){
+.controller('modalController', ['$scope', '$uibModalInstance', function($scope, $uibModalInstance){
+		$scope.ok = function(){
+				$uibModalInstance.close();
+		}
+}])
+.controller('paymentController', ['$scope', '$location', '$uibModal','$routeParams', 'booker.service.book.BookerService',  function($scope, $location, $uibModal, $routeParams, BookerService){
 	$scope.$emit('wait:start');
     $scope.cardSelected = {
         ID: 1
@@ -19,9 +24,11 @@ angular
             amount: appointmentData.Amount
         };
         $scope.disabled = true;
+				$scope.askPayment = sessionStorage.locationPayment == 'true' ? true : false;
     }
     else
     {
+				$scope.askPayment = true;
         $scope.giftButton = true;
         $scope.payment = {
             expirationDate: null,
@@ -33,12 +40,13 @@ angular
         };
         $scope.disabled = false;
     }
-    
+
+
 
 	BookerService
     .getAccessTokenFromSS()
     .then(function(access_token){
-        
+
     	$scope.access_token = access_token;
         var input = {
           access_token: access_token,
@@ -79,7 +87,7 @@ angular
         var res = _.find($scope.cardTypes, {ID: $scope.cardSelected.ID});
         if(sessionStorage.User == "null")
         {
-            sessionStorage.User = null;   
+            sessionStorage.User = null;
             $location.path('/login');
             return;
         }
@@ -98,7 +106,7 @@ angular
           $scope.$emit("notification", {
                     type: 'info',
                     message: 'Enter a valid Amount'
-                }); 
+                });
           return;
         }
         if(!$scope.payment.securityCode || isNaN($scope.payment.securityCode) || !(parseInt($scope.payment.securityCode) > 0) || giftCode.length < 3|| giftCode.length > 5)
@@ -192,7 +200,7 @@ angular
                     },
                     CreditCard: {
                         SecurityCode: $scope.payment.securityCode.toString(),
-                        Number: "374720202293610",
+                        Number: $scope.payment.cardNumber,
                         NameOnCard:$scope.payment.cardName,
                         BillingZip:$scope.payment.billingZip,
                         ExpirationDate: "/Date(" + finaldateUnix + ")/",
@@ -212,7 +220,7 @@ angular
                     "CustomPaymentMethodID": null
                 },
            "SendEmailReceipt": true
-        };         
+        };
         $scope.$emit('wait:start');
         BookerService
         .PurchaseGiftCertificate(finalObject)
@@ -239,7 +247,7 @@ angular
                         $scope.$emit("notification", {
                             type: 'danger',
                             message: message
-                        });    
+                        });
                         $location.path('/sendGifts');
                     }
                     else{
@@ -249,7 +257,7 @@ angular
                         });
                          $location.path('/sendGifts');
                     }
-                    
+
                 }
                 else
                 {
@@ -269,11 +277,28 @@ angular
                 $location.path('/sendGifts');
             });
     };
+		$scope.open = function (size) {
+
+		 var modalInstance = $uibModal.open({
+			 templateUrl: 'features/Payment/myModalContent.html',
+			 controller: 'modalController',
+			 size: 'sm',
+			 windowTopClass: 'classModal'
+		 });
+
+		 modalInstance.result.then(function () {
+			 	$scope.submitPaymentDetails();
+		 }, function () {
+				modalInstance.close();
+		 });
+ };
     $scope.submitPaymentDetails = function(){
-        var res = _.find($scope.cardTypes, {ID: $scope.cardSelected.ID});
+				if($scope.askPayment)
+        {
+					var res = _.find($scope.cardTypes, {ID: $scope.cardSelected.ID});
         if(sessionStorage.User == "null")
         {
-            sessionStorage.User = null;   
+            sessionStorage.User = null;
             $location.path('/login');
             return;
         }
@@ -292,7 +317,7 @@ angular
           $scope.$emit("notification", {
                     type: 'info',
                     message: 'Enter a valid Amount'
-                }); 
+                });
           return;
         }
         if(!$scope.payment.securityCode || isNaN(parseInt($scope.payment.securityCode)) || !(parseInt($scope.payment.securityCode) > 0) || code.length < 3 || code.length > 5)
@@ -359,7 +384,7 @@ angular
                     return;
                 }
             }
-        }
+        }}
         var dateUnix = parseInt(moment($scope.payment.expirationDate).unix()) * 1000;
         var finaldateUnix = dateUnix.toString() + '- 0000';
         var user = JSON.parse(sessionStorage.User);
@@ -376,8 +401,7 @@ angular
                 FirstName: user.Customer.FirstName || "",
                 Email: user.Customer.Email,
                 ID: user.Customer.CustomerID
-        }; 
-        console.log(Customer);
+        };
         var ItineraryTimeSlotList =  [];
         var index = 0;
         var time = appointmentMetaData.StartDateTime;
@@ -393,7 +417,7 @@ angular
                         CurrencyCode: service.Price.CurrencyCode
                     },
                     Duration: service.TreatmentDuration,
-                    EmployeeID: appointmentMetaData.EmployeeID,
+                    EmployeeID: null,
                     StartDateTime: "/Date(" + time + ")/",
                     TreatmentID: service.ID,
                     RoomID: null,
@@ -410,7 +434,7 @@ angular
                     },
                     CreditCard: {
                         SecurityCode: $scope.payment.securityCode.toString(),
-                        Number: "374720202293610",
+                        Number: $scope.payment.cardNumber,
                         NameOnCard:$scope.payment.cardName,
                         BillingZip:$scope.payment.billingZip,
                         ExpirationDate: "/Date(" + finaldateUnix + ")/",
@@ -452,6 +476,10 @@ angular
             LocationID:locationID,
             access_token: access_token
         };
+				if($scope.askPayment == false)
+				{
+						finalObject.AppointmentPayment = {};
+				}
         $scope.$emit('wait:start');
         BookerService
         .createAppointment(finalObject)
@@ -463,7 +491,7 @@ angular
                     $scope.$emit("notification", {
                         type: 'success',
                         message: "Your Appointment Has Been Created Successfully"
-                    }); 
+                    });
                    $scope.access_token = access_token;
                    $location.path('/manage');
                 }
@@ -474,24 +502,25 @@ angular
                     {
                         data.ArgumentErrors.forEach(function(err){
                             message = message + err.ArgumentName + err.ErrorMessage;
-                        })    
+                        })
                     }
                     else
                     {
                         message = data.ErrorMessage;
-                    }                    
+                    }
                     $scope.$emit("notification", {
                         type: 'danger',
                         message: message
                     });
-                    $location.path('/booking');   
+                    $location.path('/booking');
                 }
                 else
                 {
+									console.log(data);
                     $scope.$emit("notification", {
                         type: 'danger',
                         message: "We're sorry, but the appointment time you requested is no longer available."
-                    });   
+                    });
                     $location.path('/booking');
                 }
             })
@@ -503,4 +532,4 @@ angular
                 $location.path('/booking');
             });
     };
-}]);
+}])

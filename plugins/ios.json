@@ -24,6 +24,21 @@
         },
         "cordova.plugins.diagnostic": {
             "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "cordova-plugin-datepicker": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "cordova-plugin-email-composer": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "pushwoosh-cordova-plugin": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "cordova-plugin-contacts": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "io.cordova.marilynMonroe"
         }
     },
     "dependent_plugins": {}

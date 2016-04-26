@@ -1,19 +1,104 @@
+<!-- <div id="map"></div>
+<div id="class" ng-repeat="marker in markers | orderBy : 'title'">
+<a href="#" ng-click="openInfoWindow($event, marker)">{{marker.title}}</a>
+</div> -->
+<div class="container heading-style-5">
+  <h4 style="font-size: 24px;" class="heading-title"><strong>Our Locations</strong></h4>
+  <i class="fa fa-map-marker" aria-hidden="true"></i>
+  <div class="line bg-black"></div>
+</div>
+<div ng-show='directions'>
+<div class='text-center' style="font-size:22px;">{{locationFinal}}</div>
+<br/>
+<div class='text-center' style="font-size:19px;"><b>Mode of Travel: </b>
+  <select class='form-control' ng-model="travelMode" ng-init="travelMode='DRIVING'">
+          <option value="DRIVING">Driving</option>
+          <option value="WALKING">Walking</option>
+          <option value="BICYCLING">Bicycling</option>
+          <option value="TRANSIT">Transit</option>
+  </select>
+</div>
+<br/>
+<div class='text-center'><a href='#/locationDirection' class='btn btn-info'>Get Directions</a></div>
+</div>
 
-                <style type="text/css">
-                    #content .content
-                    {
-                        padding: 0 !important;
-                    }
-                </style>
-                <div class="container heading-style-5">
-                    <h4 style="font-size: 24px;" class="heading-title"><strong>Our Locations</strong></h4>
-                    <i class="fa fa-map-marker heading-icon"></i>
-                    <div class="line bg-black"></div>
+<ng-map center="-33, 151" zoom="4"
+    pan-control="true"
+    zoom-control="true"
+    scale-control="false">
+        <custom-marker id="can1"  position="36.592814,-121.874643" >
+          <div class="text-center">
+            <p class="markerBox">
+              California: Hyatt Regency Monterey
+            </p>
+            <img id='img1' ng-click='click($event)' style='position:relative; left:50%;' src="images/location.png" height="45" />
+          </div>
+        </custom-marker>
+        <custom-marker id="can2"  position="20.912,-156.692" >
+          <div class="text-center">
+            <p class="markerBox">Hawaii: Hyatt Regency Maui </p>
+              <img id='img2' ng-click='click($event)'  style='position:relative; left:50%;' src="images/location.png" height="45" />
+            </div>
+          </custom-marker>
+          <custom-marker id="can3"  position="40.760,-73.993" >
+            <div class="text-center">
+              <p class="markerBox">New York: Hyatt Times Square New York</p>
+                <img id='img3' ng-click='click($event)'  style='position:relative; left:50%;' src="images/location.png" height="45" />
+              </div>
+            </custom-marker>
+            <custom-marker id="can4"  position="32.726,-117.164" >
+              <div class="text-center">
+                <p class="markerBox">California: Manchester Grand Hyatt San Diego </p>
+                  <img id='img4' ng-click='click($event)'  style='position:relative; left:50%;' src="images/location.png" height="45" />
                 </div>
-                <app-map style="height:450px;overflow: inherit !important;"
-                    zoom="2"
-                    center="loc"
-                    markers="airports"
-                    loaction="loc"
-                > 
-                </app-map>
+              </custom-marker>
+              <custom-marker id="can5"  position="35.819,-80.335" >
+                <div class="text-center">
+                  <p class="markerBox">Florida: Miami Doral – Coming Early 2016 </p>
+                    <img id='img5' ng-click='click($event)'  style='position:relative; left:50%;' src="images/location.png" height="45" />
+                  </div>
+                </custom-marker>
+                <custom-marker id="can6"  position="28.624,-81.245" >
+                  <div class="text-center">
+                    <p class="markerBox">Florida: Oviedo Glamour Room </p>
+                      <img  id='img6' ng-click='click($event)'  style='position:relative; left:50%;' src="images/location.png" height="45" />
+                    </div>
+                  </custom-marker>
+                  <custom-marker id="can7"  position="27.774,-82.634" >
+                    <div class="text-center">
+                      <p class="markerBox">Florida: St. Petersburg Sundial</p>
+                        <img id='img7' ng-click='click($event)'  style='position:relative; left:50%;' src="images/location.png" height="45" />
+                      </div>
+                    </custom-marker>
+                    <custom-marker id="can8"  position="30.323,-81.670" >
+                      <div class="text-center">
+                        <p class="markerBox">Florida: Jacksonville Riverside</p>
+                          <img id='img8'  ng-click='click($event)' style='position:relative; left:50%;' src="images/location.png" height="45" />
+                        </div>
+                      </custom-marker>
+                      <custom-marker id="can9"  position="30.323,-81.670" >
+                        <div class="text-center">
+                          <p class="markerBox">Florida: Hyatt Regency Grand Cypress Orlando </p>
+                            <img id='img9'  ng-click='click($event)' style='position:relative; left:50%;' src="images/location.png" height="45" />
+                          </div>
+                        </custom-marker>
+                        <custom-marker id="can10"  position="28.597,-81.366" >
+                          <div class="text-center">
+                            <p class="markerBox">Florida: Winter Park Lakeside </p>
+                              <img id='img10'  ng-click='click($event)' style='position:relative; left:50%;' src="images/location.png" height="45" />
+                            </div>
+                          </custom-marker>
+                          <custom-marker id="can11"  position="28.492,-81.511" >
+                            <div class="text-center">
+                              <p class="markerBox">Florida: Windermere Grove at Isleworth </p>
+                                <img id='img11'  ng-click='click($event)' style='position:relative; left:50%;' src="images/location.png" height="45" />
+                              </div>
+                            </custom-marker>
+                            <custom-marker id="can12"  position="30.323,-81.670" >
+                              <div class="text-center">
+                                <p class="markerBox">Florida: Orlando Mills Park</p>
+                                  <img id='img12' ng-click='click($event)' style='position:relative; left:50%;' src="images/location.png" height="45" />
+                                </div>
+                              </custom-marker>
+              <marker position="current" animation="Animation.BOUNCE" centered="true"></marker>
+  </ng-map>

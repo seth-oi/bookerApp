@@ -26,6 +26,24 @@
 		486805797CFB477A8ED95BA1 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E76E2FE7ABE4175880CF132 /* CoreBluetooth.framework */; };
 		4B7450023D1B4D3C9ED7B5AC /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FBF2034FDC8D4CAA974A4E51 /* AVFoundation.framework */; };
 		F355FEF9D2FA4CBBB9B5D822 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C8CF152BE6E4124896F2168 /* Photos.framework */; };
+		D067FDF942FF416FB60C06A3 /* DatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = BD789E26E80944B6A5BB0F74 /* DatePicker.m */; };
+		DE213B52114F4E2F8C937E55 /* DatePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8FB61078E8B4B44AC5AB684 /* DatePicker.xib */; };
+		2528A5DF7DCA4D9E9529B0CC /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5FF64A21DF6438ABA9CD277 /* MessageUI.framework */; };
+		4F2D2602DC4A4701AE5C07BF /* APPEmailComposer.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485C1359805431A80E5C43F /* APPEmailComposer.m */; };
+		7EB531A92C894D258E655437 /* APPEmailComposerImpl.m in Sources */ = {isa = PBXBuildFile; fileRef = AC76D538E24C44F58C267BF5 /* APPEmailComposerImpl.m */; };
+		C109A81945AA44B18A1325F6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCB73E3759E24AC9BCB6C45C /* Security.framework */; };
+		AABC836A4C4A4A398EAB374D /* Storekit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7847DA288D84B918FF03465 /* Storekit.framework */; };
+		8AEE8957D5A848A58171B94D /* libstdc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B18663F190E474E8F94948A /* libstdc++.dylib */; };
+		7485E9C08EB347588387C1DF /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D36DF39038174D9A9C41C819 /* libz.dylib */; };
+		C765D3D6BD9E4341954AEFDF /* PushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B8DE7E1B8CB47219BCCE863 /* PushNotification.m */; };
+		3D6DE237CE354F18A10B94A1 /* Pushwoosh in Resources */ = {isa = PBXBuildFile; fileRef = A4C6543F9D69433FA195DDD7 /* Pushwoosh */; };
+		3F25BF80825046F6B488D91B /* CDVContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A8E8BD5023C4D95975ACC54 /* CDVContacts.m */; };
+		41F01D072007401AB6133672 /* CDVContact.m in Sources */ = {isa = PBXBuildFile; fileRef = 9258AD65794F4555BDCA4AEF /* CDVContact.m */; };
+		19A48B68B79448038DED0616 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B4B24E6F7314B84B9EFE157 /* AddressBook.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		F25D46B8B0C4481A9065CD7F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6C439A3EB204892A0226E2C /* AddressBookUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		6B1296DAC6B14CE3805C2A87 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C3B2BACAF964BDBA5AAFFEE /* CDVNotification.m */; };
+		12F748E6F0D74CEB8FC42573 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = E0DA97E9F38D4F29ADA93029 /* CDVNotification.bundle */; };
+		4F714D940E9046ACB27226A8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 452FCE70BC7D482BA9638A62 /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +99,32 @@
 		2E76E2FE7ABE4175880CF132 /* CoreBluetooth.framework */ = {isa = PBXFileReference; name = "CoreBluetooth.framework"; path = "System/Library/Frameworks/CoreBluetooth.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		FBF2034FDC8D4CAA974A4E51 /* AVFoundation.framework */ = {isa = PBXFileReference; name = "AVFoundation.framework"; path = "System/Library/Frameworks/AVFoundation.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 		3C8CF152BE6E4124896F2168 /* Photos.framework */ = {isa = PBXFileReference; name = "Photos.framework"; path = "System/Library/Frameworks/Photos.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		BD789E26E80944B6A5BB0F74 /* DatePicker.m */ = {isa = PBXFileReference; name = "DatePicker.m"; path = "cordova-plugin-datepicker/DatePicker.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		C77EE60EB1A84805A1938D3E /* DatePicker.h */ = {isa = PBXFileReference; name = "DatePicker.h"; path = "cordova-plugin-datepicker/DatePicker.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		D8FB61078E8B4B44AC5AB684 /* DatePicker.xib */ = {isa = PBXFileReference; name = "DatePicker.xib"; path = "DatePicker.xib"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = file.xib; explicitFileType = undefined; includeInIndex = 0; };
+		A5FF64A21DF6438ABA9CD277 /* MessageUI.framework */ = {isa = PBXFileReference; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		0485C1359805431A80E5C43F /* APPEmailComposer.m */ = {isa = PBXFileReference; name = "APPEmailComposer.m"; path = "cordova-plugin-email-composer/APPEmailComposer.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		AC76D538E24C44F58C267BF5 /* APPEmailComposerImpl.m */ = {isa = PBXFileReference; name = "APPEmailComposerImpl.m"; path = "cordova-plugin-email-composer/APPEmailComposerImpl.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		50BBBBA952C64D5E9BDD3FE2 /* APPEmailComposer.h */ = {isa = PBXFileReference; name = "APPEmailComposer.h"; path = "cordova-plugin-email-composer/APPEmailComposer.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		AE9D35AA49FA44CDA037D864 /* APPEmailComposerImpl.h */ = {isa = PBXFileReference; name = "APPEmailComposerImpl.h"; path = "cordova-plugin-email-composer/APPEmailComposerImpl.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		CCB73E3759E24AC9BCB6C45C /* Security.framework */ = {isa = PBXFileReference; name = "Security.framework"; path = "System/Library/Frameworks/Security.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		F7847DA288D84B918FF03465 /* Storekit.framework */ = {isa = PBXFileReference; name = "Storekit.framework"; path = "System/Library/Frameworks/Storekit.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		7B18663F190E474E8F94948A /* libstdc++.dylib */ = {isa = PBXFileReference; name = "libstdc++.dylib"; path = "usr/lib/libstdc++.dylib"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = compiled.mach-o.dylib; explicitFileType = undefined; includeInIndex = 0; };
+		D36DF39038174D9A9C41C819 /* libz.dylib */ = {isa = PBXFileReference; name = "libz.dylib"; path = "usr/lib/libz.dylib"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = compiled.mach-o.dylib; explicitFileType = undefined; includeInIndex = 0; };
+		0B8DE7E1B8CB47219BCCE863 /* PushNotification.m */ = {isa = PBXFileReference; name = "PushNotification.m"; path = "pushwoosh-cordova-plugin/ios/PushNotification.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		A4C6543F9D69433FA195DDD7 /* Pushwoosh */ = {isa = PBXFileReference; name = "Pushwoosh"; path = "MARILYN MONROE/Plugins/pushwoosh-cordova-plugin/Pushwoosh"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		320EBF089D92454693A83996 /* PushNotification.h */ = {isa = PBXFileReference; name = "PushNotification.h"; path = "pushwoosh-cordova-plugin/ios/PushNotification.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		9694C19694044F3E9285A96E /* PushNotificationManager.h */ = {isa = PBXFileReference; name = "PushNotificationManager.h"; path = "pushwoosh-cordova-plugin/ios/PushNotificationManager.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		4A8E8BD5023C4D95975ACC54 /* CDVContacts.m */ = {isa = PBXFileReference; name = "CDVContacts.m"; path = "cordova-plugin-contacts/CDVContacts.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		9258AD65794F4555BDCA4AEF /* CDVContact.m */ = {isa = PBXFileReference; name = "CDVContact.m"; path = "cordova-plugin-contacts/CDVContact.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		BDE40A96C3FA4B688AF2E885 /* CDVContacts.h */ = {isa = PBXFileReference; name = "CDVContacts.h"; path = "cordova-plugin-contacts/CDVContacts.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		4E9D3CC7659E407690C1A2B8 /* CDVContact.h */ = {isa = PBXFileReference; name = "CDVContact.h"; path = "cordova-plugin-contacts/CDVContact.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		8B4B24E6F7314B84B9EFE157 /* AddressBook.framework */ = {isa = PBXFileReference; name = "AddressBook.framework"; path = "System/Library/Frameworks/AddressBook.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		B6C439A3EB204892A0226E2C /* AddressBookUI.framework */ = {isa = PBXFileReference; name = "AddressBookUI.framework"; path = "System/Library/Frameworks/AddressBookUI.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		6C3B2BACAF964BDBA5AAFFEE /* CDVNotification.m */ = {isa = PBXFileReference; name = "CDVNotification.m"; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		AC365123A999471994E035D2 /* CDVNotification.h */ = {isa = PBXFileReference; name = "CDVNotification.h"; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		E0DA97E9F38D4F29ADA93029 /* CDVNotification.bundle */ = {isa = PBXFileReference; name = "CDVNotification.bundle"; path = "CDVNotification.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
+		452FCE70BC7D482BA9638A62 /* AudioToolbox.framework */ = {isa = PBXFileReference; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +139,15 @@
 				486805797CFB477A8ED95BA1 /* CoreBluetooth.framework in Frameworks */,
 				4B7450023D1B4D3C9ED7B5AC /* AVFoundation.framework in Frameworks */,
 				F355FEF9D2FA4CBBB9B5D822 /* Photos.framework in Frameworks */,
+				2528A5DF7DCA4D9E9529B0CC /* MessageUI.framework in Frameworks */,
+				C109A81945AA44B18A1325F6 /* Security.framework in Frameworks */,
+				AABC836A4C4A4A398EAB374D /* Storekit.framework in Frameworks */,
+				8AEE8957D5A848A58171B94D /* libstdc++.dylib in Frameworks */,
+				7485E9C08EB347588387C1DF /* libz.dylib in Frameworks */,
+				3D6DE237CE354F18A10B94A1 /* Pushwoosh in Resources */,
+				19A48B68B79448038DED0616 /* AddressBook.framework in Frameworks */,
+				F25D46B8B0C4481A9065CD7F /* AddressBookUI.framework in Frameworks */,
+				4F714D940E9046ACB27226A8 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +209,8 @@
 				0207DA571B56EA530066E2B4 /* Images.xcassets */,
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* MARILYN MONROE-Info.plist */,
+				D8FB61078E8B4B44AC5AB684 /* DatePicker.xib */,
+				E0DA97E9F38D4F29ADA93029 /* CDVNotification.bundle */,
 			);
 			name = Resources;
 			path = "MARILYN MONROE/Resources";
@@ -170,6 +225,15 @@
 				2E76E2FE7ABE4175880CF132 /* CoreBluetooth.framework */,
 				FBF2034FDC8D4CAA974A4E51 /* AVFoundation.framework */,
 				3C8CF152BE6E4124896F2168 /* Photos.framework */,
+				A5FF64A21DF6438ABA9CD277 /* MessageUI.framework */,
+				CCB73E3759E24AC9BCB6C45C /* Security.framework */,
+				F7847DA288D84B918FF03465 /* Storekit.framework */,
+				7B18663F190E474E8F94948A /* libstdc++.dylib */,
+				D36DF39038174D9A9C41C819 /* libz.dylib */,
+				A4C6543F9D69433FA195DDD7 /* Pushwoosh */,
+				8B4B24E6F7314B84B9EFE157 /* AddressBook.framework */,
+				B6C439A3EB204892A0226E2C /* AddressBookUI.framework */,
+				452FCE70BC7D482BA9638A62 /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -205,6 +269,21 @@
 				F66E5B15C83C4E66BFBB6C4F /* CDVReachability.h */,
 				94F40E21D688400A98F6370A /* Diagnostic.m */,
 				8858D64724444987AEDC3E8E /* Diagnostic.h */,
+				BD789E26E80944B6A5BB0F74 /* DatePicker.m */,
+				C77EE60EB1A84805A1938D3E /* DatePicker.h */,
+				0485C1359805431A80E5C43F /* APPEmailComposer.m */,
+				AC76D538E24C44F58C267BF5 /* APPEmailComposerImpl.m */,
+				50BBBBA952C64D5E9BDD3FE2 /* APPEmailComposer.h */,
+				AE9D35AA49FA44CDA037D864 /* APPEmailComposerImpl.h */,
+				0B8DE7E1B8CB47219BCCE863 /* PushNotification.m */,
+				320EBF089D92454693A83996 /* PushNotification.h */,
+				9694C19694044F3E9285A96E /* PushNotificationManager.h */,
+				4A8E8BD5023C4D95975ACC54 /* CDVContacts.m */,
+				9258AD65794F4555BDCA4AEF /* CDVContact.m */,
+				BDE40A96C3FA4B688AF2E885 /* CDVContacts.h */,
+				4E9D3CC7659E407690C1A2B8 /* CDVContact.h */,
+				6C3B2BACAF964BDBA5AAFFEE /* CDVNotification.m */,
+				AC365123A999471994E035D2 /* CDVNotification.h */,
 			);
 			name = Plugins;
 			path = "MARILYN MONROE/Plugins";
@@ -288,6 +367,8 @@
 				3047A5141AB8059700498E2A /* build.xcconfig in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				3047A5121AB8059700498E2A /* build-debug.xcconfig in Resources */,
+				DE213B52114F4E2F8C937E55 /* DatePicker.xib in Resources */,
+				12F748E6F0D74CEB8FC42573 /* CDVNotification.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +405,13 @@
 				A5815421FD19410A8E0CF64D /* CDVConnection.m in Sources */,
 				40F9B0521B614A35A6D40142 /* CDVReachability.m in Sources */,
 				5CF4615DD9A94E6D842E5D58 /* Diagnostic.m in Sources */,
+				D067FDF942FF416FB60C06A3 /* DatePicker.m in Sources */,
+				4F2D2602DC4A4701AE5C07BF /* APPEmailComposer.m in Sources */,
+				7EB531A92C894D258E655437 /* APPEmailComposerImpl.m in Sources */,
+				C765D3D6BD9E4341954AEFDF /* PushNotification.m in Sources */,
+				3F25BF80825046F6B488D91B /* CDVContacts.m in Sources */,
+				41F01D072007401AB6133672 /* CDVContact.m in Sources */,
+				6B1296DAC6B14CE3805C2A87 /* CDVNotification.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +445,10 @@
 				INFOPLIST_FILE = "MARILYN MONROE/MARILYN MONROE-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_NAME = "MARILYN MONROE";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/MARILYN MONROE/Plugins/pushwoosh-cordova-plugin\"",
+				);
 			};
 			name = Debug;
 		};
@@ -376,6 +468,10 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "MARILYN MONROE/MARILYN MONROE-Info.plist";
 				PRODUCT_NAME = "MARILYN MONROE";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/MARILYN MONROE/Plugins/pushwoosh-cordova-plugin\"",
+				);
 			};
 			name = Release;
 		};

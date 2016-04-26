@@ -1,16 +1,26 @@
 angular
 .module('availability', ['booker.service.book'])
-.controller('availabilityController', ['$scope', '$location', '$routeParams', 'booker.service.book.BookerService',  function($scope, $location, $routeParams, BookerService){
+.controller('availabilityController', ['$scope', '$location', '$routeParams', '$filter', 'booker.service.book.BookerService',  function($scope, $location, $routeParams, $filter, BookerService){
     $scope.minDate = new Date();
     $scope.date = new Date();
-    $scope.$emit('wait:start');
+    // $scope.$emit('wait:start');
+    // $scope.maxDate = null;
+    // $scope.dateOptionsNew = {
+    //     changeYear: false,
+    //     changeMonth: true,
+    //     dateFormat:'mm/dd/yy',
+    //     minDate: 0,
+    //     maxDate: $scope.maxDate
+    // };
     var LocationID = JSON.parse(sessionStorage.serviceLocationID);
+    var EmployeeID = JSON.parse(sessionStorage.serviceEmployeeID);
+    console.log(EmployeeID);
     var appointmentMetaData = {
         IsPackage: null,
         PackageID: null,
         Amount: null,
         Duration: null,
-        EmployeeID: null,
+        EmployeeID: EmployeeID ? EmployeeID : null,
         CurrencyCode: null,
         StartDateTime: null
     };
@@ -18,6 +28,7 @@ angular
         selectedTime:null,
         selectedDate:null
     }
+    console.log($scope.selected);
     var access;
     var Itineraries = [];
     var services = JSON.parse(sessionStorage.selectedServices);
@@ -32,7 +43,7 @@ angular
                 "Treatments": [{
                     "Employee2ID": null,
                     "EmployeeGenderID": null,
-                    "EmployeeID": null,
+                    "EmployeeID": EmployeeID,
                     "TreatmentID": service.ID
                 }],
                 "IncludeCutOffTimes": true
@@ -42,8 +53,8 @@ angular
     else{
         console.log('NO SERVICES WERE SELECTED');
     }
-    
-    
+    console.log(Itineraries);
+    $scope.$emit('wait:start');
     BookerService
         .getAccessTokenFromSS()
         .then(function(access_token){
@@ -52,7 +63,7 @@ angular
             //var offsetHrs = parseInt(offset.slice(1, 3)) * 60 * 60 * 1000;
             //var offsetmin = parseInt(offset.slice(3, offset.length)) * 60 * 1000;
             var startTimeString = (new Date()).getTime();
-            var future = (new Date()).getTime() + 7 * 24 * 60 * 59000;
+            var future = (new Date()).getTime() + 8 * 24 * 60 * 59000;
             var input = {
               EndDateTime: "/Date(" + future + ")/",
               StartDateTime:"/Date(" + startTimeString + ")/",
@@ -60,15 +71,15 @@ angular
               LocationID: LocationID,
               access_token: access_token
             };
-            
-            
+
             BookerService
             .runMultiServiceAvailability(input)
             .then(function(data){
+              console.log(data);
                 $scope.$emit('wait:stop');
                 $scope.availableTimeSlots = data.ItineraryTimeSlotsLists[0].ItineraryTimeSlots;
                 sessionStorage.locationId = LocationID;
-                
+
                 $scope.datesArr = [];
                 $scope.timeArr = [];
                 $scope.DateTimeArr = [];
@@ -93,16 +104,26 @@ angular
                                 finalObjectArr[date] = [];
                                 finalObjectArr[date].push({ time: moment(dateTime, 'D MMM YYYY HH:mm A').format('h:mm a'), "index": index });
                             }
-                        }    
+                        }
                     })
                 })
                 $scope.dates =  Object.keys(finalObjectArr);
+                $scope.maxDate = new Date($scope.dates[$scope.dates.length - 1]);
+
                 $scope.selected.selectedDate = $scope.dates[0];
                 $scope.$watch('selected.selectedDate', function(newVal, oldVal){
                     $scope.appTimes = finalObjectArr[$scope.selected.selectedDate];
-                    console.log($scope.appTimes[0].index);
                     $scope.selected.selectedTime = $scope.appTimes[0].index;
-                })
+                    $scope.FinalSelecetdDate = moment(newVal).format('dddd D MMMM YYYY');
+                    $scope.FinalSelecetdTime = (_.find(finalObjectArr[$scope.selected.selectedDate], function(val){
+                          return val.index == $scope.selected.selectedTime;
+                    })).time;
+                });
+                $scope.$watch('selected.selectedTime', function(newVal, oldVal){
+                    $scope.FinalSelecetdTime = (_.find(finalObjectArr[$scope.selected.selectedDate], function(val){
+                          return val.index == $scope.selected.selectedTime;
+                    })).time;
+                });
             })
             .catch(function(err){
                 console.log(err);
@@ -152,27 +173,27 @@ angular
         });
         var data = {
             LocationID: LocationID,
+            EmployeeID: appointmentMetaData.EmployeeID,
             access_token: access,
-            TreatmentID: treatmentids, 
+            TreatmentID: treatmentids,
             StartDateTime: finalDateTimeStamps
         };
         $scope.$emit('wait:start');
         BookerService
         .createIncompleteAppointment(data)
         .then(function(data){
-            console.log(data);
             $scope.$emit('wait:stop');
             if(data.IncompleteAppointmentID && data.IsSuccess)
-            {   
+            {
                 sessionStorage.appointmentData = JSON.stringify(
                     {
                         LocationID: $routeParams.locationID,
                         access_token: access,
-                        TreatmentID: $routeParams.treatmentID, 
+                        TreatmentID: $routeParams.treatmentID,
                         StartDateTime: selectedTimeStamp
                     });
                 sessionStorage.IncompleteAppointmentID = data.IncompleteAppointmentID;
-                
+
                 if(!sessionStorage.User)
                 {
                     $scope.$emit("notification", {
@@ -183,10 +204,14 @@ angular
                 }
                 else if(sessionStorage.User != 'null' )
                 {
-                    $scope.$emit("notification", {
-                        type: 'success',
-                        message: "Please Enter Payment Details To Complete Appointment."
-                    });
+                    $scope.askPayment = sessionStorage.locationPayment == 'true' ? true : false;
+                    if($scope.askPayment)
+                    {
+                      $scope.$emit("notification", {
+                          type: 'success',
+                          message: "Please Enter Payment Details To Complete Appointment."
+                      });
+                    }
                     $location.path('/payment/false');
                 }
                 else{
@@ -194,7 +219,7 @@ angular
                         type: 'success',
                         message: "Please Login or Register To Complete Appointment.."
                     });
-                    $location.path('/login');   
+                    $location.path('/login');
                 }
             }
             else if(!data.IsSuccess && data.ErrorMessage)
@@ -202,7 +227,7 @@ angular
                 $scope.$emit("notification", {
                     type: 'danger',
                     message: "Server Error"
-                });   
+                });
                 $location.path('/Bookings');
             }
             else

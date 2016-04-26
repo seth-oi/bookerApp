@@ -1,6 +1,16 @@
             <div class="content">
                 <!--Page content goes here, fixed elements go above the all elements class-->
-
+                  <style>
+                      .login-create {
+                          width: auto;
+                          float: right;
+                          font-size: 19px;
+                          margin-top: 15px;
+                          margin-bottom: 30px;
+                          color: #fff;
+                          transition: all 250ms ease;
+                        }
+                  </style>
                     <div class="page-login full-bottom">
                         <p class="page-login-logo"></p>
                         <div class="login-input">
@@ -14,15 +24,13 @@
                         <div>
                             <input type="checkbox" ng-model="passwordCheckbox" ng-click="hideShowPassword()" value="">
                             <label style="position:relative; top:-17px;" ng-click="hideShowPasswordText()" for="checkbox" ng-if="passwordCheckbox">Hide password</label>
-                            <label style="position:relative; top:-17px;" ng-click="hideShowPasswordText()" for="checkbox" ng-if="!passwordCheckbox">Show password</label> 
-                            
+                            <label style="position:relative; top:-17px;" ng-click="hideShowPasswordText()" for="checkbox" ng-if="!passwordCheckbox">Show password</label>
                         </div>
-                        <div class='locations'>
-                            <select class='form-control' ng-model='locationID' ng-options="location.ID as location.Address.City for location in locations"></select>
-                        </div>
-                        <a ng-href='#/register' class="login-create">Create Account<i class="fa fa-user"></i></a>
+                        
+                        <a ng-href='#/forgotPassword' class="login-create btn btn-info btn-pink">Forgot Password</a>
                         <div class="clear"></div>
                         <button ng-click='login()' class="login-button button button-small button-green button-fullscreen full-bottom">Login</button>
+                        <a ng-href='#/register' class="login-button button button-small button-green button-fullscreen full-bottom borRad fbButton">Create an account</a>
                         <div class="clear"></div>
                         <!-- <p href="#" class="facebook-login facebook-color"><i class="fa fa-facebook"></i>Login with Facebook</p>
                         <p href="#" class="twitter-login twitter-color"><i class="fa fa-twitter"></i>Signin with Twitter</p>

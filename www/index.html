@@ -1,320 +1,354 @@
 <!doctype html>
 <html lang="en" ng-app="booker" ng-controller='MainController'>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
-<meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- <script src='http://maps.googleapis.com/maps/api/js?sensor=false'></script> -->
 
-<link rel="icon" type="image/png" href="images/splash/android-chrome-192x192.png" sizes="192x192">
-<link rel="apple-touch-icon" sizes="196x196" href="images/splash/apple-touch-icon-196x196.png">
-<link rel="apple-touch-icon" sizes="180x180" href="images/splash/apple-touch-icon-180x180.png">
-<link rel="apple-touch-icon" sizes="152x152" href="images/splash/apple-touch-icon-152x152.png">
-<link rel="apple-touch-icon" sizes="144x144" href="images/splash/apple-touch-icon-144x144.png">
-<link rel="apple-touch-icon" sizes="120x120" href="images/splash/apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" sizes="114x114" href="images/splash/apple-touch-icon-114x114.png">
-<link rel="apple-touch-icon" sizes="76x76" href="images/splash/apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" sizes="72x72" href="images/splash/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="60x60" href="images/splash/apple-touch-icon-60x60.png">
-<link rel="apple-touch-icon" sizes="57x57" href="images/splash/apple-touch-icon-57x57.png">  
-<link rel="icon" type="image/png" href="images/splash/favicon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="images/splash/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="images/splash/favicon-16x16.png" sizes="16x16">
-<link rel="shortcut icon" href="images/splash/favicon.ico" type="image/x-icon" /> 
-<title>Marilyn Monroe</title>
-<link href="styles/style.css"           rel="stylesheet" type="text/css">
-<link href="styles/framework.css"       rel="stylesheet" type="text/css">
-<link href="styles/font-awesome.css"    rel="stylesheet" type="text/css">
-<link href="styles/animate.css"         rel="stylesheet" type="text/css">
-<link href="styles/bootstrap.min.css"         rel="stylesheet" type="text/css">
-<link href="features/Booking/Booking.css"           rel="stylesheet" type="text/css">
-    <script type="text/javascript">
-            
-            function requestLocation(){
-                console.log('NOW I M GOING TO REQUEST LOCATION');
-                navigator.geolocation.getCurrentPosition(onSuccess, onError,  {timeout:10000, enableHighAccuracy: false});
-            }
-              
-            function onSuccess(position){
-              console.log('OK I FOUND YOUR LOCATION');
-              console.log(position.coords.latitude)
-              console.log(position.coords.longitude);
-              sessionStorage.removeItem('location');
-              sessionStorage.location = JSON.stringify({"Latitude": position.coords.latitude, "Longitude": position.coords.longitude});
-            }
+  <link rel="icon" type="image/png" href="images/splash/android-chrome-192x192.png" sizes="192x192">
+  <link rel="apple-touch-icon" sizes="196x196" href="images/splash/apple-touch-icon-196x196.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/splash/apple-touch-icon-180x180.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="images/splash/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/splash/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="images/splash/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/splash/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="images/splash/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="images/splash/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/splash/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="images/splash/apple-touch-icon-57x57.png">
+  <link rel="icon" type="image/png" href="images/splash/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="images/splash/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="images/splash/favicon-16x16.png" sizes="16x16">
+  <link rel="shortcut icon" href="images/splash/favicon.ico" type="image/x-icon" />
+  <title>Marilyn Monroe</title>
+  <link href="styles/style.css"           rel="stylesheet" type="text/css">
+  <link href="styles/framework.css"       rel="stylesheet" type="text/css">
+  <link href="styles/font-awesome.css"    rel="stylesheet" type="text/css">
+  <link href="styles/animate.css"         rel="stylesheet" type="text/css">
+  <link href="styles/bootstrap.min.css"         rel="stylesheet" type="text/css">
+  <link href="features/Booking/Booking.css"           rel="stylesheet" type="text/css">
+  <link href="styles/jquery-ui.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript">
+  window.alert = function (txt) {
+   navigator.notification.alert(txt, null, "Marilyn Monroe", "Close");
+  }
+  function requestLocation(){
+    console.log('NOW I M GOING TO REQUEST LOCATION');
+    navigator.geolocation.getCurrentPosition(onSuccess, onError,  {timeout:10000, enableHighAccuracy: false});
+  }
 
-            function onError(error){
-              console.log('HERE INSIDE ERROR');
-              console.log(error.code + error.message);
-              cordova.plugins.diagnostic.isLocationEnabled(function(on){
-                console.log(on);
-                if(!on){
-                    var r = confirm('Please Turn On Your Location Services. Go to settings ?');
-                    if(r)
-                    {
-                        cordova.plugins.diagnostic.switchToLocationSettings();
-                    }
-                    else{
-                        sessionStorage.location = JSON.stringify({"Latitude": 0, "Longitude": 0});
-                    }
-                }
-              }, function(err){
-                console.log(err.message);
-              });
+  function onSuccess(position){
+
+    sessionStorage.removeItem('location');
+    sessionStorage.location = JSON.stringify({"Latitude": position.coords.latitude, "Longitude": position.coords.longitude});
+  }
+  function onConfirm(buttonIndex)
+  {
+      console.log('You selected button ' + buttonIndex);
+      if(buttonIndex == 1)
+      {
+          sessionStorage.location = JSON.stringify({"Latitude": 0, "Longitude": 0});
+      }
+      if(buttonIndex == 2)
+      {
+          cordova.plugins.diagnostic.switchToLocationSettings();
+      }
+  }
+  function onError(error){
+    console.log('HERE INSIDE ERROR');
+    console.log(error.code + error.message);
+    cordova.plugins.diagnostic.isLocationEnabled(function(on){
+
+      if(!on){
+        navigator.notification.confirm('Please Turn On Your Location Services. Go to settings ?', onConfirm, 'Marilyn Monroe', ['Close','Ok']);
+        // if(r)
+        // {
+        //   cordova.plugins.diagnostic.switchToLocationSettings();
+        // }
+        // else{
+        //   sessionStorage.location = JSON.stringify({"Latitude": 0, "Longitude": 0});
+        // }
+      }
+    }, function(err){
+      console.log(err.message);
+    });
+    requestLocation();
+  }
+
+
+  document.addEventListener("deviceready", function () {
+    initPushwoosh();
+    if (navigator.network.connection.type == Connection.NONE) {
+      alert('Please Connect to internet services to use the application.');
+    }
+    else {
+      // nothing
+    };
+    console.log(navigator.network.connection.type);
+    console.log("INSIDE DEVICE READY");
+    cordova.plugins.diagnostic.getLocationAuthorizationStatus(function(status){
+      console.log('INSIDE GET LOCATION AUTHERIZE' + status);
+      var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      console.log(userAgent);
+      if(userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i))
+      {
+        navigator.geolocation.getCurrentPosition(onSuccess, function onError(error){
+          console.log('HERE INSIDE ERROR');
+          console.log(error.code + error.message)},{enableHighAccuracy: false});
+        }
+        else if(userAgent.match(/Android/i))
+        {
+          if(status == "GRANTED"){
+            console.log('INSIDE GET LOCATION AUTHERIZE IF' + status);
+            requestLocation();
+          }else{
+            console.log('INSIDE GET LOCATION AUTHERIZE ELSE' + status);
+            cordova.plugins.diagnostic.requestLocationAuthorization(function(status){
+              if(status == "GRANTED"){
                 requestLocation();
-            }
-        document.addEventListener("deviceready", function () {
-            if (navigator.network.connection.type == Connection.NONE) {
-                alert('Please Connect to internet services to use the application.');
-            }
-            else {
-                // nothing
-            };
-            console.log(navigator.network.connection.type);
-            console.log("INSIDE DEVICE READY");
-            cordova.plugins.diagnostic.getLocationAuthorizationStatus(function(status){
-            console.log('INSIDE GET LOCATION AUTHERIZE' + status);
-            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
-            console.log(userAgent);
-            if(userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i))
-            {
-               navigator.geolocation.getCurrentPosition(onSuccess, function onError(error){
-              console.log('HERE INSIDE ERROR');
-              console.log(error.code + error.message)},{enableHighAccuracy: false});
-            }
-            else if(userAgent.match(/Android/i))
-            {
-                if(status == "GRANTED"){
-                    console.log('INSIDE GET LOCATION AUTHERIZE IF' + status);
-                    requestLocation();
-                }else{
-                    console.log('INSIDE GET LOCATION AUTHERIZE ELSE' + status);
-                    cordova.plugins.diagnostic.requestLocationAuthorization(function(status){
-                            if(status == "GRANTED"){
-                                requestLocation();  
-                            }else{
-                                cordova.plugins.diagnostic.switchToLocationSettings();
-                            }
-                        }, function(error){
-                            console.error(error);
-                    });
-                }
-            }                
-            }, onError);
-        }, false);
+              }else{
+                cordova.plugins.diagnostic.switchToLocationSettings();
+              }
+            }, function(error){
+              console.error(error);
+            });
+          }
+        }
+      }, onError);
+    }, false);
     </script>
-</head>
-<body   class="left-sidebar">
-<div id="preloader">
-    <div id="status">
+  </head>
+  <body   class="left-sidebar">
+    <div id="preloader">
+      <div id="status">
         <div class="preloader-logo"></div>
         <h3 class="center-text">Welcome</h3>
         <p class="center-text smaller-text">
-            We're loading the content, give us a second. This won't take long!
+          We're loading the content, give us a second. This won't take long!
         </p>
+      </div>
     </div>
-</div>
-<div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
-    
-<div class="all-elements" id="main">
-    
-    <div id="header-fixed">
-        <div class="header-elements text-center">
-            <a class="open-left-sidebar"><i class="fa fa-navicon"></i></a>
-            <a href="#/login"><h4 class='logo_text' style="font-family: sans-serif;"><strong>Marilyn Monroe</strong></h4></a>
-        </div>
-    </div> 
+    <div class="gallery-fix"></div> <!-- Important for all pages that have galleries or portfolios -->
 
-    <div class="snap-drawers">
-        <div class="snap-drawer snap-drawer-left">        
-            <a href="#/booking" class="sidebar-logo" style="font-size: 14px;">
-                <strong>Marilyn Monroe</strong>
-            </a>
-            <div class="sidebar-deco"></div>            
-            <a href="#/booking" class="activeMenuItem">
-                <i class="fa fa-check-square-o"></i>
-                <em>Add<br/> Booking</em>
-            </a>             
-            <div class="sidebar-deco"></div>
-            <a ng-if='showLogout' ng-href='#/manage' class="activeMenuItem">
-                <i class="fa fa-bookmark"></i>
-                <em>Manage Bookings</em>
-            </a>
-            <div ng-if='showLogout' class="sidebar-deco"></div>
-            <a ng-if='showLogout' ng-href="#/rewardPoints" class="activeMenuItem">
-                <i class="fa fa-certificate"></i>
-                <em>Reward<br/> Points</em>
-            </a>
-            <div ng-if='showLogout' class="sidebar-deco"></div>
-            <a  href="#/geoLocation" class="activeMenuItem">
-                <i class="fa fa-map-marker"></i>
-                <em>Location's</em>
-            </a>
-            <div class="sidebar-deco"></div>
-            <a ng-if='showLogout' href="#/sendGifts" class="activeMenuItem">
-                <i class="fa fa-gift"></i>
-                <em>Send Gift's</em>
-            </a>
-            <div ng-if='showLogout' class="sidebar-deco"></div>
-            <a ng-if='showLogin' ng-href="#/login" class="activeMenuItem">
-                <i class="fa fa-sign-in"></i>
-                <em>Login</em>
-            </a>
-            <div ng-if='showLogin' class="sidebar-deco"></div>
-            <p ng-if='showLogout' ng-click='logout()' class="activeMenuItem">
-                <i class="fa fa-sign-out"></i>
-                <em>Logout</em>
-            </p>
-            <div ng-if='showLogout' class="sidebar-deco"></div>
-            <a ng-if='showLogout' href="#/referFriend" class="activeMenuItem">
-                <i class="fa fa-user-plus"></i>
-                <em>Refer a friend</em>
-            </a>
-            <div ng-if='showLogout' class="sidebar-deco"></div>
-            <a ng-if='showLogin' href="#/register" class="activeMenuItem">
-                <i class="fa fa-user-plus"></i>
-                <em>Register</em>
-            </a>         
-            <div ng-if='showLogin' class="sidebar-deco"></div>
+    <div class="all-elements" id="main">
+
+      <div id="header-fixed">
+        <div class="header-elements text-center">
+          <a class="open-left-sidebar"><i class="fa fa-navicon"></i></a>
+          <a href="#/login"><h4 class='logo_text' style="font-family: sans-serif;"><strong>Marilyn Monroe</strong></h4></a>
+        </div>
+      </div>
+
+      <div class="snap-drawers">
+        <div class="snap-drawer snap-drawer-left">
+          <a href="#/booking" class="sidebar-logo" style="font-size: 14px;">
+            <strong>Marilyn Monroe</strong>
+          </a>
+          <div class="sidebar-deco"></div>
+          <a href="#/booking" class="activeMenuItem">
+            <i class="fa fa-check-square-o"></i>
+            <em>Add<br/> Booking</em>
+          </a>
+          <div class="sidebar-deco"></div>
+          <a ng-if='showLogout' ng-href='#/manage' class="activeMenuItem">
+            <i class="fa fa-bookmark"></i>
+            <em>Manage Bookings</em>
+          </a>
+          <div ng-if='showLogout' class="sidebar-deco"></div>
+          <a ng-if='showLogout' ng-href="#/rewardPoints" class="activeMenuItem">
+            <i class="fa fa-certificate"></i>
+            <em>Referral<br/> Rewards</em>
+          </a>
+          <div ng-if='showLogout' class="sidebar-deco"></div>
+          <a  href="#/geoLocation" class="activeMenuItem">
+            <i class="fa fa-map-marker"></i>
+            <em>Location's</em>
+          </a>
+          <div class="sidebar-deco"></div>
+          <a ng-if='showLogout' href="#/sendGifts" class="activeMenuItem">
+            <i class="fa fa-gift"></i>
+            <em>Send Gift's</em>
+          </a>
+          <div ng-if='showLogout' class="sidebar-deco"></div>
+          <a ng-if='showLogin' ng-href="#/login" class="activeMenuItem">
+            <i class="fa fa-sign-in"></i>
+            <em>Login</em>
+          </a>
+          <div ng-if='showLogin' class="sidebar-deco"></div>
+          <a ng-if='showLogout' href="#/referFriend" class="activeMenuItem">
+            <i class="fa fa-user-plus"></i>
+            <em>Refer a friend</em>
+          </a>
+          <div ng-if='showLogout' class="sidebar-deco"></div>
+          <p ng-if='showLogout' ng-click='logout()' class="activeMenuItem">
+            <i class="fa fa-sign-out"></i>
+            <em>Logout</em>
+          </p>
+          <div ng-if='showLogout' class="sidebar-deco"></div>
+
+          <a ng-if='showLogin' href="#/register" class="activeMenuItem">
+            <i class="fa fa-user-plus"></i>
+            <em>Register</em>
+          </a>
+          <div ng-if='showLogin' class="sidebar-deco"></div>
         </div>
         <div id="content" class="snap-content">
-            <div class="content">
-                <div class="header-clear-large"></div>
-                 <!-- Notification starts  -->
-                    <div id="globalNotification" ng-show="true">
-                         <p class='alert alert-{{notification.type}}' ng-if="notification">{{notification.message}}</p>
-                    </div>
-                <!-- Notification ends -->
+          <div class="content">
+            <div class="header-clear-large"></div>
+            <!-- Notification starts  -->
+            <div id="globalNotification" ng-show="true">
+              <p class='alert alert-{{notification.type}}' ng-if="notification">{{notification.message}}</p>
+            </div>
+            <!-- Notification ends -->
             <div style="min-height:370px;" ng-view></div>
             <div ng-show='showSpinner' id="mydiv">
-                <img src="images/preload.gif" class="ajax-loader"/>
+              <img src="images/preload.gif" class="ajax-loader"/>
             </div>
-        <div class="decoration"></div>
-                <div class="footer">
-                    <!-- <p class="center-text">Copyright 2016. All rights reserved.</p>
-                    <div class="fb-like" 
-                        data-href="https://www.facebook.com/MarilynMonroeSpas" 
-                        data-layout="standard" 
-                        data-action="like" 
-                        data-show-faces="true">
-                    </div> -->
-                   <div class="footer-icons text-center">
-                       <!-- <div ng-click="likeFb()"><i class="fa fa-facebook"></i></div> -->
-                       <!--  <p ng-click="likeFb()" class="scale-hover facebook-color social-ball"><i class="fa fa-facebook"></i></p>
-                        <p ng-click="twitter()" class="scale-hover twitter-color social-ball"><i class="fa fa-twitter"></i></p>
-                        <p  ng-click="folowGooglePlus()" class="scale-hover google-color social-ball"><i class="fa fa-google-plus"></i></p> -->
-                        <p class="scale-hover back-to-top bg-green-dark social-ball"><i class="fa fa-angle-up"></i></p>
-                        <p class="scale-hover show-share-bottom bg-magenta-dark social-ball"><i class="fa fa-retweet"></i></p>
-                    </div>
-                </div>
-                                
-            <!-- End of entire page content-->
-            </div> 
+            <div class="decoration"></div>
+            <div class="footer">
+              <!-- <p class="center-text">Copyright 2016. All rights reserved.</p>
+              <div class="fb-like"
+              data-href="https://www.facebook.com/MarilynMonroeSpas"
+              data-layout="standard"
+              data-action="like"
+              data-show-faces="true">
+            </div> -->
+            <div class="footer-icons text-center">
+              <!-- <div ng-click="likeFb()"><i class="fa fa-facebook"></i></div> -->
+              <!--  <p ng-click="likeFb()" class="scale-hover facebook-color social-ball"><i class="fa fa-facebook"></i></p>
+              <p ng-click="twitter()" class="scale-hover twitter-color social-ball"><i class="fa fa-twitter"></i></p>
+              <p  ng-click="folowGooglePlus()" class="scale-hover google-color social-ball"><i class="fa fa-google-plus"></i></p> -->
+              <p class="scale-hover back-to-top bg-green-dark social-ball"><i class="fa fa-angle-up"></i></p>
+              <p class="scale-hover show-share-bottom bg-magenta-dark social-ball"><i class="fa fa-retweet"></i></p>
+            </div>
+          </div>
+
+          <!-- End of entire page content-->
         </div>
-    </div>  
+      </div>
+    </div>
+    <button style='background: none 0px 0px repeat scroll rgb(6, 16, 30);
+    border-radius: 10%;
+    color: #fff;
+    font-size: 16px;
+    height: 54px;
+    position: fixed;
+    top: 120px;
+    left:70% !important;
+    width: 100px !important;
+    z-index: 200;' ng-click='showServices()' class="pull-right" ng-show='showProceed' ng-class="{display: showProceed}">Proceed({{filterSelected.length}})</button>
     <a href="#" class="back-to-top-badge"><i class="fa fa-caret-up"></i>Back to top</a>
-</div>
-    
-    
-<!--Fly up share box and notifications go here -->
-<!--These are the only features that should be placed outside the all-elements class-->
-    
-<div class="share-bottom">
+  </div>
+
+
+  <!--Fly up share box and notifications go here -->
+  <!--These are the only features that should be placed outside the all-elements class-->
+
+  <div class="share-bottom">
     <h3>Share Page</h3>
     <div class="share-socials-bottom">
+      <a href="#"
+      socialshare
+      socialshare-provider="twitter"
+      socialshare-text=" Share this app "
+      socialshare-hashtags="Marilyn Monroe"
+      socialshare-url="App Download Link HERE">
+      <i class="fa fa-twitter twitter-color"></i>
+    </a>
     <a href="#"
-        socialshare
-        socialshare-provider="twitter"
-        socialshare-text=" Share this app "
-        socialshare-hashtags="Marilyn Monroe"
-        socialshare-url="App Download Link HERE">
-        <i class="fa fa-twitter twitter-color"></i>
-        </a>
-        <a href="#"
-        socialshare
-        socialshare-provider="facebook"
-        socialshare-text=" Share this app "
-        socialshare-hashtags="Marilyn Monroe"
-        socialshare-url="App Download Link HERE">
-        <i class="fa fa-facebook facebook-color"></i>
-        </a>
-        <a href="#"
-        socialshare
-        socialshare-provider="google+"
-        socialshare-text=" Share this app "
-        socialshare-hashtags="Marilyn Monroe"
-        socialshare-url="App Download Link HERE">
-        <i class="fa fa-google-plus google-color"></i>
-        </a>
-        <!-- <p onclick="window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">
-            <i class="fa fa-facebook facebook-color"></i>
-            Facebook
-        </p> -->
-        <!-- <p onclick="window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.x-services.nl')">
-            <i class="fa fa-twitter twitter-color"></i>
-            Twitter
-        </p>
-        <p>
-            <i class="fa fa-google-plus google-color"></i>
-            Google
-        </p>
+    socialshare
+    socialshare-provider="facebook"
+    socialshare-text=" Share this app "
+    socialshare-hashtags="Marilyn Monroe"
+    socialshare-url="App Download Link HERE">
+    <i class="fa fa-facebook facebook-color"></i>
+  </a>
+  <a href="#"
+  socialshare
+  socialshare-provider="google+"
+  socialshare-text=" Share this app "
+  socialshare-hashtags="Marilyn Monroe"
+  socialshare-url="App Download Link HERE">
+  <i class="fa fa-google-plus google-color"></i>
+</a>
+<!-- <p onclick="window.plugins.socialsharing.shareViaFacebook('Message via Facebook', null /* img */, null /* url */, function() {console.log('share ok')}, function(errormsg){alert(errormsg)})">
+<i class="fa fa-facebook facebook-color"></i>
+Facebook
+</p> -->
+<!-- <p onclick="window.plugins.socialsharing.shareViaTwitter('Message and link via Twitter', null /* img */, 'http://www.x-services.nl')">
+<i class="fa fa-twitter twitter-color"></i>
+Twitter
+</p>
+<p>
+<i class="fa fa-google-plus google-color"></i>
+Google
+</p>
 
-        <p>
-            <i class="fa fa-pinterest-p pinterest-color"></i>
-            Pinterest
-        </p>
-        <p>
-            <i class="fa fa-comment-o sms-color"></i>
-            Text
-        </p>
-        <p>
-            <i class="fa fa-envelope-o mail-color"></i>
-            Email
-        </p> -->
-        <div class="clear"></div>
-    </div>
-    <p class="close-share-bottom">Close</p>
-</div> 
-    
+<p>
+<i class="fa fa-pinterest-p pinterest-color"></i>
+Pinterest
+</p>
+<p>
+<i class="fa fa-comment-o sms-color"></i>
+Text
+</p>
+<p>
+<i class="fa fa-envelope-o mail-color"></i>
+Email
+</p> -->
+<div class="clear"></div>
+</div>
+<p class="close-share-bottom">Close</p>
+</div>
+
 <div class="top-notification-1 top-notification bg-blue-dark">
-    <h4>Did you know?</h4>
-    <p>
-        Easy way to make sure your messages get read!
-    </p>
-    <a href="#" class="close-top-notification"><i class="fa fa-times"></i></a>
+  <h4>Did you know?</h4>
+  <p>
+    Easy way to make sure your messages get read!
+  </p>
+  <a href="#" class="close-top-notification"><i class="fa fa-times"></i></a>
 </div>
 <div class="bottom-notification-1 bottom-notification bg-green-dark">
-    <h4>Did you know?</h4>
-    <p>
-        Easy way to make sure your messages get read!
-    </p>
-    <a href="#" class="close-bottom-notification"><i class="fa fa-times"></i></a>
-</div> 
+  <h4>Did you know?</h4>
+  <p>
+    Easy way to make sure your messages get read!
+  </p>
+  <a href="#" class="close-bottom-notification"><i class="fa fa-times"></i></a>
+</div>
 <div class="bottom-notification-2 bottom-notification bg-orange-dark timeout-notification">
-    <h4>Timeout: 5 Seconds</h4>
-    <p>
-        I'll go away on my own after a few seconds!
-    </p>
+  <h4>Timeout: 5 Seconds</h4>
+  <p>
+    I'll go away on my own after a few seconds!
+  </p>
 </div>
 <div class="top-notification-2 top-notification bg-red-dark timeout-notification">
-    <h4>Timeout: 5 Seconds</h4>
-    <p>
-        I'll go away on my own after a few seconds!
-    </p>
+  <h4>Timeout: 5 Seconds</h4>
+  <p>
+    I'll go away on my own after a few seconds!
+  </p>
 </div>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="scripts/jquery.js"></script>
 <script type="text/javascript" src="scripts/moment.js"></script>
 <script type="text/javascript" src="scripts/lodash.js"></script>
 <script type="text/javascript" src="scripts/jquerySmooth.js"></script>
-<script type="text/javascript" src="scripts/jqueryui.js"></script>
+<script type="text/javascript" src="scripts/sticky.js"></script>
+<script type="text/javascript" src="js/jquery-ui.js"></script>
+<!-- <script type="text/javascript" src="scripts/bootstrap-datetimepicker.js"></script> -->
+
 <script type="text/javascript" src="scripts/framework-plugins.js"></script>
 <script type="text/javascript" src="scripts/custom.js"></script>
 <script type="text/javascript" src="scripts/angular.min.js"></script>
+<!-- <script type='text/javascript' src"scripts/angular-simple-logger.js"></script> -->
+<!-- <script type='text/javascript' src"scripts/angular-google-maps.min.js"></script> -->
+<script type="text/javascript" src="scripts/ng-map.js"></script>
+<script type="text/javascript" src="scripts/date.js"></script>
 <script src="scripts/ng-cordova.min.js"></script>
 <script src="scripts/ng-cordova-oauth.min.js"></script>
 <script type="text/javascript" src="scripts/angular-socialshare.js"></script>
-<script src='http://maps.googleapis.com/maps/api/js?key=AIzaSyC_cs77leQ9ZcQ7U-x3DwZ5qTGkiX9fzMc'></script>
+<script src='https://maps.google.com/maps/api/js?libraries=placeses,visualization,drawing,geometry,places'></script>
 <script type="text/javascript" src="scripts/angular-animate.js"></script>
 <script type="text/javascript" src="scripts/angular-route.js"></script>
 <script type="text/javascript" src="scripts/ui-bootstrap-tpls-1.1.1.min.js"></script>
@@ -330,13 +364,105 @@
 <script type="text/javascript" src="features/Register/Register.js"></script>
 <script type="text/javascript" src="features/Login/Login.js"></script>
 <script type="text/javascript" src="features/Availability/Availability.js"></script>
+<script type="text/javascript" src="features/Employee/Employee.js"></script>
 <script type="text/javascript" src="features/Payment/Payment.js"></script>
 <script type="text/javascript" src="features/RewardPoints/RewardPoints.js"></script>
 <script type="text/javascript" src="features/ManageAppointments/ManageAppointments.js"></script>
 <script type="text/javascript" src="features/locations/locations.js"></script>
 <script type="text/javascript" src="features/referFriend/referFriend.js"></script>
 <script type="text/javascript" src="features/giftDetails/giftDetails.js"></script>
+<script type="text/javascript" src="features/forgotPassword/forgotPassword.js"></script>
 <script type="text/javascript" src="app.js"></script>
+<script>
+var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+function initPushwoosh()
+{
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    if(userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i))
+    {
+        var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+
+      //set push notification callback before we initialize the plugin
+      document.addEventListener('push-notification', function(event) {
+                                  //get the notification payload
+                                  var notification = event.notification;
+
+                                  //display alert to the user for example
+                                  alert(notification.aps.alert);
+
+                                  //clear the app badge
+                                  pushNotification.setApplicationIconBadgeNumber(0);
+                              });
+
+      //initialize the plugin
+      pushNotification.onDeviceReady({pw_appid:"1BA05-7270C"});
+
+      //register for pushes
+      pushNotification.registerDevice(
+          function(status) {
+              var deviceToken = status['deviceToken'];
+              console.warn('registerDevice: ' + deviceToken);
+          },
+          function(status) {
+              console.warn('failed to register : ' + JSON.stringify(status));
+              alert(JSON.stringify(['failed to register ', status]));
+          }
+      );
+
+      //reset badges on app start
+      pushNotification.setApplicationIconBadgeNumber(0);
+    }
+    else if(userAgent.match(/Android/i))
+    {
+      var pushNotification = cordova.require("pushwoosh-cordova-plugin.PushNotification");
+
+      //set push notifications handler
+      document.addEventListener('push-notification', function(event) {
+        console.log('Here sitting next to sudhanshu');
+
+        var title = event.notification.title;
+        var userData = event.notification.userdata;
+        var msg = event.notification.message;
+
+        console.warn('user data: ' + JSON.stringify(userData));
+        navigator.notification.alert(msg);
+      });
+
+
+      //initialize Pushwoosh with projectid: "GOOGLE_PROJECT_NUMBER", pw_appid : "PUSHWOOSH_APP_ID". This will trigger all pending push notifications on start.
+      pushNotification.onDeviceReady({ projectid: "478029558127", pw_appid : "1BA05-7270C" });
+
+      //register for pushes
+      pushNotification.registerDevice(
+        function(status) {
+          var pushToken = status;
+          console.warn('push token: ' + pushToken);
+        },
+        function(status) {
+          console.warn(JSON.stringify(['failed to register ', status]));
+        }
+      );
+    }
+  }
+
+    document.addEventListener('push-notification', function(event) {
+      if(userAgent.match(/iPad/i) || userAgent.match(/iPhone/i) || userAgent.match(/iPod/i))
+      {
+          document.addEventListener('push-notification', function(event) {
+             var notification = event.notification;
+             alert(notification.aps.alert);
+             pushNotification.setApplicationIconBadgeNumber(0);
+          });
+      }
+      else if(userAgent.match(/Android/i))
+      {
+        var title = event.notification.title;
+        var userData = event.notification.userdata;
+        var msg = event.notification.message;
+        navigator.notification.alert(msg);
+      }
+    });
+
+  </script>
 </body>
 </html>
-

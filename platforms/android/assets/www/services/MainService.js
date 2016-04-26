@@ -3,20 +3,53 @@ angular
 .service('booker.service.book.BookerService', ['$http', '$q', 'apiRequestUrl', function($http, $q, apiRequestUrl) {
   return {
   	authenticateAccessToken: function(){
-  		console.log('Testing')
   		if(sessionStorage.accessToken && sessionStorage.accessTokenTimeout)
   		{
 	  		var currentTimeStamp = (new Date).getTime();
-			if(!(currentTimeStamp > sessionStorage.accessTokenTimeout - 30 * 60000)){
-				console.log('OK I M FETCHING A NEW token');
-				this.getAccessToken();
-			}
+  			if(!(currentTimeStamp > sessionStorage.accessTokenTimeout - 30 * 60000)){
+  				console.log('OK I M FETCHING A NEW token');
+  				this.getAccessToken();
+  			}
 		}
 		else
 		{
 			this.getAccessToken();
 		}
   	},
+    forgotPassword: function(input){
+      var deffered = $q.defer();
+
+      $http({
+        method: 'POST',
+        url: apiRequestUrl + '/apiRequest/forgotPassword',
+        data: input
+      })
+      .then(function(r) {
+        deffered.resolve(r.data);
+      })
+      .catch(function(err){
+        deffered.reject(err);
+      });
+
+      return deffered.promise;
+    },
+    locationPayment: function(input){
+        var deffered = $q.defer();
+
+        $http({
+    			method: 'POST',
+    			url: apiRequestUrl + '/apiRequest/locationPayment',
+          data: input
+    		})
+    		.then(function(r) {
+    			deffered.resolve(r.data);
+    		})
+    		.catch(function(err){
+    			deffered.reject(err);
+    		});
+
+        return deffered.promise;
+    },
   	getGoogleId: function(){
   		var deffered = $q.defer();
   		$http({
@@ -36,6 +69,36 @@ angular
   		$http({
 			method: 'POST',
 			url: apiRequestUrl + '/apiRequest/sendEmailReferral',
+			data: input
+		})
+		.then(function(r) {
+			deffered.resolve(r.data);
+		})
+		.catch(function(err){
+			deffered.reject(err);
+		});
+		return deffered.promise;
+  },
+  canCancelAppointment: function(input){
+    var deffered = $q.defer();
+    $http({
+    method: 'POST',
+    url: apiRequestUrl + '/apiRequest/canCancelAppointment',
+    data: input
+  })
+  .then(function(r) {
+    deffered.resolve(r.data);
+  })
+  .catch(function(err){
+    deffered.reject(err);
+  });
+  return deffered.promise;
+  },
+    sendReferralMail: function(input){
+  		var deffered = $q.defer();
+  		$http({
+			method: 'POST',
+			url: apiRequestUrl + '/apiRequest/sendEmail',
 			data: input
 		})
 		.then(function(r) {
@@ -103,7 +166,7 @@ angular
 		.catch(function(err){
 			deffered.reject(err);
 		});
-		return deffered.promise;	
+		return deffered.promise;
   	},
   	getCustomerAppointments: function(input){
   		var deffered = $q.defer();
@@ -160,7 +223,7 @@ angular
 	},
 	createCustomer: function(input) {
 		var deffered = $q.defer();
-				
+
 		$http({
 			url: 'https://apicurrent-app.booker.ninja/WebService4/json/CustomerService.svc/customer',
 			type: 'POST',
@@ -176,7 +239,7 @@ angular
 			console.log(r);
 			deffered.reject(r);
 		});
-		
+
 		return deffered.promise;
 	},
 	getCustomerRewards: function(input){
@@ -193,7 +256,7 @@ angular
 			console.log(r);
 			deffered.reject(r);
 		});
-		
+
 		return deffered.promise;
 	},
 	getCardTypes: function(input){
@@ -210,7 +273,7 @@ angular
 			console.log(r);
 			deffered.reject(r);
 		});
-		
+
 		return deffered.promise;
 	},
 	createCustomerAndUserAccount: function(input) {
@@ -227,7 +290,7 @@ angular
 			console.log(r);
 			deffered.reject(r);
 		});
-		
+
 		return deffered.promise;
 	},
 	runServiceAvailability: function(input) {
@@ -244,7 +307,7 @@ angular
 			console.log(r);
 			deffered.reject(r);
 		});
-		
+
 		return deffered.promise;
 	},
 	findLocations: function (input) {
@@ -332,7 +395,7 @@ angular
 	},
 	getAccessTokenFromSS: function(){
 		var deffered = $q.defer();
-		
+
 		if(sessionStorage.accessToken)
 		{
 			deffered.resolve(sessionStorage.accessToken);
@@ -342,10 +405,10 @@ angular
 			this
 			.getAccessToken()
 			.then(function(){
-				deffered.resolve(sessionStorage.accessToken);		
+				deffered.resolve(sessionStorage.accessToken);
 			})
 		}
-		
+
 		return deffered.promise;
 	},
 	getTreatmentCategories: function() {
@@ -366,7 +429,7 @@ angular
 	},
 	findEmployees: function(input) {
 		var deffered = $q.defer();
-		
+
 		$http({
 			url: apiRequestUrl + '/apiRequest/employees',
 			method: 'POST',
@@ -451,7 +514,7 @@ angular
 			console.log(r);
 			deffered.reject(r);
 		});
-		
+
 		return deffered.promise;
 	},
 	getSpecialByCode: function() {

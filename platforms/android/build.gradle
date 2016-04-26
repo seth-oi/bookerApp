@@ -86,6 +86,7 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "pushwoosh-cordova-plugin/marilynMonroe-push.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -148,6 +149,7 @@ task cdvPrintProps << {
 }
 
 android {
+    defaultConfig.applicationId = "io.cordova.marilynMonroe"
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -243,6 +245,10 @@ dependencies {
     releaseCompile project(path: "CordovaLib", configuration: "release")
     compile "com.android.support:support-v4:23.+"
     compile "com.android.support:appcompat-v7:23.+"
+    compile "com.google.android.gms:play-services-gcm:+"
+    compile "com.android.support:support-v4:+"
+    compile "com.google.android.gms:play-services-location:+"
+    compile "com.google.android.gms:play-services-maps:+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
